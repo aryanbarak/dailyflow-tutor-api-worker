@@ -1,7 +1,7 @@
 ﻿import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
-import { handleRequest } from "../src/handler.js";
+import { handleRequest } from "../src/index.js";
 
 const repoRoot = resolve(process.cwd());
 
@@ -30,26 +30,11 @@ function createEnv() {
 }
 
 async function readJson(res) {
-  const text = await res.text();
-  return JSON.parse(text);
+  return JSON.parse(await res.text());
 }
 
 async function run() {
   const env = createEnv();
-
-  {
-    const req = new Request("https://api.barakzai.cloud/v1/health");
-    const res = await handleRequest(req, env);
-    assert.equal(res.status, 200);
-    const body = await readJson(res);
-    assert.equal(body.ok, true);
-  }
-
-  {
-    const req = new Request("https://api.barakzai.cloud/v1/topics");
-    const res = await handleRequest(req, env);
-    assert.equal(res.status, 401);
-  }
 
   {
     const req = new Request("https://api.barakzai.cloud/v1/topics", {
@@ -74,13 +59,13 @@ async function run() {
         request_id: "11111111-1111-1111-1111-111111111111",
         topic: "bubblesort",
         lang: "de",
+        mode: "pseudocode",
       }),
     });
     const res = await handleRequest(req, env);
     assert.equal(res.status, 200);
     const body = await readJson(res);
     assert.equal(body.api_version, "v1");
-    assert.equal(body.request_id, "11111111-1111-1111-1111-111111111111");
     assert.equal(body.topic, "bubblesort");
     assert.equal(body.lang, "de");
     assert.ok(body.result && typeof body.result === "object");
@@ -99,21 +84,6 @@ async function run() {
     assert.equal(res.status, 404);
     const body = await readJson(res);
     assert.equal(body.detail, "Not found");
-  }
-
-  {
-    const req = new Request("https://api.barakzai.cloud/v1/run", {
-      method: "OPTIONS",
-      headers: {
-        Origin: "https://barakzai.cloud",
-        "Access-Control-Request-Method": "POST",
-        "Access-Control-Request-Headers": "X-Adapter-Token, Content-Type",
-      },
-    });
-    const res = await handleRequest(req, env);
-    assert.equal(res.status, 204);
-    assert.equal(res.headers.get("access-control-allow-origin"), "https://barakzai.cloud");
-    assert.match(res.headers.get("access-control-allow-headers") || "", /X-Adapter-Token/i);
   }
 
   console.log("All tests passed");

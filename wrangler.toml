@@ -1,4 +1,5 @@
-﻿name = "dailyflow-tutor-api-worker"
+﻿# Keep this name aligned with the existing Cloudflare Worker routed at api.barakzai.cloud/*
+name = "dailyflow-tutor-api"
 main = "src/index.js"
 compatibility_date = "2026-02-17"
 
