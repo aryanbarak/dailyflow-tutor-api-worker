@@ -1,0 +1,26 @@
+﻿{
+  "api_version": "v1",
+  "topic": "selectionsort",
+  "mode": "pseudocode",
+  "lang": "fa",
+  "variants": [
+    {
+      "id": "classic_min",
+      "title": "انتخاب کمینه",
+      "labels": {
+        "de": "Minimum-Selektion",
+        "fa": "انتخاب کمینه"
+      },
+      "is_default": true,
+      "pseudocode": "تابع SelectionSort(arr)\n  n = طول(arr)\n  برای i از 0 تا n-2\n    minIndex = i\n    برای j از i+1 تا n-1\n      اگر arr[j] < arr[minIndex] آنگاه\n        minIndex = j\n      پایان\n    پایان\n    جابجا(arr[i], arr[minIndex])\n  پایان\n  برگردان arr\nپایان",
+      "explain_variant": {
+        "de": "In jedem Schritt wird das kleinste Element im Restbereich gesucht.",
+        "fa": "در هر گام کوچک‌ترین مقدار در بخش باقی‌مانده انتخاب می‌شود."
+      }
+    }
+  ],
+  "meta": {
+    "source": "worker-static",
+    "profile": "ap2"
+  }
+}

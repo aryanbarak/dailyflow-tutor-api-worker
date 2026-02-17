@@ -1,0 +1,10 @@
+﻿{
+  "name": "dailyflow-tutor-api-worker",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node tests/worker.test.js",
+    "deploy": "wrangler deploy"
+  }
+}

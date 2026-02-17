@@ -1,0 +1,16 @@
+﻿{
+  "topics": [
+    {
+      "topic": "bubblesort",
+      "langs": ["de", "fa"]
+    },
+    {
+      "topic": "selectionsort",
+      "langs": ["de", "fa"]
+    },
+    {
+      "topic": "binarysearch",
+      "langs": ["de", "fa"]
+    }
+  ]
+}

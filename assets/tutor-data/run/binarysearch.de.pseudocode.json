@@ -1,0 +1,26 @@
+﻿{
+  "api_version": "v1",
+  "topic": "binarysearch",
+  "mode": "pseudocode",
+  "lang": "de",
+  "variants": [
+    {
+      "id": "classic_iterative",
+      "title": "Klassisch iterativ",
+      "labels": {
+        "de": "Klassisch iterativ",
+        "fa": "تکراری کلاسیک"
+      },
+      "is_default": true,
+      "pseudocode": "FUNKTION BinarySearch(a, x)\n  links = 0\n  rechts = LAENGE(a) - 1\n  SOLANGE links <= rechts\n    mid = (links + rechts) DIV 2\n    WENN a[mid] == x DANN GIB mid ZURUECK\n    WENN a[mid] < x DANN links = mid + 1\n    SONST rechts = mid - 1\n  ENDE\n  GIB -1 ZURUECK\nENDE",
+      "explain_variant": {
+        "de": "Voraussetzung: Das Array muss aufsteigend sortiert sein.",
+        "fa": "پیش‌شرط: آرایه باید به صورت صعودی مرتب باشد."
+      }
+    }
+  ],
+  "meta": {
+    "source": "worker-static",
+    "profile": "ap2"
+  }
+}

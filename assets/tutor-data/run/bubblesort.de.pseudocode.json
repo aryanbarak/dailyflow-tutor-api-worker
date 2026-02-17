@@ -1,0 +1,26 @@
+﻿{
+  "api_version": "v1",
+  "topic": "bubblesort",
+  "mode": "pseudocode",
+  "lang": "de",
+  "variants": [
+    {
+      "id": "classic_full",
+      "title": "Klassisch (voll)",
+      "labels": {
+        "de": "Klassisch (voll)",
+        "fa": "کلاسیک (کامل)"
+      },
+      "is_default": true,
+      "pseudocode": "FUNKTION BubbleSort(arr)\n  n = LAENGE(arr)\n  FUER i = 0 BIS n-2\n    FUER j = 0 BIS n-2-i\n      WENN arr[j] > arr[j+1] DANN\n        TAUSCHE arr[j], arr[j+1]\n      ENDE\n    ENDE\n  ENDE\n  GIB arr ZURUECK\nENDE",
+      "explain_variant": {
+        "de": "Die klassische Variante vergleicht in jedem Durchlauf benachbarte Elemente.",
+        "fa": "نسخه کلاسیک در هر دور عناصر مجاور را مقایسه می‌کند."
+      }
+    }
+  ],
+  "meta": {
+    "source": "worker-static",
+    "profile": "ap2"
+  }
+}
