@@ -37,20 +37,57 @@ async function run() {
   const env = createEnv();
 
   {
+    const req = new Request("https://api.barakzai.cloud/v1/health");
+    const res = await handleRequest(req, env);
+    assert.equal(res.status, 200);
+    const body = await readJson(res);
+    assert.deepEqual(body, { ok: true, service: "dailyflow-tutor-api" });
+  }
+
+  {
     const req = new Request("https://api.barakzai.cloud/v1/topics", {
-      headers: { "X-Adapter-Token": "dev-secret", Origin: "https://barakzai.cloud" },
+      headers: { "X-Adapter-Token": "dev-secret", Origin: "https://evil.example" },
+    });
+    const res = await handleRequest(req, env);
+    assert.equal(res.status, 403);
+    const body = await readJson(res);
+    assert.equal(body.detail, "Forbidden origin");
+  }
+
+  {
+    const req = new Request("https://api.barakzai.cloud/v1/topics", {
+      headers: { Origin: "https://barakzai.cloud" },
+    });
+    const res = await handleRequest(req, env);
+    assert.equal(res.status, 401);
+    const body = await readJson(res);
+    assert.equal(body.detail, "Unauthorized");
+  }
+
+  {
+    const req = new Request("https://api.barakzai.cloud/v1/topics", {
+      headers: {
+        Origin: "https://barakzai.cloud",
+        "X-Adapter-Token": "dev-secret",
+      },
     });
     const res = await handleRequest(req, env);
     assert.equal(res.status, 200);
     const body = await readJson(res);
     assert.ok(Array.isArray(body.topics));
-    assert.equal(body.topics[0].topic, "bubblesort");
   }
 
   {
+    const expectedRaw = await readFile(
+      resolve(repoRoot, "assets", "tutor-data", "run", "bubblesort.de.pseudocode.json"),
+      "utf8",
+    );
+    const expected = JSON.parse(expectedRaw);
+
     const req = new Request("https://api.barakzai.cloud/v1/run", {
       method: "POST",
       headers: {
+        Origin: "https://barakzai.cloud",
         "Content-Type": "application/json",
         "X-Adapter-Token": "dev-secret",
       },
@@ -62,28 +99,69 @@ async function run() {
         mode: "pseudocode",
       }),
     });
+
     const res = await handleRequest(req, env);
     assert.equal(res.status, 200);
     const body = await readJson(res);
-    assert.equal(body.api_version, "v1");
-    assert.equal(body.topic, "bubblesort");
-    assert.equal(body.lang, "de");
-    assert.ok(body.result && typeof body.result === "object");
+    assert.deepEqual(body, expected);
   }
 
   {
     const req = new Request("https://api.barakzai.cloud/v1/run", {
       method: "POST",
       headers: {
+        Origin: "https://barakzai.cloud",
         "Content-Type": "application/json",
         "X-Adapter-Token": "dev-secret",
       },
-      body: JSON.stringify({ topic: "mergesort", lang: "de", mode: "pseudocode" }),
+      body: JSON.stringify({
+        api_version: "v1",
+        request_id: "11111111-1111-1111-1111-111111111111",
+        topic: "mergesort",
+        lang: "de",
+        mode: "pseudocode",
+      }),
     });
+
     const res = await handleRequest(req, env);
     assert.equal(res.status, 404);
     const body = await readJson(res);
     assert.equal(body.detail, "Not found");
+  }
+
+  {
+    const req = new Request("https://api.barakzai.cloud/v1/run", {
+      method: "POST",
+      headers: {
+        Origin: "https://barakzai.cloud",
+        "Content-Type": "application/json",
+        "X-Adapter-Token": "dev-secret",
+      },
+      body: JSON.stringify({ topic: "bubblesort", lang: "de", mode: "pseudocode" }),
+    });
+
+    const res = await handleRequest(req, env);
+    assert.equal(res.status, 400);
+    const body = await readJson(res);
+    assert.match(body.detail, /Missing required fields:/);
+  }
+
+  {
+    const req = new Request("https://api.barakzai.cloud/v1/run", {
+      method: "OPTIONS",
+      headers: {
+        Origin: "https://barakzai.cloud",
+        "Access-Control-Request-Method": "POST",
+        "Access-Control-Request-Headers": "X-Adapter-Token, Content-Type",
+      },
+    });
+    const res = await handleRequest(req, env);
+    assert.equal(res.status, 204);
+    assert.equal(res.headers.get("access-control-allow-origin"), "https://barakzai.cloud");
+    assert.equal(res.headers.get("vary"), "Origin");
+    assert.equal(res.headers.get("access-control-allow-methods"), "GET,POST,OPTIONS");
+    assert.match(res.headers.get("access-control-allow-headers") || "", /X-Adapter-Token/i);
+    assert.equal(res.headers.get("access-control-max-age"), "86400");
   }
 
   console.log("All tests passed");
