@@ -1,0 +1,478 @@
+{
+  "schema_name": "exam_bank.de.v2.full",
+  "version": "2.0",
+  "lang": "de",
+  "doc_title": "IHK AP2 FIAE 2023 – Anwendung und Umsetzung von Algorithmen (Exam-Style Reconstruction, Original Practice)",
+  "years_covered": [
+    "2023"
+  ],
+  "question_count": 12,
+  "questions": [
+    {
+      "id": "y23_t1_1a_binarysearch_design",
+      "year": "2023",
+      "type": "open",
+      "difficulty": "medium",
+      "points": 8,
+      "prompt": "Ein System speichert Kundennummern in einem aufsteigend sortierten Integer-Array A. Entwickeln Sie einen Algorithmus, der eine gesuchte Kundennummer x in A findet.\n\nAnforderungen:\n- Gibt den Index der ersten Fundstelle zurück.\n- Wenn x nicht enthalten ist, geben Sie -1 zurück.\n- Verwenden Sie binäre Suche.\n\nGeben Sie vollständigen Pseudocode an (inkl. Initialisierung, Schleifenbedingungen, Rückgabewerte).",
+      "answer_short": "Iterative binäre Suche mit links/rechts-Grenzen, bei Treffer links weiter suchen, um erste Fundstelle zu liefern.",
+      "answer_long": "1) Initialisierung: links = 0, rechts = LAENGE(A) - 1, ergebnis = -1.\n2) Schleife: SOLANGE links <= rechts.\n3) Mitte berechnen: mitte = (links + rechts) / 2.\n4) Vergleich:\n   - Falls A[mitte] = x: ergebnis = mitte setzen und rechts = mitte - 1, um weiter links nach einer früheren Fundstelle zu suchen.\n   - Falls A[mitte] < x: links = mitte + 1.\n   - Sonst: rechts = mitte - 1.\n5) Nach Schleife: ergebnis zurückgeben.\n\nEdge Cases:\n- Leeres Array: rechts = -1, Schleife läuft nicht, Rückgabe -1.\n- Duplikate: Durch das Verschieben von rechts bei Treffer wird die erste Position gefunden.\n\nKorrekturhinweis: Ohne ergebnis-Variable würde man bei Duplikaten oft nur irgendeinen Treffer liefern, nicht die erste Fundstelle.",
+      "pseudocode": "FUNKTION binarySearchFirst(A, x)\n    links = 0\n    rechts = LAENGE(A) - 1\n    ergebnis = -1\n\n    SOLANGE links <= rechts\n        mitte = (links + rechts) / 2\n        WENN A[mitte] = x\n            ergebnis = mitte\n            rechts = mitte - 1\n        SONST WENN A[mitte] < x\n            links = mitte + 1\n        SONST\n            rechts = mitte - 1\n        ENDE WENN\n    ENDE SOLANGE\n\n    GIB ergebnis ZURUECK\nENDE FUNKTION",
+      "complexity": {
+        "time": "O(log n)",
+        "space": "O(1)",
+        "explanation": "Der Suchraum halbiert sich pro Iteration. Zusätzliche Variable ergebnis bleibt konstant."
+      },
+      "scoring_guide": {
+        "max_points": 8,
+        "criteria": [
+          "Initialisierung links/rechts korrekt (2P)",
+          "Schleife mit Bedingung links <= rechts korrekt (2P)",
+          "Korrekte Fallunterscheidung und Grenzen-Update (2P)",
+          "Erste Fundstelle durch rechts = mitte - 1 und ergebnis-Variable (2P)"
+        ],
+        "common_deductions": [
+          "Nur irgendeinen Treffer geliefert, nicht erste Fundstelle (-2)",
+          "Off-by-one bei Grenzen (-1 bis -2)",
+          "Fehlender -1 Fall (-1)"
+        ]
+      },
+      "explain_fa": "موضوع سؤال چیست؟\nاین سؤال دربارهٔ طراحی «جستجوی دودویی» روی آرایهٔ مرتب است، با یک شرط مهم: اگر مقدار تکراری باشد باید «اولین اندیس» برگردانده شود. یعنی فقط پیدا کردن کافی نیست، باید رفتار الگوریتم برای تکرارها هم درست باشد.\n\nاز تو چه می‌خواهد؟\nباید شبه‌کد کامل بنویسی: مقداردهی اولیهٔ مرزها، شرط حلقه، محاسبهٔ وسط، تصمیم‌گیری سه‌حالته و در نهایت مقدار بازگشتی. خروجی باید یا اندیس اولین رخداد x باشد یا -1 اگر وجود ندارد.\n\nمنطق پاسخ درست:\nجستجوی دودویی چون داده‌ها مرتب‌اند، در هر مرحله نصف بازه را حذف می‌کند. اما اگر فقط وقتی A[mid] = x شد همان لحظه mid را برگردانی، در حالت وجود تکرارها ممکن است «اولین» نباشد. راه استاندارد این است که هنگام برخورد به x، جواب را در متغیر ergebnis ذخیره کنیم و به جای توقف، مرز راست را یک خانه به چپ ببریم (rechts = mid - 1) تا اگر x زودتر هم وجود داشت پیدا شود. این کار همچنان لگاریتمی می‌ماند چون هنوز بازه نصف می‌شود. در پایان اگر ergebnis تغییر نکرده باشد یعنی اصلاً x نبود و -1 می‌دهیم.\n\nنکات امتحانی/دام‌ها:\n- برای «اولین رخداد» باید بعد از پیدا کردن هم ادامه بدهی (rechts = mid - 1).\n- شرط حلقه معمولاً links <= rechts است (نه <).\n- آرایه باید مرتب باشد؛ در غیر آن کل منطق بی‌اعتبار می‌شود.\n- حالت آرایهٔ خالی را فراموش نکن (فوراً -1).",
+      "keywords": [
+        "BinarySearch",
+        "Duplicates",
+        "FirstOccurrence",
+        "SortedArray"
+      ],
+      "traps": [
+        "Returning immediately on first hit",
+        "Wrong loop bound",
+        "Off-by-one at borders"
+      ],
+      "source": {
+        "type": "reconstructed_exam_style",
+        "section": "Anwendung und Umsetzung von Algorithmen"
+      }
+    },
+    {
+      "id": "y23_t1_1b_binarysearch_trace",
+      "year": "2023",
+      "type": "open",
+      "difficulty": "easy",
+      "points": 6,
+      "prompt": "Gegeben ist A = [2, 4, 4, 4, 9, 12, 12, 15]. Wenden Sie Ihren Algorithmus aus 1a für x = 4 an.\n\nGeben Sie für jede Iteration an:\n- links, rechts, mitte\n- A[mitte]\n- getroffene Entscheidung\n\nStoppen Sie, wenn die Schleife endet, und nennen Sie den Rückgabewert.",
+      "answer_short": "Der Algorithmus findet zuerst einen Treffer, sucht weiter links und liefert Index 1.",
+      "answer_long": "Start: links=0, rechts=7, ergebnis=-1\nIter1: mitte=(0+7)/2=3, A[3]=4 -> Treffer: ergebnis=3, rechts=2\nIter2: links=0, rechts=2, mitte=(0+2)/2=1, A[1]=4 -> Treffer: ergebnis=1, rechts=0\nIter3: links=0, rechts=0, mitte=(0+0)/2=0, A[0]=2 -> A[0] < 4, links=1\nEnde: links=1, rechts=0 -> Abbruch\nRückgabe: ergebnis=1",
+      "pseudocode": "",
+      "complexity": {
+        "time": "O(log n)",
+        "space": "O(1)",
+        "explanation": "Tracing ändert die Komplexität nicht; der Algorithmus bleibt logarithmisch."
+      },
+      "scoring_guide": {
+        "max_points": 6,
+        "criteria": [
+          "Alle Iterationswerte korrekt (3P)",
+          "Korrekte Entscheidungen/Updates (2P)",
+          "Korrekte Rückgabe (1P)"
+        ],
+        "common_deductions": [
+          "Mitte falsch berechnet (-1)",
+          "Rechts bei Treffer nicht verschoben (-2)"
+        ]
+      },
+      "explain_fa": "موضوع سؤال چیست؟\nاین سؤال «ردیابی اجرای الگوریتم» است. هدف این است که نشان بدهی دقیقاً می‌فهمی الگوریتم در هر مرحله چه مقادیری دارد و چرا مرزها تغییر می‌کنند.\n\nاز تو چه می‌خواهد؟\nباید چند مرحلهٔ اجرای جستجوی دودویی (با حالت اولین رخداد) را روی یک آرایهٔ مشخص بنویسی: links/rechts/mid و تصمیم هر مرحله. در پایان خروجی (اندیس) را هم اعلام کنی.\n\nمنطق پاسخ درست:\nدر آرایهٔ داده‌شده، x=4 چند بار تکرار شده است. پس الگوریتم باید بعد از اولین برخورد، به جای توقف، مرز راست را عقب ببرد تا به سمت چپ بگردد. در مرحلهٔ اول mid=3 است و به 4 می‌خورد، پس ergebnis=3 و rechts=2 می‌شود. سپس در بازهٔ 0..2 دوباره mid=1 است و باز هم 4 است، پس ergebnis=1 و rechts=0 می‌شود. در بازهٔ 0..0 مقدار 2 است و چون کوچک‌تر از 4 است، links=1 می‌شود و حلقه تمام می‌شود. در نتیجه بهترین جواب ذخیره‌شده یعنی 1 برمی‌گردد.\n\nنکات امتحانی/دام‌ها:\n- اگر بعد از برخورد به 4 متوقف شوی، جواب غلط می‌شود (اولین رخداد نیست).\n- وسط را با تقسیم صحیح حساب کن.\n- پایان حلقه وقتی links > rechts است.\n- ergebnis آخرین مقدار ذخیره‌شدهٔ معتبر است.",
+      "keywords": [
+        "Trace",
+        "BinarySearch",
+        "FirstOccurrence"
+      ],
+      "traps": [
+        "Stopping early",
+        "Wrong mid",
+        "Wrong termination condition"
+      ],
+      "source": {
+        "type": "reconstructed_exam_style",
+        "section": "Anwendung und Umsetzung von Algorithmen"
+      }
+    },
+    {
+      "id": "y23_t1_1c_binarysearch_complexity_math",
+      "year": "2023",
+      "type": "open",
+      "difficulty": "easy",
+      "points": 4,
+      "prompt": "Begründen Sie die Laufzeitkomplexität der binären Suche. Verwenden Sie eine kurze mathematische Argumentation (Halbierung pro Schritt).",
+      "answer_short": "O(log n), da der Suchraum pro Schritt halbiert wird.",
+      "answer_long": "Nach k Schritten ist die Restmenge n / 2^k. Abbruch, wenn n / 2^k <= 1. Daraus folgt 2^k >= n und damit k >= log2(n). Deshalb O(log n).",
+      "pseudocode": "",
+      "complexity": {
+        "time": "O(log n)",
+        "space": "O(1)",
+        "explanation": "Halbierung führt zu Logarithmus in der Anzahl der Iterationen."
+      },
+      "scoring_guide": {
+        "max_points": 4,
+        "criteria": [
+          "Halbierung erklärt (2P)",
+          "Log-Argument korrekt (2P)"
+        ],
+        "common_deductions": [
+          "Nur behauptet ohne Begründung (-1 bis -2)",
+          "Falsche Komplexität (-3)"
+        ]
+      },
+      "explain_fa": "موضوع سؤال چیست؟\nاینجا تحلیل پیچیدگی زمانی جستجوی دودویی مطرح است. باید نشان بدهی «چرا» لگاریتمی است، نه اینکه فقط حفظ کرده باشی.\n\nاز تو چه می‌خواهد؟\nباید با یک استدلال کوتاه ریاضی توضیح بدهی تعداد مراحل به log(n) وابسته است. یعنی رابطهٔ n/2^k و حل آن.\n\nمنطق پاسخ درست:\nدر هر مرحله بازهٔ جستجو نصف می‌شود، بنابراین بعد از k مرحله اندازهٔ بازه n/2^k است. وقتی این مقدار به 1 یا کمتر برسد، جستجو تمام می‌شود. معادلهٔ n/2^k <= 1 یعنی 2^k >= n. با گرفتن لگاریتم پایه 2 نتیجه می‌گیریم k >= log2(n). پس تعداد تکرارها لگاریتمی است و زمان کل O(log n) می‌شود.\n\nنکات امتحانی/دام‌ها:\n- حتماً «نصف شدن» را به «توان 2» وصل کن.\n- فقط نوشتن O(log n) بدون دلیل معمولاً نمره کامل نمی‌دهد.\n- فرق بین log2 و log10 مهم نیست، مرتبهٔ رشد همان است.\n- فضای کمکی ثابت است (چند متغیر).",
+      "keywords": [
+        "Complexity",
+        "Logarithm",
+        "Halving"
+      ],
+      "traps": [
+        "No mathematical justification",
+        "Claiming O(n)"
+      ],
+      "source": {
+        "type": "reconstructed_exam_style",
+        "section": "Anwendung und Umsetzung von Algorithmen"
+      }
+    },
+    {
+      "id": "y23_t2_2a_insertionsort_stability",
+      "year": "2023",
+      "type": "open",
+      "difficulty": "medium",
+      "points": 6,
+      "prompt": "In einer Liste von Datensätzen (id, nachname, prioritaet) soll nach prioritaet aufsteigend sortiert werden. Bei gleicher prioritaet soll die ursprüngliche Reihenfolge erhalten bleiben.\n\na) Welches Sortierverfahren eignet sich hier besonders und warum? Begründen Sie mit dem Begriff \"Stabilität\".\n\nHinweis: Sie dürfen ein bekanntes Verfahren nennen (z. B. InsertionSort, MergeSort etc.).",
+      "answer_short": "Ein stabiles Sortierverfahren, z. B. InsertionSort oder MergeSort.",
+      "answer_long": "Geeignet ist ein stabiles Sortierverfahren. Stabilität bedeutet: Elemente mit gleichem Schlüssel (prioritaet) behalten ihre relative Reihenfolge. InsertionSort ist stabil, wenn beim Einfügen nur verschoben wird, solange A[j].key > key (nicht >=). Dadurch bleiben gleiche Schlüssel in Reihenfolge. Alternativ ist MergeSort stabil, wenn bei Gleichheit zuerst aus der linken Teilfolge genommen wird.",
+      "pseudocode": "",
+      "complexity": {
+        "time": "O(n^2) (InsertionSort), alternativ O(n log n) (MergeSort)",
+        "space": "O(1) (InsertionSort), alternativ O(n) (MergeSort)",
+        "explanation": "InsertionSort ist einfach und stabil; MergeSort schneller, aber zusätzlicher Speicher."
+      },
+      "scoring_guide": {
+        "max_points": 6,
+        "criteria": [
+          "Stabiles Verfahren genannt (2P)",
+          "Stabilität korrekt definiert (2P)",
+          "Begründung, warum relevant bei gleicher prioritaet (2P)"
+        ],
+        "common_deductions": [
+          "Instabiles Verfahren ohne Anpassung (z. B. QuickSort) (-2)",
+          "Stabilität falsch erklärt (-2)"
+        ]
+      },
+      "explain_fa": "موضوع سؤال چیست؟\nاین سؤال دربارهٔ «مرتب‌سازی پایدار (Stable Sort)» است. مسئله وقتی مهم می‌شود که چند رکورد کلید برابر دارند و باید ترتیب اولیه‌شان حفظ شود.\n\nاز تو چه می‌خواهد؟\nباید یک الگوریتم مناسب برای مرتب‌سازی بر اساس prioritaet پیشنهاد بدهی و دقیق توضیح بدهی چرا «پایداری» لازم است. یعنی فقط نام الگوریتم کافی نیست، مفهوم Stability باید روشن شود.\n\nمنطق پاسخ درست:\nاگر چند آیتم prioritaet یکسان داشته باشند و الگوریتم ناپایدار باشد، ممکن است ترتیبشان عوض شود و این برای سیستم‌های واقعی (مثل صف‌های کاری، تیکت‌ها، لاگ‌ها) مشکل ایجاد می‌کند. الگوریتم پایدار تضمین می‌کند آیتم‌های هم‌کلید همان ترتیب قبلی را حفظ کنند. InsertionSort به طور طبیعی پایدار است به شرطی که در حلقهٔ جابه‌جایی فقط وقتی کلید بزرگ‌تر است حرکت بدهیم (>) نه وقتی برابر هم هست (>=). MergeSort هم می‌تواند پایدار باشد اگر در مرحلهٔ merge هنگام برابری از لیست چپ اول برداریم. پس معیار انتخاب اینجا «پایداری» است.\n\nنکات امتحانی/دام‌ها:\n- پایداری یعنی حفظ ترتیب نسبی عناصر هم‌کلید.\n- اگر در InsertionSort شرط را >= بگذاری، پایداری را خراب می‌کنی.\n- QuickSort معمولاً پایدار نیست (مگر نسخهٔ خاص).\n- باید توضیح بدهی چرا پایداری برای شرط سؤال لازم است.",
+      "keywords": [
+        "StableSort",
+        "InsertionSort",
+        "MergeSort",
+        "Stability"
+      ],
+      "traps": [
+        "Confusing stability with complexity",
+        "Using unstable sort without explanation"
+      ],
+      "source": {
+        "type": "reconstructed_exam_style",
+        "section": "Anwendung und Umsetzung von Algorithmen"
+      }
+    },
+    {
+      "id": "y23_t2_2b_insertionsort_pseudocode",
+      "year": "2023",
+      "type": "open",
+      "difficulty": "medium",
+      "points": 8,
+      "prompt": "b) Schreiben Sie Pseudocode für InsertionSort, der Datensätze nach prioritaet aufsteigend stabil sortiert.\n\nHinweis: Verwenden Sie einen Schlüsselzugriff key(R) = R.prioritaet.",
+      "answer_short": "Klassischer InsertionSort mit Vergleich > (nicht >=).",
+      "answer_long": "Algorithmus: Durchlaufe i von 1 bis n-1. Speichere element = A[i]. Verschiebe alle größeren Elemente nach rechts, solange j >= 0 und key(A[j]) > key(element). Danach setze A[j+1] = element. Stabilität: Gleich große Schlüssel werden nicht verschoben, daher bleibt Reihenfolge erhalten.",
+      "pseudocode": "PROZEDUR insertionSortStable(A)\n    FUER i = 1 BIS LAENGE(A) - 1\n        element = A[i]\n        j = i - 1\n        SOLANGE j >= 0 UND key(A[j]) > key(element)\n            A[j + 1] = A[j]\n            j = j - 1\n        ENDE SOLANGE\n        A[j + 1] = element\n    ENDE FUER\nENDE PROZEDUR",
+      "complexity": {
+        "time": "O(n^2) (Worst Case), O(n) (Best Case fast sortiert)",
+        "space": "O(1)",
+        "explanation": "Verschiebungen dominieren; bei fast sortierten Daten wenige Verschiebungen."
+      },
+      "scoring_guide": {
+        "max_points": 8,
+        "criteria": [
+          "Äußere Schleife korrekt (2P)",
+          "Innere Schleife mit j und Verschiebung korrekt (3P)",
+          "Vergleich strikt > für Stabilität (2P)",
+          "Korrektes Einfügen an j+1 (1P)"
+        ],
+        "common_deductions": [
+          ">= statt > (Stabilität kaputt) (-2)",
+          "Falsches Zielindex (j statt j+1) (-2)",
+          "Grenzfall j>=0 falsch (-1)"
+        ]
+      },
+      "explain_fa": "موضوع سؤال چیست؟\nاین سؤال نوشتن شبه‌کد InsertionSort با شرط «پایداری» است. یعنی باید دقیقاً همان نسخه‌ای را بنویسی که عناصر هم‌کلید را جابه‌جا نکند.\n\nاز تو چه می‌خواهد؟\nباید شبه‌کد کامل بدهی: حلقهٔ بیرونی، انتخاب عنصر، حلقهٔ داخلی برای شیفت دادن، و جای‌گذاری نهایی. همچنین باید طوری بنویسی که مقایسه برای پایداری درست باشد.\n\nمنطق پاسخ درست:\nInsertionSort یک بخش مرتب‌شده در ابتدای آرایه نگه می‌دارد و هر عنصر جدید را در جای درستش «درج» می‌کند. برای هر i، مقدار A[i] را در متغیر element نگه می‌داریم تا هنگام شیفت دادن از بین نرود. سپس از j=i-1 به عقب می‌رویم و تا وقتی کلید A[j] واقعاً بزرگ‌تر از element است، A[j] را یک خانه به راست می‌بریم. نکتهٔ کلیدی پایداری همین‌جاست: اگر کلیدها برابر باشند، نباید شیفت بدهیم؛ پس شرط باید > باشد نه >=. در پایان element را در A[j+1] قرار می‌دهیم.\n\nنکات امتحانی/دام‌ها:\n- شرط داخلی اگر >= شود، ترتیب عناصر هم‌کلید عوض می‌شود.\n- فراموش نکن element را قبل از شیفت ذخیره کنی.\n- پایان حلقهٔ داخلی با j>=0 کنترل می‌شود.\n- جای‌گذاری همیشه در j+1 است، نه j.",
+      "keywords": [
+        "InsertionSort",
+        "Stable",
+        "Pseudocode",
+        "Shift"
+      ],
+      "traps": [
+        ">= instead of >",
+        "Overwriting element",
+        "Wrong insertion index"
+      ],
+      "source": {
+        "type": "reconstructed_exam_style",
+        "section": "Anwendung und Umsetzung von Algorithmen"
+      }
+    },
+    {
+      "id": "y23_t2_2c_insertionsort_edgecases",
+      "year": "2023",
+      "type": "open",
+      "difficulty": "easy",
+      "points": 4,
+      "prompt": "c) Nennen Sie zwei Edge Cases und beschreiben Sie kurz, wie Ihr Algorithmus aus 2b damit umgeht.",
+      "answer_short": "Leere Liste, bereits sortierte Liste, alle Schlüssel gleich.",
+      "answer_long": "Edge Case 1: Leere Liste/Einzelelement: Äußere Schleife startet bei i=1, läuft nicht, Liste bleibt unverändert.\nEdge Case 2: Bereits sortiert: Innere Schleife verschiebt nichts, Laufzeit nahe O(n).\nEdge Case 3 (optional): Alle Schlüssel gleich: Wegen Vergleich > wird nie verschoben, Reihenfolge bleibt erhalten (stabil).",
+      "pseudocode": "",
+      "complexity": {
+        "time": "O(n) bis O(n^2) abhängig von Daten",
+        "space": "O(1)",
+        "explanation": "Edge Cases beeinflussen Anzahl der Verschiebungen."
+      },
+      "scoring_guide": {
+        "max_points": 4,
+        "criteria": [
+          "Zwei sinnvolle Edge Cases (2P)",
+          "Korrekte Behandlung erklärt (2P)"
+        ],
+        "common_deductions": [
+          "Nur aufgezählt ohne Erklärung (-1)",
+          "Edge Case nicht relevant (-1)"
+        ]
+      },
+      "explain_fa": "موضوع سؤال چیست؟\nاین سؤال دربارهٔ «لبه‌ها/حالت‌های مرزی» الگوریتم است. در امتحان، نشان می‌دهد تو فقط حالت معمول را نمی‌بینی و رفتار روی ورودی‌های خاص را هم می‌فهمی.\n\nاز تو چه می‌خواهد؟\nباید حداقل دو Edge Case معرفی کنی و کوتاه ولی دقیق بگویی InsertionSort تو در آن حالت چه می‌کند و چرا خراب نمی‌شود.\n\nمنطق پاسخ درست:\nاگر لیست خالی یا فقط یک عنصر باشد، حلقهٔ بیرونی از i=1 شروع می‌شود و اصلاً اجرا نمی‌شود؛ پس هیچ خطایی رخ نمی‌دهد و خروجی همان ورودی است. اگر لیست از قبل مرتب باشد، شرط key(A[j]) > key(element) معمولاً برقرار نمی‌شود، بنابراین شیفتی انجام نمی‌شود و زمان اجرا نزدیک O(n) می‌شود. اگر همه کلیدها برابر باشند، چون مقایسهٔ ما > است، هیچ عنصر هم‌کلیدی جابه‌جا نمی‌شود و پایداری حفظ می‌شود. این‌ها دقیقاً همان نقاطی هستند که نسخه‌های اشتباه (مثلاً با >=) مشکل پیدا می‌کنند.\n\nنکات امتحانی/دام‌ها:\n- Edge Case را فقط نام نبر؛ بگو الگوریتم دقیقاً چه رفتاری دارد.\n- «همه کلیدها برابر» بهترین تست برای پایداری است.\n- لیست خالی نباید باعث دسترسی خارج از محدوده شود.\n- ورودی مرتب، تفاوت Best-Case را نشان می‌دهد.",
+      "keywords": [
+        "EdgeCases",
+        "InsertionSort",
+        "Stability"
+      ],
+      "traps": [
+        "Listing without explaining",
+        "Missing stability-related case"
+      ],
+      "source": {
+        "type": "reconstructed_exam_style",
+        "section": "Anwendung und Umsetzung von Algorithmen"
+      }
+    },
+    {
+      "id": "y23_t3_3a_bugfix_loop",
+      "year": "2023",
+      "type": "open",
+      "difficulty": "medium",
+      "points": 6,
+      "prompt": "Ein Entwickler hat folgenden Pseudocode geschrieben, um in einer Liste A die Anzahl der Werte > t zu zählen:\n\nPROZEDUR countGreater(A, t)\n    i = 0\n    count = 0\n    SOLANGE i <= LAENGE(A)\n        WENN A[i] > t\n            count = count + 1\n        ENDE WENN\n        i = i + 1\n    ENDE SOLANGE\n    GIB count ZURUECK\nENDE PROZEDUR\n\na) Finden Sie den Fehler und erklären Sie die Auswirkung.\n",
+      "answer_short": "Schleifenbedingung i <= LAENGE(A) führt zu Zugriff außerhalb des Arrays.",
+      "answer_long": "Fehler: i läuft bis einschließlich LAENGE(A). Letzter gültiger Index ist LAENGE(A)-1. Bei i = LAENGE(A) wird A[i] außerhalb des Bereichs gelesen -> Laufzeitfehler/undefiniertes Verhalten. Korrektur: Bedingung i < LAENGE(A) oder rechts korrekt setzen.",
+      "pseudocode": "",
+      "complexity": {
+        "time": "O(n)",
+        "space": "O(1)",
+        "explanation": "Zählen ist linear; der Bug betrifft Korrektheit, nicht die asymptotische Laufzeit."
+      },
+      "scoring_guide": {
+        "max_points": 6,
+        "criteria": [
+          "Fehlerstelle korrekt benannt (3P)",
+          "Auswirkung korrekt erklärt (3P)"
+        ],
+        "common_deductions": [
+          "Nur 'Off-by-one' ohne Wirkung (-2)"
+        ]
+      },
+      "explain_fa": "موضوع سؤال چیست؟\nاین سؤال «تحلیل باگ در حلقه» (Off-by-one) است. معمولاً در AP2 زیاد می‌آید چون خطای رایجی در الگوریتم‌هاست.\n\nاز تو چه می‌خواهد؟\nباید دقیق بگویی مشکل کجاست و چه اثری دارد: یعنی آیا باعث خروجی غلط می‌شود یا باعث خطای اجرا/دسترسی خارج از محدوده.\n\nمنطق پاسخ درست:\nدر آرایه اگر طول n باشد، اندیس‌های معتبر 0 تا n-1 هستند. کد داده‌شده شرط SOLANGE i <= LAENGE(A) دارد، یعنی اجازه می‌دهد i = n هم اجرا شود. در آن لحظه A[i] یعنی A[n] خوانده می‌شود که وجود ندارد و معمولاً خطای اجرا (out-of-bounds) یا رفتار نامشخص می‌دهد. پس این یک خطای مرزی کلاسیک است. راه‌حل صحیح تغییر شرط به i < LAENGE(A) است تا آخرین مقدار i = n-1 باشد.\n\nنکات امتحانی/دام‌ها:\n- طول n یعنی آخرین اندیس n-1.\n- اشتباه <= به جای < بسیار رایج است.\n- اثر را واضح بگو: خارج از محدوده/کرش.\n- این خطا حتی اگر خروجی «گاهی درست» بدهد، باز هم غلط است.",
+      "keywords": [
+        "BugAnalysis",
+        "OffByOne",
+        "LoopBound"
+      ],
+      "traps": [
+        "Saying just 'wrong' without effect",
+        "Confusing length with last index"
+      ],
+      "source": {
+        "type": "reconstructed_exam_style",
+        "section": "Anwendung und Umsetzung von Algorithmen"
+      }
+    },
+    {
+      "id": "y23_t3_3b_bugfix_corrected_pseudocode",
+      "year": "2023",
+      "type": "open",
+      "difficulty": "easy",
+      "points": 4,
+      "prompt": "b) Korrigieren Sie den Pseudocode so, dass er für leere und nicht-leere Listen korrekt arbeitet.",
+      "answer_short": "Schleife mit i < LAENGE(A).",
+      "answer_long": "Korrektur: SOLANGE i < LAENGE(A). Optional: direktes Rückgeben am Ende. Leere Liste: LAENGE(A)=0, Bedingung falsch, count bleibt 0.",
+      "pseudocode": "FUNKTION countGreater(A, t)\n    i = 0\n    count = 0\n    SOLANGE i < LAENGE(A)\n        WENN A[i] > t\n            count = count + 1\n        ENDE WENN\n        i = i + 1\n    ENDE SOLANGE\n    GIB count ZURUECK\nENDE FUNKTION",
+      "complexity": {
+        "time": "O(n)",
+        "space": "O(1)",
+        "explanation": "Ein Durchlauf über alle Elemente."
+      },
+      "scoring_guide": {
+        "max_points": 4,
+        "criteria": [
+          "Schleifenbedingung korrekt (2P)",
+          "Funktional vollständig inkl. Rückgabe (2P)"
+        ],
+        "common_deductions": [
+          "Andere Stelle geändert aber Bug bleibt (-2)"
+        ]
+      },
+      "explain_fa": "موضوع سؤال چیست؟\nاین سؤال اصلاح همان باگ مرزی است، اما این بار باید نسخهٔ درست را بنویسی تا نشان بدهی راه‌حل عملی را هم بلدی.\n\nاز تو چه می‌خواهد؟\nباید شبه‌کد صحیح بدهی که هم روی لیست خالی و هم روی لیست معمولی درست کار کند و خارج از محدوده نرود.\n\nمنطق پاسخ درست:\nراه صحیح این است که حلقه فقط تا قبل از طول آرایه اجرا شود: i < LAENGE(A). با این شرط، آخرین i که اجرا می‌شود n-1 است و دسترسی A[i] همیشه معتبر می‌ماند. برای لیست خالی هم LAENGE(A)=0 است، پس شرط از اول غلط می‌شود و حلقه اجرا نمی‌شود و count همان 0 باقی می‌ماند؛ این دقیقاً رفتار درست برای شمارش است.\n\nنکات امتحانی/دام‌ها:\n- اصلاح باید دقیقاً روی شرط حلقه باشد.\n- لیست خالی را به عنوان تست ذهنی اجرا کن.\n- اگر از i <= n-1 استفاده می‌کنی، باید n-1 را درست بسازی.\n- خروجی count باید در پایان برگردد.",
+      "keywords": [
+        "Fix",
+        "Loop",
+        "Bounds",
+        "LinearScan"
+      ],
+      "traps": [
+        "Leaving <= unchanged",
+        "Forgetting return"
+      ],
+      "source": {
+        "type": "reconstructed_exam_style",
+        "section": "Anwendung und Umsetzung von Algorithmen"
+      }
+    },
+    {
+      "id": "y23_t3_3c_tests_for_bug",
+      "year": "2023",
+      "type": "open",
+      "difficulty": "medium",
+      "points": 6,
+      "prompt": "c) Nennen Sie drei konkrete Testfälle (Eingabe + erwartete Ausgabe), die den Bug aus 3a sicher aufdecken bzw. die korrekte Version validieren.\n\nHinweis: Testfälle sollen Edge Cases abdecken.",
+      "answer_short": "Leere Liste, 1 Element, mehrere Elemente inkl. Grenzwerte.",
+      "answer_long": "Test 1 (leer): A=[], t=5 -> Ausgabe 0.\nTest 2 (1 Element >t): A=[6], t=5 -> Ausgabe 1.\nTest 3 (gemischt): A=[5,6,7], t=6 -> Ausgabe 1 (nur 7).\nBug-Aufdeckung: In fehlerhafter Version führt A=[] bzw. A=[6] beim letzten i-Schritt zu out-of-bounds.",
+      "pseudocode": "",
+      "complexity": {
+        "time": "O(1) pro Test, insgesamt O(n) je Testlauf abhängig von A",
+        "space": "O(1)",
+        "explanation": "Testen verändert die Algorithmuskomplexität nicht; es validiert Korrektheit."
+      },
+      "scoring_guide": {
+        "max_points": 6,
+        "criteria": [
+          "Drei sinnvolle Tests (3P)",
+          "Erwartete Ergebnisse korrekt (2P)",
+          "Mindestens ein Edge Case (1P)"
+        ],
+        "common_deductions": [
+          "Keine erwarteten Ausgaben angegeben (-2)",
+          "Nur normale Fälle, keine Edge Cases (-1)"
+        ]
+      },
+      "explain_fa": "موضوع سؤال چیست؟\nاین سؤال دربارهٔ طراحی تست برای کشف باگ و اعتبارسنجی نسخهٔ اصلاح‌شده است. یعنی باید نشان بدهی تست‌هایت «هدفمند» هستند، نه تصادفی.\n\nاز تو چه می‌خواهد؟\nسه تست مشخص با ورودی و خروجی مورد انتظار بده؛ طوری که هم Edge Case داشته باشد و هم رفتار شمارش را بررسی کند. همچنین بهتر است تست‌ها باگ out-of-bounds را هم آشکار کنند.\n\nمنطق پاسخ درست:\nلیست خالی بهترین تست برای حلقه‌های غلط است چون خیلی سریع شرط‌های مرزی را نشان می‌دهد. اگر نسخهٔ غلط باشد ممکن است حتی در لیست خالی تلاش کند A[0] را بخواند. لیست تک‌عنصری هم برای بررسی آخرین اندیس عالی است، چون اگر شرط اشتباه باشد در مرحلهٔ بعدی i=1 به A[1] دسترسی می‌زند. یک لیست چندعنصری با مقدارهای برابر و بزرگ‌تر/کوچک‌تر از t نشان می‌دهد منطق شمارش درست است و فقط عنصرهای واقعاً بزرگ‌تر شمرده می‌شوند. این سه تست در کنار هم هم باگ را آشکار می‌کنند و هم نسخهٔ صحیح را تأیید.\n\nنکات امتحانی/دام‌ها:\n- حتماً خروجی مورد انتظار را بنویس.\n- Edge Case مثل لیست خالی یا تک‌عنصر را حتماً داشته باش.\n- فرق > و >= را در تست‌ها پوشش بده.\n- تست‌ها باید «کشف باگ» و «تأیید اصلاح» را پوشش دهند.",
+      "keywords": [
+        "Testing",
+        "EdgeCases",
+        "BugReproduction"
+      ],
+      "traps": [
+        "No expected output",
+        "Only normal cases"
+      ],
+      "source": {
+        "type": "reconstructed_exam_style",
+        "section": "Anwendung und Umsetzung von Algorithmen"
+      }
+    },
+    {
+      "id": "y23_t4_4a_coverage_statement",
+      "year": "2023",
+      "type": "open",
+      "difficulty": "medium",
+      "points": 6,
+      "prompt": "Eine Funktion classifyScore(punkte) gibt eine Note zurück:\n- punkte < 50 -> \"nicht bestanden\"\n- 50 <= punkte < 80 -> \"bestanden\"\n- punkte >= 80 -> \"gut\"\n\na) Geben Sie eine minimale Menge an Testwerten an, die Branch Coverage (Entscheidungsabdeckung) erreicht. Begründen Sie kurz.",
+      "answer_short": "Drei Testwerte, die jede Verzweigung einmal auslösen.",
+      "answer_long": "Für Branch Coverage müssen alle drei Ausgänge einmal genommen werden.\nBeispielwerte:\n- 49 -> \"nicht bestanden\"\n- 50 (oder 79) -> \"bestanden\"\n- 80 -> \"gut\"\nBegründung: Jeder Bereich wird mindestens einmal getestet, damit jede Entscheidung wahr/falsch Kombinationen abdeckt.",
+      "pseudocode": "",
+      "complexity": {
+        "time": "O(1)",
+        "space": "O(1)",
+        "explanation": "Es geht um Testabdeckung, nicht um algorithmische Laufzeit."
+      },
+      "scoring_guide": {
+        "max_points": 6,
+        "criteria": [
+          "Alle drei Branches abgedeckt (3P)",
+          "Sinnvolle Grenzwerte (2P)",
+          "Begründung Coverage (1P)"
+        ],
+        "common_deductions": [
+          "Nur zwei Werte (kein vollständiges Branch Coverage) (-3)",
+          "Keine Grenzwerte genutzt (-1)"
+        ]
+      },
+      "explain_fa": "موضوع سؤال چیست؟\nاین سؤال دربارهٔ «Branch Coverage» در تست نرم‌افزار است. تمرکز روی این است که همهٔ شاخه‌های تصمیم‌گیری حداقل یک‌بار اجرا شوند.\n\nاز تو چه می‌خواهد؟\nباید کمترین تعداد ورودی‌های تست را بدهی که هر سه خروجی ممکن (سه شاخه) را فعال کنند، و کوتاه توضیح بدهی چرا این‌ها کافی‌اند.\n\nمنطق پاسخ درست:\nتابع سه ناحیهٔ عددی دارد و هر ناحیه یک خروجی متفاوت می‌دهد. برای Branch Coverage باید هر مسیر تصمیم (هر خروجی) حداقل یک‌بار رخ بدهد، پس حداقل سه تست لازم است. انتخاب مقادیر مرزی مثل 49، 50 و 80 هوشمندانه است چون هم شاخه‌ها را پوشش می‌دهد و هم مرزها را بررسی می‌کند. اگر فقط مثلاً 60 و 90 بدهی، شاخهٔ «<50» پوشش داده نمی‌شود. بنابراین حداقل مجموعهٔ درست همان است که هر سه ناحیه را فعال کند.\n\nنکات امتحانی/دام‌ها:\n- Branch Coverage یعنی اجرای همهٔ شاخه‌ها، نه فقط خطوط.\n- حداقل تعداد تست برابر تعداد خروجی‌های شاخه‌هاست.\n- مقادیر مرزی (49/50/80) ارزش نمره‌ای دارند.\n- تفاوت < و <= را در مرزها دقیق رعایت کن.",
+      "keywords": [
+        "BranchCoverage",
+        "Testing",
+        "BoundaryValues"
+      ],
+      "traps": [
+        "Confusing line coverage with branch coverage",
+        "Missing one branch"
+      ],
+      "source": {
+        "type": "reconstructed_exam_style",
+        "section": "Anwendung und Umsetzung von Algorithmen"
+      }
+    },
+    {
+      "id": "y23_t4_4b_boundary_tests",
+      "year": "2023",
+      "type": "open",
+      "difficulty": "easy",
+      "points": 4,
+      "prompt": "b) Ergänzen Sie zwei weitere Testfälle, die speziell Boundary Value Analysis (Grenzwertanalyse) verbessern. Nennen Sie Eingabe und erwartete Ausgabe.",
+      "answer_short": "Werte direkt an den Grenzen und direkt daneben.",
+      "answer_long": "Zusatztests:\n- 79 -> \"bestanden\" (direkt unter 80)\n- 81 -> \"gut\" (direkt über 80)\nAlternativ: 49/50 und 50/51 je nach bereits genutzten Werten. Erwartete Ausgabe jeweils gemäß Spezifikation.",
+      "pseudocode": "",
+      "complexity": {
+        "time": "O(1)",
+        "space": "O(1)",
+        "explanation": "Zusätzliche Tests prüfen Grenzbereiche."
+      },
+      "scoring_guide": {
+        "max_points": 4,
+        "criteria": [
+          "Zwei sinnvolle Grenznahwerte (2P)",
+          "Erwartete Ausgabe korrekt (2P)"
+        ],
+        "common_deductions": [
+          "Werte nicht grenznah (-2)",
+          "Erwartung falsch (-1)"
+        ]
+      },
+      "explain_fa": "موضوع سؤال چیست؟\nاین سؤال دربارهٔ «تست مقادیر مرزی» است. در سیستم‌های واقعی بیشتر باگ‌ها دقیقاً روی مرزها رخ می‌دهند (مثلاً 79/80).\n\nاز تو چه می‌خواهد؟\nدو تست اضافه بده که روی مرزهای تصمیم‌گیری تمرکز داشته باشند و خروجی مورد انتظار را هم دقیق بنویسی.\n\nمنطق پاسخ درست:\nBoundary Value Analysis یعنی اعداد «کنار مرز» را تست کنیم: درست قبل از مرز و درست بعد از مرز. اگر مرز 80 است، مقدار 79 باید هنوز در شاخهٔ \"bestanden\" باشد و 80 یا 81 باید به \"gut\" برود. همین منطق برای مرز 50 هم وجود دارد. با این کار اشتباهات رایج مثل استفادهٔ نادرست از < و <= یا جابه‌جایی مرزها مشخص می‌شود.\n\nنکات امتحانی/دام‌ها:\n- حتماً یک مقدار زیر مرز و یک مقدار بالای مرز بده.\n- خروجی را مطابق شرط‌ها دقیق بنویس.\n- مرزها معمولاً جایی است که اشتباه < و <= رخ می‌دهد.\n- اگر قبلاً 49/50/80 را داده‌ای، اینجا 79 و 81 مکمل خوبی هستند.",
+      "keywords": [
+        "BoundaryValueAnalysis",
+        "Testing",
+        "Thresholds"
+      ],
+      "traps": [
+        "Non-boundary values",
+        "Wrong expected output around boundaries"
+      ],
+      "source": {
+        "type": "reconstructed_exam_style",
+        "section": "Anwendung und Umsetzung von Algorithmen"
+      }
+    }
+  ]
+}

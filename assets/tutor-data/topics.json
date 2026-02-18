@@ -5,6 +5,7 @@
     "checksum",
     "count_condition",
     "exam_bank_ap2",
+    "fiae_2023",
     "insertionsort",
     "linearsearch",
     "maxperiod",
@@ -65,6 +66,11 @@
       ]
     },
     "exam_bank_ap2": {
+      "de": [
+        "exam"
+      ]
+    },
+    "fiae_2023": {
       "de": [
         "exam"
       ]
