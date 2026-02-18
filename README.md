@@ -11,3 +11,10 @@ If the name differs, deploys will target another worker and production will cont
 - `wrangler dev`
 - `wrangler secret put ADAPTER_TOKEN`
 - `wrangler deploy`
+
+## GitHub Actions (Worker Deploy)
+- Workflow: `.github/workflows/deploy-worker.yml`
+- Required repository secrets:
+  - `CLOUDFLARE_API_TOKEN`
+  - `CLOUDFLARE_ACCOUNT_ID`
+- Trigger: push to `main` (or manual run from Actions tab).
