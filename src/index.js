@@ -16,6 +16,14 @@ function corsHeaders(request) {
   };
 }
 
+function apiHeaders(request, extra = {}) {
+  return {
+    "Cache-Control": "no-store",
+    ...corsHeaders(request),
+    ...extra,
+  };
+}
+
 function json(obj, status = 200, headers = {}) {
   return new Response(JSON.stringify(obj), {
     status,
@@ -69,41 +77,41 @@ export async function handleRequest(request, env) {
   if (request.method === "OPTIONS" && (isTopics || isRun)) {
     const originCheck = assertOrigin(request);
     if (!originCheck.ok) {
-      return json(originCheck.payload, originCheck.status, corsHeaders(request));
+      return json(originCheck.payload, originCheck.status, apiHeaders(request));
     }
-    return new Response(null, { status: 204, headers: corsHeaders(request) });
+    return new Response(null, { status: 204, headers: apiHeaders(request) });
   }
 
   if (url.pathname === "/v1/health" && request.method === "GET") {
-    return json({ ok: true, service: "dailyflow-tutor-api" }, 200, corsHeaders(request));
+    return json({ ok: true, service: "dailyflow-tutor-api" }, 200, apiHeaders(request));
   }
 
   if (url.pathname.startsWith("/v1/")) {
     const originCheck = assertOrigin(request);
     if (!originCheck.ok) {
-      return json(originCheck.payload, originCheck.status, corsHeaders(request));
+      return json(originCheck.payload, originCheck.status, apiHeaders(request));
     }
 
     const authCheck = assertAuth(request, env);
     if (!authCheck.ok) {
-      return json(authCheck.payload, authCheck.status, corsHeaders(request));
+      return json(authCheck.payload, authCheck.status, apiHeaders(request));
     }
   }
 
   if (isTopics && request.method === "GET") {
     const assetResponse = await fetchAsset(env, request, "/tutor-data/topics.json");
     if (assetResponse.status === 404) {
-      return json({ detail: "Not found" }, 404, corsHeaders(request));
+      return json({ detail: "Not found" }, 404, apiHeaders(request));
     }
     if (!assetResponse.ok) {
-      return json({ detail: "Upstream asset error" }, 502, corsHeaders(request));
+      return json({ detail: "Upstream asset error" }, 502, apiHeaders(request));
     }
 
     return new Response(await assetResponse.text(), {
       status: 200,
       headers: {
         "Content-Type": "application/json; charset=utf-8",
-        ...corsHeaders(request),
+        ...apiHeaders(request),
       },
     });
   }
@@ -113,12 +121,12 @@ export async function handleRequest(request, env) {
     try {
       body = await request.json();
     } catch {
-      return json({ detail: "Invalid JSON body" }, 400, corsHeaders(request));
+      return json({ detail: "Invalid JSON body" }, 400, apiHeaders(request));
     }
 
     const missing = requiredRunFields(body);
     if (missing.length) {
-      return json({ detail: `Missing required fields: ${missing.join(", ")}` }, 400, corsHeaders(request));
+      return json({ detail: `Missing required fields: ${missing.join(", ")}` }, 400, apiHeaders(request));
     }
 
     const topic = body.topic.trim().toLowerCase();
@@ -128,22 +136,22 @@ export async function handleRequest(request, env) {
 
     const assetResponse = await fetchAsset(env, request, assetPath);
     if (assetResponse.status === 404) {
-      return json({ detail: "Not found" }, 404, corsHeaders(request));
+      return json({ detail: "Not found" }, 404, apiHeaders(request));
     }
     if (!assetResponse.ok) {
-      return json({ detail: "Upstream asset error" }, 502, corsHeaders(request));
+      return json({ detail: "Upstream asset error" }, 502, apiHeaders(request));
     }
 
     return new Response(await assetResponse.text(), {
       status: 200,
       headers: {
         "Content-Type": "application/json; charset=utf-8",
-        ...corsHeaders(request),
+        ...apiHeaders(request),
       },
     });
   }
 
-  return json({ detail: "Not found" }, 404, corsHeaders(request));
+  return json({ detail: "Not found" }, 404, apiHeaders(request));
 }
 
 export default {
