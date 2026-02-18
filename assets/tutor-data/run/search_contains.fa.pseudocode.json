@@ -5,8 +5,78 @@
   "lang": "fa",
   "mode": "pseudocode",
   "title": "Search/Contains — FIAE Core (فارسی)",
+  "selected_variant": "array_contains_index",
   "pseudocode": "FUNKTION ContainsIndex(arr, x)\n  n = LAENGE(arr)\n  FUER i = 0 BIS n-1\n    WENN arr[i] = x DANN\n      GIB i ZURUECK\n    ENDE\n  ENDE\n  GIB -1 ZURUECK\nENDE",
-  "notes": [
-    "variant:array_contains_index"
+  "variants": [
+    {
+      "id": "array_contains_index",
+      "title": "array_contains_index",
+      "labels": {
+        "de": "array_contains_index",
+        "fa": "array_contains_index"
+      },
+      "is_default": true,
+      "pseudocode": "FUNKTION ContainsIndex(arr, x)\n  n = LAENGE(arr)\n  FUER i = 0 BIS n-1\n    WENN arr[i] = x DANN\n      GIB i ZURUECK\n    ENDE\n  ENDE\n  GIB -1 ZURUECK\nENDE",
+      "explain_variant": {
+        "de": "Lineare Suche im Array. Gibt den Index des ersten Treffers zurueck, sonst -1.",
+        "fa": "(1) تعریف Variant:\nجستجوی خطی روی آرایه و برگرداندن اندیسِ اولین برخورد؛ اگر پیدا نشد -۱.\n\n(2) تفاوت دقیق با نسخهٔ کلاسیک:\nنسخهٔ کلاسیکِ Search Contains است؛ خروجی آن عددِ اندیس است، نه فقط true/false.\n\n(3) این تفاوت در شبه‌کد کجا دیده می‌شود:\nبعد از یافتن arr[i] = x همان i برگردانده می‌شود؛ در پایان -1 بازگردانده می‌شود.\n\n(4) رفتار و پیچیدگی زمانی/فضایی:\nزمان: Best = O(1) (اولین عنصر)، Avg/Worst = O(n). حافظه: O(1).\n\n(5) دام‌های رایج IHK:\n- فراموش کردن مقدار -1 برای «یافت نشد».\n- اشتباه در شرط حلقه (باید تا n-1 برود).\n- برگرداندن اندیس آخرین برخورد به‌جای اولین.\n\n(6) نکتهٔ طلایی امتحان:\nاگر سوال «اولین موقعیت» را خواست، باید در اولین تطابق return کنی و ادامه ندهی."
+      }
+    },
+    {
+      "id": "array_contains_bool",
+      "title": "array_contains_bool",
+      "labels": {
+        "de": "array_contains_bool",
+        "fa": "array_contains_bool"
+      },
+      "is_default": false,
+      "pseudocode": "FUNKTION ContainsBool(arr, x) -> bool\n  n = LAENGE(arr)\n  FUER i = 0 BIS n-1\n    WENN arr[i] = x DANN\n      GIB true ZURUECK\n    ENDE\n  ENDE\n  GIB false ZURUECK\nENDE",
+      "explain_variant": {
+        "de": "Prueft nur, ob x vorkommt. Ergebnis ist true/false.",
+        "fa": "(1) تعریف Variant:\nفقط بررسی می‌کند آیا x در آرایه هست یا نه (خروجی true/false).\n\n(2) تفاوت دقیق با نسخهٔ کلاسیک:\nبه‌جای اندیس، فقط وجود را گزارش می‌دهد.\n\n(3) این تفاوت در شبه‌کد کجا دیده می‌شود:\nوقتی arr[i] = x شد، مستقیماً true برمی‌گردد و اگر تمام شد false.\n\n(4) رفتار و پیچیدگی زمانی/فضایی:\nزمان: Best = O(1)، Avg/Worst = O(n). حافظه: O(1).\n\n(5) دام‌های رایج IHK:\n- برگرداندن اندیس به‌جای boolean.\n- فراموشی false در پایان.\n- ادامه دادن بعد از یافتن (باید early return باشد).\n\n(6) نکتهٔ طلایی امتحان:\nاین نسخه برای «وجود دارد؟» مناسب است؛ اگر «کجا؟» خواستند باید نسخهٔ اندیس را بنویسی."
+      }
+    },
+    {
+      "id": "string_contains_substring",
+      "title": "string_contains_substring",
+      "labels": {
+        "de": "string_contains_substring",
+        "fa": "string_contains_substring"
+      },
+      "is_default": false,
+      "pseudocode": "FUNKTION ContainsSubstring(s, p)\n  n = LAENGE(s)\n  m = LAENGE(p)\n  FUER i = 0 BIS n-m\n    j = 0\n    SOLANGE j < m UND s[i+j] = p[j]\n      j = j + 1\n    ENDE SOLANGE\n    WENN j = m DANN\n      GIB i ZURUECK\n    ENDE\n  ENDE\n  GIB -1 ZURUECK\nENDE",
+      "explain_variant": {
+        "de": "Naive Substring-Suche mit verschachtelten Schleifen.",
+        "fa": "(1) تعریف Variant:\nجستجوی سادهٔ زیررشته (naive) با مقایسهٔ کاراکتر به کاراکتر.\n\n(2) تفاوت دقیق با نسخهٔ کلاسیک:\nبه‌جای عناصر آرایه، دو حلقه برای رشته و الگو (pattern) داریم.\n\n(3) این تفاوت در شبه‌کد کجا دیده می‌شود:\nحلقهٔ بیرونی i = 0..n-m و حلقهٔ داخلی j که s[i+j] را با p[j] مقایسه می‌کند.\n\n(4) رفتار و پیچیدگی زمانی/فضایی:\nزمان: Worst = O(n*m)، Best نزدیک O(n) وقتی خیلی زود mismatch می‌شود. حافظه: O(1).\n\n(5) دام‌های رایج IHK:\n- اشتباه در حد حلقهٔ بیرونی (باید n-m باشد).\n- برنگرداندن اندیس شروع زیررشته.\n- قاطی کردن n و m.\n\n(6) نکتهٔ طلایی امتحان:\nدر naive، هر محل شروع بررسی می‌شود؛ اگر j به m برسد یعنی یک تطابق کامل پیدا شده است."
+      }
+    },
+    {
+      "id": "string_contains_ci",
+      "title": "string_contains_ci",
+      "labels": {
+        "de": "string_contains_ci",
+        "fa": "string_contains_ci"
+      },
+      "is_default": false,
+      "pseudocode": "FUNKTION ContainsSubstringCI(s, p)\n  s2 = TOLOWER(s)\n  p2 = TOLOWER(p)\n  n = LAENGE(s2)\n  m = LAENGE(p2)\n  FUER i = 0 BIS n-m\n    j = 0\n    SOLANGE j < m UND s2[i+j] = p2[j]\n      j = j + 1\n    ENDE SOLANGE\n    WENN j = m DANN\n      GIB i ZURUECK\n    ENDE\n  ENDE\n  GIB -1 ZURUECK\nENDE",
+      "explain_variant": {
+        "de": "Substring-Suche ohne Beachtung von Gross-/Kleinschreibung.",
+        "fa": "(1) تعریف Variant:\nجستجوی زیررشته بدون حساسیت به حروف بزرگ/کوچک.\n\n(2) تفاوت دقیق با نسخهٔ کلاسیک:\nقبل از مقایسه، هر دو رشته نرمال‌سازی می‌شوند (مثلاً toLower).\n\n(3) این تفاوت در شبه‌کد کجا دیده می‌شود:\nابتدا s2 = toLower(s) و p2 = toLower(p) ساخته می‌شود؛ سپس همان naive اجرا می‌شود.\n\n(4) رفتار و پیچیدگی زمانی/فضایی:\nزمان: همان naive یعنی O(n*m) + هزینهٔ نرمال‌سازی O(n+m). حافظه: O(n+m) برای رشته‌های نرمال‌شده.\n\n(5) دام‌های رایج IHK:\n- فراموش کردن نرمال‌سازی یکی از دو رشته.\n- استفاده از مقایسهٔ حساس به case.\n- نادیده گرفتن locale در زبان‌هایی مثل آلمانی/ترکی.\n\n(6) نکتهٔ طلایی امتحان:\nاگر «case-insensitive» ذکر شد، باید صریحاً نرمال‌سازی یا comparator مناسب نشان داده شود."
+      }
+    },
+    {
+      "id": "prefix_suffix_check",
+      "title": "prefix_suffix_check",
+      "labels": {
+        "de": "prefix_suffix_check",
+        "fa": "prefix_suffix_check"
+      },
+      "is_default": false,
+      "pseudocode": "FUNKTION StartsWith(s, p) -> bool\n  m = LAENGE(p)\n  WENN LAENGE(s) < m DANN\n    GIB false ZURUECK\n  FUER i = 0 BIS m-1\n    WENN s[i] != p[i] DANN\n      GIB false ZURUECK\n    ENDE\n  ENDE\n  GIB true ZURUECK\nENDE\n\nFUNKTION EndsWith(s, p) -> bool\n  n = LAENGE(s)\n  m = LAENGE(p)\n  WENN n < m DANN\n    GIB false ZURUECK\n  FUER i = 0 BIS m-1\n    WENN s[n-m+i] != p[i] DANN\n      GIB false ZURUECK\n    ENDE\n  ENDE\n  GIB true ZURUECK\nENDE",
+      "explain_variant": {
+        "de": "Prueft nur Anfang oder Ende eines Strings (O(m)).",
+        "fa": "(1) تعریف Variant:\nفقط بررسی می‌کند آیا رشته با یک پیشوند/پسوند خاص شروع یا تمام می‌شود.\n\n(2) تفاوت دقیق با نسخهٔ کلاسیک:\nدیگر کل رشته یا همهٔ موقعیت‌ها را نمی‌گردد؛ فقط طول m کاراکتر اول/آخر را مقایسه می‌کند.\n\n(3) این تفاوت در شبه‌کد کجا دیده می‌شود:\nStartsWith: مقایسهٔ s[i] با p[i] برای i=0..m-1.\nEndsWith: مقایسهٔ s[n-m+i] با p[i].\n\n(4) رفتار و پیچیدگی زمانی/فضایی:\nزمان: O(m). حافظه: O(1).\n\n(5) دام‌های رایج IHK:\n- چک نکردن طول s < m.\n- اشتباه در اندیس n-m+i.\n- قاطی کردن startsWith با contains.\n\n(6) نکتهٔ طلایی امتحان:\nاین نسخه فقط برای پیشوند/پسوند است؛ اگر «وجود در هرجا» خواستند باید contains کامل بنویسی."
+      }
+    }
   ]
 }

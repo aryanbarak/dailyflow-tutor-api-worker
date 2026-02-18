@@ -117,7 +117,7 @@ async function run() {
 
   {
     const expectedRaw = await readFile(
-      resolve(repoRoot, "assets", "tutor-data", "run", "linearsearch.de.pseudocode.json"),
+      resolve(repoRoot, "assets", "tutor-data", "run", "linearsearch.fa.pseudocode.json"),
       "utf8",
     );
     const expected = JSON.parse(expectedRaw);
@@ -142,6 +142,7 @@ async function run() {
     assert.equal(res.status, 200);
     const body = await readJson(res);
     assert.deepEqual(body, expected);
+    assert.equal(body.lang, "fa");
   }
 
   {

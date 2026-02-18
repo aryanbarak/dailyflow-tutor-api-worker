@@ -1,0 +1,110 @@
+{
+  "schema_name": "tutor_asset.pseudocode.v1",
+  "version": "1.0",
+  "topic": "insertionsort",
+  "lang": "de",
+  "mode": "pseudocode",
+  "title": "InsertionSort (Einfügesortierung) — FIAE Explain Core v1.0",
+  "selected_variant": "classic_int_asc",
+  "pseudocode": "PROZEDUR InsertionSort(a, f)\r\n  n = LAENGE(a)\r\n  FUER i = 1 BIS n-1\r\n    key = a[i]\r\n    j = i - 1\r\n    SOLANGE j >= 0 UND f(key, a[j]) < 0\r\n      a[j+1] = a[j]\r\n      j = j - 1\r\n    a[j+1] = key\r\n  GIB a ZURUECK\r\nENDE",
+  "variants": [
+    {
+      "id": "classic_int_asc",
+      "title": "InsertionSort klassisch (int, aufsteigend)",
+      "labels": {
+        "de": "InsertionSort klassisch (int, aufsteigend)",
+        "fa": "InsertionSort klassisch (int, aufsteigend)"
+      },
+      "is_default": true,
+      "pseudocode": "PROZEDUR InsertionSort(a, f)\r\n  n = LAENGE(a)\r\n  FUER i = 1 BIS n-1\r\n    key = a[i]\r\n    j = i - 1\r\n    SOLANGE j >= 0 UND f(key, a[j]) < 0\r\n      a[j+1] = a[j]\r\n      j = j - 1\r\n    a[j+1] = key\r\n  GIB a ZURUECK\r\nENDE",
+      "explain_variant": {
+        "de": "",
+        "fa": "(1) تعریف Variant:\nنسخهٔ کلاسیک InsertionSort هر عنصر را مثل «کارت بازی» در جای درستِ بخش مرتبِ سمت چپ وارد می‌کند.\n\n(2) تفاوت دقیق با InsertionSort کلاسیک:\nاین همان نسخهٔ کلاسیک است؛ بدون Comparator یا بهینه‌سازی اضافه.\n\n(3) این تفاوت در شبه‌کد کجا دیده می‌شود:\n- key = a[i]\n- while (j >= 0 و a[j] > key) → شیفت به راست\n- در پایان: a[j+1] = key\n\n(4) رفتار و پیچیدگی زمانی/فضایی:\n- Best: O(n) (آرایه مرتب)\n- Avg/Worst: O(n^2)\n- فضا: O(1)\n- پایدار است (اگر شرط strictly > باشد).\n\n(5) دام‌های رایج IHK:\n- i باید از 1 شروع شود، نه 0\n- جابه‌جایی باید با shift باشد، نه swap\n- فراموشی قرار دادن key در پایان (a[j+1]=key)\n\n(6) نکتهٔ طلایی امتحان:\nدر هر دور i، بخش چپ (0..i) مرتب است."
+      }
+    },
+    {
+      "id": "optimized_shift",
+      "title": "InsertionSort optimiert (Shift-Optimierung)",
+      "labels": {
+        "de": "InsertionSort optimiert (Shift-Optimierung)",
+        "fa": "InsertionSort optimiert (Shift-Optimierung)"
+      },
+      "is_default": false,
+      "pseudocode": "PROZEDUR InsertionSort(a, f)\r\n  n = LAENGE(a)\r\n  FUER i = 1 BIS n-1\r\n    key = a[i]\r\n    j = i - 1\r\n    SOLANGE j >= 0 UND f(key, a[j]) < 0\r\n      a[j+1] = a[j]\r\n      j = j - 1\r\n    a[j+1] = key\r\n  GIB a ZURUECK\r\nENDE",
+      "explain_variant": {
+        "de": "",
+        "fa": "(1) تعریف Variant:\nنسخهٔ بهینه‌شدهٔ InsertionSort برای داده‌های تقریباً مرتب سریع‌تر است چون زودتر از حلقهٔ داخلی خارج می‌شود.\n\n(2) تفاوت دقیق با InsertionSort کلاسیک:\nهمان الگوریتم است، ولی وقتی a[j] <= key شد، حلقهٔ داخلی متوقف می‌شود و دیگر شیفت ادامه نمی‌یابد.\n\n(3) این تفاوت در شبه‌کد کجا دیده می‌شود:\n- شرط while باعث توقف سریع می‌شود (early stop در inner loop)\n- شیفت فقط تا جایی که لازم است ادامه دارد\n\n(4) رفتار و پیچیدگی زمانی/فضایی:\n- Best: O(n)\n- Avg/Worst: O(n^2)\n- فضا: O(1)\n\n(5) دام‌های رایج IHK:\n- تصور اینکه همیشه O(n) می‌شود\n- توقف اشتباه قبل از جای درستِ key\n- استفاده از swap به‌جای shift\n\n(6) نکتهٔ طلایی امتحان:\nاین بهینه‌سازی فقط Best-Case را بهتر می‌کند؛ Worst-Case تغییر نمی‌کند."
+      }
+    },
+    {
+      "id": "comparator_f",
+      "title": "InsertionSort mit Comparator-Funktion",
+      "labels": {
+        "de": "InsertionSort mit Comparator-Funktion",
+        "fa": "InsertionSort mit Comparator-Funktion"
+      },
+      "is_default": false,
+      "pseudocode": "PROZEDUR InsertionSort(a, f)\r\n  n = LAENGE(a)\r\n  FUER i = 1 BIS n-1\r\n    key = a[i]\r\n    j = i - 1\r\n    SOLANGE j >= 0 UND f(key, a[j]) < 0\r\n      a[j+1] = a[j]\r\n      j = j - 1\r\n    a[j+1] = key\r\n  GIB a ZURUECK\r\nENDE",
+      "explain_variant": {
+        "de": "",
+        "fa": "(1) تعریف Variant:\nنسخهٔ Comparator برای مرتب‌سازی انواع داده از تابع مقایسه f استفاده می‌کند.\n\n(2) تفاوت دقیق با InsertionSort کلاسیک:\nبه‌جای مقایسهٔ مستقیم a[j] > key، از f(a[j], key) استفاده می‌شود.\n\n(3) این تفاوت در شبه‌کد کجا دیده می‌شود:\n- شرط while: f(a[j], key) > 0 (یا معادل آن)\n\n(4) رفتار و پیچیدگی زمانی/فضایی:\n- مقایسه‌ها همچنان O(n^2)\n- هزینهٔ واقعی وابسته به سرعت f\n- فضا: O(1)\n\n(5) دام‌های رایج IHK:\n- اشتباه در جهت پارامترهای f\n- تفسیر غلط خروجی f\n- فراموشی اینکه shift روی عناصر انجام می‌شود\n\n(6) نکتهٔ طلایی امتحان:\nاگر f(a,b) > 0 یعنی a باید بعد از b بیاید → باید به راست شیفت شود."
+      }
+    },
+    {
+      "id": "strings_lex",
+      "title": "InsertionSort für Strings (lexikografisch)",
+      "labels": {
+        "de": "InsertionSort für Strings (lexikografisch)",
+        "fa": "InsertionSort für Strings (lexikografisch)"
+      },
+      "is_default": false,
+      "pseudocode": "PROZEDUR InsertionSort(a, f)\r\n  n = LAENGE(a)\r\n  FUER i = 1 BIS n-1\r\n    key = a[i]\r\n    j = i - 1\r\n    SOLANGE j >= 0 UND f(key, a[j]) < 0\r\n      a[j+1] = a[j]\r\n      j = j - 1\r\n    a[j+1] = key\r\n  GIB a ZURUECK\r\nENDE",
+      "explain_variant": {
+        "de": "",
+        "fa": "(1) تعریف Variant:\nInsertionSort برای رشته‌ها بر اساس ترتیب لغوی (lexicographic) مرتب می‌کند.\n\n(2) تفاوت دقیق با InsertionSort کلاسیک:\nمعنای «بزرگ‌تر/کوچک‌تر» در شرط while لغوی است، نه عددی.\n\n(3) این تفاوت در شبه‌کد کجا دیده می‌شود:\n- شرط while با compare/lexicographic تفسیر می‌شود\n\n(4) رفتار و پیچیدگی زمانی/فضایی:\n- تعداد مقایسه‌ها O(n^2)\n- هزینهٔ هر مقایسه وابسته به طول رشته‌ها\n- فضا: O(1)\n\n(5) دام‌های رایج IHK:\n- فرض مقایسهٔ رشته مثل عدد\n- حساسیت به حروف بزرگ/کوچک\n- نیاز به locale یا case-insensitive\n\n(6) نکتهٔ طلایی امتحان:\nاگر سؤال به case اشاره کرد، قبل از مقایسه نرمال‌سازی کن (lower/casefold)."
+      }
+    },
+    {
+      "id": "objects_by_field",
+      "title": "InsertionSort für Objekte (nach Feld)",
+      "labels": {
+        "de": "InsertionSort für Objekte (nach Feld)",
+        "fa": "InsertionSort für Objekte (nach Feld)"
+      },
+      "is_default": false,
+      "pseudocode": "PROZEDUR InsertionSort(a, f)\r\n  n = LAENGE(a)\r\n  FUER i = 1 BIS n-1\r\n    key = a[i]\r\n    j = i - 1\r\n    SOLANGE j >= 0 UND f(key, a[j]) < 0\r\n      a[j+1] = a[j]\r\n      j = j - 1\r\n    a[j+1] = key\r\n  GIB a ZURUECK\r\nENDE",
+      "explain_variant": {
+        "de": "",
+        "fa": "(1) تعریف Variant:\nInsertionSort برای آبجکت‌ها بر اساس یک فیلد (key) مرتب می‌کند.\n\n(2) تفاوت دقیق با InsertionSort کلاسیک:\nمقایسه روی field انجام می‌شود، ولی جابه‌جایی (shift) باید روی کل آبجکت باشد.\n\n(3) این تفاوت در شبه‌کد کجا دیده می‌شود:\n- شرط: a[j][key] > keyField\n- شیفت کل آبجکت‌ها به راست\n\n(4) رفتار و پیچیدگی زمانی/فضایی:\n- زمان: O(n^2)\n- فضا: O(1)\n- پایدار (اگر شرط strict باشد)\n\n(5) دام‌های رایج IHK:\n- شیفت فقط فیلد (اشتباه)\n- انتخاب اشتباه key یا نوع فیلد\n\n(6) نکتهٔ طلایی امتحان:\nمقایسه روی فیلد است، ولی شیفت همیشه کل آبجکت را جابه‌جا می‌کند."
+      }
+    },
+    {
+      "id": "generic_concept",
+      "title": "Generischer InsertionSort (Konzept)",
+      "labels": {
+        "de": "Generischer InsertionSort (Konzept)",
+        "fa": "Generischer InsertionSort (Konzept)"
+      },
+      "is_default": false,
+      "pseudocode": "PROZEDUR InsertionSort(a, f)\r\n  n = LAENGE(a)\r\n  FUER i = 1 BIS n-1\r\n    key = a[i]\r\n    j = i - 1\r\n    SOLANGE j >= 0 UND f(key, a[j]) < 0\r\n      a[j+1] = a[j]\r\n      j = j - 1\r\n    a[j+1] = key\r\n  GIB a ZURUECK\r\nENDE",
+      "explain_variant": {
+        "de": "",
+        "fa": "(1) تعریف Variant:\nنسخهٔ جنریک InsertionSort مستقل از نوع داده است و Comparator ترتیب را تعیین می‌کند.\n\n(2) تفاوت دقیق با InsertionSort کلاسیک:\nالگوریتم ثابت است، فقط قانون مقایسه تغییر می‌کند.\n\n(3) این تفاوت در شبه‌کد کجا دیده می‌شود:\n- شرط while با Comparator انجام می‌شود\n\n(4) رفتار و پیچیدگی زمانی/فضایی:\n- O(n^2) مقایسه\n- هزینهٔ واقعی وابسته به Comparator\n- فضا: O(1)\n\n(5) دام‌های رایج IHK:\n- Comparator با جهت غلط\n- عدم تطابق Comparator با ترتیب خروجی\n\n(6) نکتهٔ طلایی امتحان:\nالگوریتم تغییر نمی‌کند؛ فقط تعریف «بزرگ‌تر/کوچک‌تر» عوض می‌شود."
+      }
+    },
+    {
+      "id": "binary_insertion_bonus",
+      "title": "Binary InsertionSort (Bonus-Variante)",
+      "labels": {
+        "de": "Binary InsertionSort (Bonus-Variante)",
+        "fa": "Binary InsertionSort (Bonus-Variante)"
+      },
+      "is_default": false,
+      "pseudocode": "PROZEDUR InsertionSort(a, f)\r\n  n = LAENGE(a)\r\n  FUER i = 1 BIS n-1\r\n    key = a[i]\r\n    j = i - 1\r\n    SOLANGE j >= 0 UND f(key, a[j]) < 0\r\n      a[j+1] = a[j]\r\n      j = j - 1\r\n    a[j+1] = key\r\n  GIB a ZURUECK\r\nENDE",
+      "explain_variant": {
+        "de": "",
+        "fa": "(1) تعریف Variant:\nBinary InsertionSort موقعیت درج را با جست‌وجوی دودویی در بخش مرتب پیدا می‌کند.\n\n(2) تفاوت دقیق با InsertionSort کلاسیک:\nبه‌جای اسکن خطی برای جای درج، از Binary Search استفاده می‌شود؛ ولی شیفت عناصر همچنان لازم است.\n\n(3) این تفاوت در شبه‌کد کجا دیده می‌شود:\n- مرحلهٔ پیدا کردن موقعیت درج با binary search\n- سپس شیفت و درج key مانند قبل\n\n(4) رفتار و پیچیدگی زمانی/فضایی:\n- مقایسه‌ها کاهش می‌یابد، اما جابه‌جایی‌ها هنوز O(n^2)\n- فضا: O(1)\n\n(5) دام‌های رایج IHK:\n- فکر کردن که کل الگوریتم O(n log n) شده است\n- فراموشی مرحلهٔ شیفت\n\n(6) نکتهٔ طلایی امتحان:\nBinary Insertion فقط تعداد مقایسه را کم می‌کند؛ هزینهٔ شیفت باقی است."
+      }
+    }
+  ]
+}

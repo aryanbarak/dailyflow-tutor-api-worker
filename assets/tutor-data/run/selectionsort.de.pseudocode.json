@@ -1,0 +1,110 @@
+{
+  "schema_name": "tutor_asset.pseudocode.v1",
+  "version": "1.0",
+  "topic": "selectionsort",
+  "lang": "de",
+  "mode": "pseudocode",
+  "title": "SelectionSort (Auswahlsortierung) — FIAE Explain Core v1.0",
+  "selected_variant": "classic_int_asc",
+  "pseudocode": "PROZEDUR SelectionSort(a, f)\r\n  n = LAENGE(a)\r\n  FUER i = 0 BIS n-2\r\n    minIndex = i\r\n    FUER j = i+1 BIS n-1\r\n      WENN f(a[j], a[minIndex]) < 0\r\n        minIndex = j\r\n    WENN minIndex != i\r\n      vertausche a[i] mit a[minIndex]\r\n  GIB a ZURUECK\r\nENDE",
+  "variants": [
+    {
+      "id": "classic_int_asc",
+      "title": "Klassischer SelectionSort (int, asc)",
+      "labels": {
+        "de": "Klassischer SelectionSort (int, asc)",
+        "fa": "Klassischer SelectionSort (int, asc)"
+      },
+      "is_default": true,
+      "pseudocode": "PROZEDUR SelectionSort(a, f)\r\n  n = LAENGE(a)\r\n  FUER i = 0 BIS n-2\r\n    minIndex = i\r\n    FUER j = i+1 BIS n-1\r\n      WENN f(a[j], a[minIndex]) < 0\r\n        minIndex = j\r\n    WENN minIndex != i\r\n      vertausche a[i] mit a[minIndex]\r\n  GIB a ZURUECK\r\nENDE",
+      "explain_variant": {
+        "de": "",
+        "fa": "(1) تعریف Variant:\nنسخهٔ کلاسیک SelectionSort (عدد صعودی) در هر دور کمینهٔ بخش نامرتب را پیدا می‌کند و آن را با عنصر i جابه‌جا می‌کند.\n\n(2) تفاوت دقیق با SelectionSort کلاسیک:\nاین همان نسخهٔ کلاسیک است؛ بدون Comparator یا بهینه‌سازی اضافی.\n\n(3) این تفاوت در شبه‌کد کجا دیده می‌شود:\n- minIndex از i شروع می‌شود و در بازه i..n-1 به‌روزرسانی می‌شود.\n- swap فقط اگر minIndex ≠ i باشد.\n\n(4) رفتار و پیچیدگی زمانی/فضایی:\n- مقایسه‌ها: O(n^2)\n- swapها: معمولاً O(n) (حداکثر n-1)\n- فضا: O(1)\n- پایدار نیست (جابجایی می‌تواند ترتیب عناصر برابر را عوض کند).\n\n(5) دام‌های رایج IHK:\n- شروع نادرست حلقهٔ داخلی (باید i+1 باشد)\n- مقایسه با a[i] به‌جای a[minIndex]\n- ادعای غلط Best-Case = O(n)\n\n(6) نکتهٔ طلایی امتحان:\nبعد از دور i، عنصر a[i] قطعاً در جای نهایی است و دیگر جابه‌جا نمی‌شود."
+      }
+    },
+    {
+      "id": "comparator_f",
+      "title": "SelectionSort mit Comparator f",
+      "labels": {
+        "de": "SelectionSort mit Comparator f",
+        "fa": "SelectionSort mit Comparator f"
+      },
+      "is_default": false,
+      "pseudocode": "PROZEDUR SelectionSort(a, f)\r\n  n = LAENGE(a)\r\n  FUER i = 0 BIS n-2\r\n    minIndex = i\r\n    FUER j = i+1 BIS n-1\r\n      WENN f(a[j], a[minIndex]) < 0\r\n        minIndex = j\r\n    WENN minIndex != i\r\n      vertausche a[i] mit a[minIndex]\r\n  GIB a ZURUECK\r\nENDE",
+      "explain_variant": {
+        "de": "",
+        "fa": "(1) تعریف Variant:\nنسخهٔ Comparator برای مرتب‌سازی انواع داده از تابع مقایسه f استفاده می‌کند.\n\n(2) تفاوت دقیق با SelectionSort کلاسیک:\nبه‌جای مقایسهٔ مستقیم، f(a,b) تعیین می‌کند کدام عنصر «کوچک‌تر/بهتر» است.\n\n(3) این تفاوت در شبه‌کد کجا دیده می‌شود:\n- شرط به‌روزرسانی minIndex: اگر f(a[j], a[minIndex]) < 0\n\n(4) رفتار و پیچیدگی زمانی/فضایی:\n- مقایسه‌ها همچنان O(n^2)\n- هزینهٔ واقعی وابسته به سرعت f\n- فضا: O(1)\n- پایدار نیست (مثل نسخهٔ کلاسیک)\n\n(5) دام‌های رایج IHK:\n- برعکس نوشتن پارامترهای f\n- تفسیر غلط علامت خروجی f\n- swap روی فیلد به‌جای کل عنصر\n\n(6) نکتهٔ طلایی امتحان:\nقاعده: اگر f(a,b) < 0 یعنی a باید قبل از b بیاید → minIndex = j."
+      }
+    },
+    {
+      "id": "strings",
+      "title": "SelectionSort für Strings (lexikografisch)",
+      "labels": {
+        "de": "SelectionSort für Strings (lexikografisch)",
+        "fa": "SelectionSort für Strings (lexikografisch)"
+      },
+      "is_default": false,
+      "pseudocode": "PROZEDUR SelectionSort(a, f)\r\n  n = LAENGE(a)\r\n  FUER i = 0 BIS n-2\r\n    minIndex = i\r\n    FUER j = i+1 BIS n-1\r\n      WENN f(a[j], a[minIndex]) < 0\r\n        minIndex = j\r\n    WENN minIndex != i\r\n      vertausche a[i] mit a[minIndex]\r\n  GIB a ZURUECK\r\nENDE",
+      "explain_variant": {
+        "de": "",
+        "fa": "(1) تعریف Variant:\nSelectionSort برای رشته‌ها عناصر را به‌صورت لغوی (lexicographic) مرتب می‌کند.\n\n(2) تفاوت دقیق با SelectionSort کلاسیک:\nمعنای مقایسه «کمتر/بیشتر» بر اساس قواعد رشته‌ای است، نه عددی.\n\n(3) این تفاوت در شبه‌کد کجا دیده می‌شود:\n- مقایسه روی رشته‌ها انجام می‌شود (compare/lexicographic)\n\n(4) رفتار و پیچیدگی زمانی/فضایی:\n- تعداد مقایسه‌ها O(n^2)\n- هزینهٔ هر مقایسه وابسته به طول رشته‌ها\n- فضا: O(1)\n\n(5) دام‌های رایج IHK:\n- فرض کردن مقایسهٔ رشته مثل عدد\n- حساسیت به حروف بزرگ/کوچک\n- نیاز به locale یا case-insensitive در برخی سناریوها\n\n(6) نکتهٔ طلایی امتحان:\nاگر سؤال به case اشاره کرد، قبل از مقایسه نرمال‌سازی کن (lower/casefold)."
+      }
+    },
+    {
+      "id": "objects",
+      "title": "SelectionSort für Objekte (nach Schlüssel)",
+      "labels": {
+        "de": "SelectionSort für Objekte (nach Schlüssel)",
+        "fa": "SelectionSort für Objekte (nach Schlüssel)"
+      },
+      "is_default": false,
+      "pseudocode": "PROZEDUR SelectionSort(a, f)\r\n  n = LAENGE(a)\r\n  FUER i = 0 BIS n-2\r\n    minIndex = i\r\n    FUER j = i+1 BIS n-1\r\n      WENN f(a[j], a[minIndex]) < 0\r\n        minIndex = j\r\n    WENN minIndex != i\r\n      vertausche a[i] mit a[minIndex]\r\n  GIB a ZURUECK\r\nENDE",
+      "explain_variant": {
+        "de": "",
+        "fa": "(1) تعریف Variant:\nSelectionSort برای آبجکت‌ها بر اساس یک فیلد مشخص (key) مرتب می‌کند.\n\n(2) تفاوت دقیق با SelectionSort کلاسیک:\nمقایسه روی arr[j][key] انجام می‌شود، اما swap باید روی کل آبجکت باشد.\n\n(3) این تفاوت در شبه‌کد کجا دیده می‌شود:\n- شرط مقایسه روی فیلد: arr[j][key] < arr[minIndex][key]\n- swap کل آبجکت‌ها، نه فقط فیلد\n\n(4) رفتار و پیچیدگی زمانی/فضایی:\n- زمان: O(n^2)\n- فضا: O(1)\n- پایدار نیست مگر نسخهٔ stable\n\n(5) دام‌های رایج IHK:\n- جابه‌جایی فقط فیلد (خطا)\n- اشتباه در انتخاب key یا نوع آن\n\n(6) نکتهٔ طلایی امتحان:\nمقایسه روی فیلد است، اما swap همیشه روی کل آبجکت انجام می‌شود."
+      }
+    },
+    {
+      "id": "generic",
+      "title": "Generischer SelectionSort",
+      "labels": {
+        "de": "Generischer SelectionSort",
+        "fa": "Generischer SelectionSort"
+      },
+      "is_default": false,
+      "pseudocode": "PROZEDUR SelectionSort(a, f)\r\n  n = LAENGE(a)\r\n  FUER i = 0 BIS n-2\r\n    minIndex = i\r\n    FUER j = i+1 BIS n-1\r\n      WENN f(a[j], a[minIndex]) < 0\r\n        minIndex = j\r\n    WENN minIndex != i\r\n      vertausche a[i] mit a[minIndex]\r\n  GIB a ZURUECK\r\nENDE",
+      "explain_variant": {
+        "de": "",
+        "fa": "(1) تعریف Variant:\nنسخهٔ جنریک SelectionSort برای هر نوع داده با Comparator کار می‌کند.\n\n(2) تفاوت دقیق با SelectionSort کلاسیک:\nالگوریتم ثابت است، فقط قانون مقایسه تغییر می‌کند.\n\n(3) این تفاوت در شبه‌کد کجا دیده می‌شود:\n- به‌روزرسانی minIndex با f(a[j], a[minIndex])\n\n(4) رفتار و پیچیدگی زمانی/فضایی:\n- O(n^2) مقایسه\n- هزینهٔ واقعی وابسته به Comparator\n- فضا: O(1)\n\n(5) دام‌های رایج IHK:\n- جهت غلط Comparator\n- عدم تطابق Comparator با ترتیب خروجی\n\n(6) نکتهٔ طلایی امتحان:\nالگوریتم تغییر نمی‌کند؛ فقط تعریف «کوچک‌تر» عوض می‌شود."
+      }
+    },
+    {
+      "id": "stable_shift_variant",
+      "title": "Stabile SelectionSort-Variante",
+      "labels": {
+        "de": "Stabile SelectionSort-Variante",
+        "fa": "Stabile SelectionSort-Variante"
+      },
+      "is_default": false,
+      "pseudocode": "PROZEDUR SelectionSort(a, f)\r\n  n = LAENGE(a)\r\n  FUER i = 0 BIS n-2\r\n    minIndex = i\r\n    FUER j = i+1 BIS n-1\r\n      WENN f(a[j], a[minIndex]) < 0\r\n        minIndex = j\r\n    WENN minIndex != i\r\n      vertausche a[i] mit a[minIndex]\r\n  GIB a ZURUECK\r\nENDE",
+      "explain_variant": {
+        "de": "",
+        "fa": "(1) تعریف Variant:\nنسخهٔ پایدار SelectionSort برای حفظ ترتیب عناصر برابر، به‌جای swap از shift استفاده می‌کند.\n\n(2) تفاوت دقیق با SelectionSort کلاسیک:\nبه‌جای جابه‌جایی مستقیم، عنصر کمینه برداشته و عناصر بین i تا minIndex یک خانه شیفت می‌شوند.\n\n(3) این تفاوت در شبه‌کد کجا دیده می‌شود:\n- بعد از یافتن minIndex، عملیات shift/insert انجام می‌شود نه swap ساده\n\n(4) رفتار و پیچیدگی زمانی/فضایی:\n- زمان: O(n^2) (و حتی جابه‌جایی بیشتر)\n- فضا: O(1)\n- پایدار (Stable)\n\n(5) دام‌های رایج IHK:\n- اشتباه گرفتن پایداری نسخهٔ کلاسیک\n- فراموشی اینکه در این نسخه swap نداریم\n\n(6) نکتهٔ طلایی امتحان:\nاگر سؤال پایداری داشت، نسخهٔ stable با shift را توضیح بده."
+      }
+    },
+    {
+      "id": "minmax_variant",
+      "title": "Min+Max SelectionSort (Bonus)",
+      "labels": {
+        "de": "Min+Max SelectionSort (Bonus)",
+        "fa": "Min+Max SelectionSort (Bonus)"
+      },
+      "is_default": false,
+      "pseudocode": "PROZEDUR SelectionSort(a, f)\r\n  n = LAENGE(a)\r\n  FUER i = 0 BIS n-2\r\n    minIndex = i\r\n    FUER j = i+1 BIS n-1\r\n      WENN f(a[j], a[minIndex]) < 0\r\n        minIndex = j\r\n    WENN minIndex != i\r\n      vertausche a[i] mit a[minIndex]\r\n  GIB a ZURUECK\r\nENDE",
+      "explain_variant": {
+        "de": "",
+        "fa": "(1) تعریف Variant:\nنسخهٔ Min+Max در هر دور هم کمینه را به ابتدا و هم بیشینه را به انتها می‌برد.\n\n(2) تفاوت دقیق با SelectionSort کلاسیک:\nبه‌جای یک minIndex، دو اندیس min/max نگه می‌داریم و دو جابه‌جایی انجام می‌دهیم.\n\n(3) این تفاوت در شبه‌کد کجا دیده می‌شود:\n- نگه‌داری minIndex و maxIndex\n- دو swap در هر دور (ابتدا و انتها)\n\n(4) رفتار و پیچیدگی زمانی/فضایی:\n- زمان: O(n^2) (مرتبه تغییر نمی‌کند)\n- فضا: O(1)\n\n(5) دام‌های رایج IHK:\n- اشتباه در ترتیب جابه‌جایی‌ها (min/max بعد از swap تغییر می‌کنند)\n- فراموشی اصلاح اندیس‌ها\n\n(6) نکتهٔ طلایی امتحان:\nاین نسخه فقط بهبود عملی است؛ مرتبه زمانی تغییر نمی‌کند."
+      }
+    }
+  ]
+}

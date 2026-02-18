@@ -5,8 +5,92 @@
   "lang": "fa",
   "mode": "pseudocode",
   "title": "رقم بررسی (Checksum / Prüfziffer) — FIAE Explain Core v1.0",
+  "selected_variant": "checksum_sum_digits",
   "pseudocode": "FUNKTION ChecksumSumDigits(code)\n  sum = 0\n  FUER i = 0 BIS LAENGE(code)-1\n    digit = TOINT(code[i])\n    sum = sum + digit\n  ENDE\n  GIB sum ZURUECK\nENDE",
-  "notes": [
-    "variant:checksum_sum_digits"
+  "variants": [
+    {
+      "id": "checksum_sum_digits",
+      "title": "checksum_sum_digits",
+      "labels": {
+        "de": "checksum_sum_digits",
+        "fa": "checksum_sum_digits"
+      },
+      "is_default": true,
+      "pseudocode": "FUNKTION ChecksumSumDigits(code)\n  sum = 0\n  FUER i = 0 BIS LAENGE(code)-1\n    digit = TOINT(code[i])\n    sum = sum + digit\n  ENDE\n  GIB sum ZURUECK\nENDE",
+      "explain_variant": {
+        "de": "Addiert alle Ziffern einer Zahl und liefert die einfache Quersumme.",
+        "fa": "(1) تعريف Variant:\nاين نسخه فقط جمع ساده‌ی رقم‌ها را حساب مي‌كند (Quersumme).\n\n(2) تفاوت دقيق با نسخه‌ی كلاسيك:\nهيچ وزن‌دهی يا مدول ندارد؛ فقط مجموع رقم‌ها خروجی است.\n\n(3) اين تفاوت در شبه‌كد كجا ديده می‌شود:\nدر حلقه فقط digit خوانده می‌شود و sum += digit؛ هيچ وزن يا mod ديده نمی‌شود.\n\n(4) رفتار و پيچيدگی زمانی/فضايی:\nزمان O(n) با n تعداد رقم‌ها، حافظه O(1).\n\n(5) دام‌های رايج IHK:\n- تبديل نكردن كاراكتر به عدد.\n- جمع اشتباه به خاطر نوع داده‌ی رشته.\n- فراموشی اينكه اين فقط «جمع رقم‌ها» است نه رقم كنترل.\n\n(6) نكته‌ی طلايی امتحان:\nاگر وزن يا مدول ذكر نشده باشد، Quersumme ساده همان پاسخ است."
+      }
+    },
+    {
+      "id": "checksum_mod_10",
+      "title": "checksum_mod_10",
+      "labels": {
+        "de": "checksum_mod_10",
+        "fa": "checksum_mod_10"
+      },
+      "is_default": false,
+      "pseudocode": "FUNKTION CheckDigitMod10(code)\n  sum = 0\n  FUER i = 0 BIS LAENGE(code)-1\n    sum = sum + TOINT(code[i])\n  ENDE\n  check = (10 - (sum % 10)) % 10\n  GIB check ZURUECK\nENDE",
+      "explain_variant": {
+        "de": "Berechnet eine Mod-10 Prüfziffer ohne Gewichte.",
+        "fa": "(1) تعريف Variant:\nمحاسبه‌ی رقم كنترل بر اساس جمع رقم‌ها و مدول 10.\n\n(2) تفاوت دقيق با نسخه‌ی كلاسيك:\nبعد از sum، از فرمول check = (10 - sum % 10) % 10 استفاده می‌شود.\n\n(3) اين تفاوت در شبه‌كد كجا ديده می‌شود:\nپس از حلقه، محاسبه‌ی check با دو mod انجام می‌شود.\n\n(4) رفتار و پيچيدگی زمانی/فضايی:\nزمان O(n)، حافظه O(1).\n\n(5) دام‌های رايج IHK:\n- فراموشی %10 دوم (برای وقتی sum%10 = 0).\n- اشتباه در ترتيب پرانتزها.\n- اشتباه در اينكه خروجی «رقم كنترل» است نه جمع.\n\n(6) نكته‌ی طلايی امتحان:\nاگر sum%10 = 0 باشد، رقم كنترل بايد 0 شود (به همين دليل %10 دوباره داريم)."
+      }
+    },
+    {
+      "id": "checksum_weighted_mod_11",
+      "title": "checksum_weighted_mod_11",
+      "labels": {
+        "de": "checksum_weighted_mod_11",
+        "fa": "checksum_weighted_mod_11"
+      },
+      "is_default": false,
+      "pseudocode": "FUNKTION CheckDigitMod11Weighted(code, weights)\n  sum = 0\n  FUER i = 0 BIS LAENGE(code)-1\n    digit = TOINT(code[i])\n    sum = sum + digit * weights[i]\n  ENDE\n  check = sum % 11\n  GIB check ZURUECK\nENDE",
+      "explain_variant": {
+        "de": "Gewichtete Summe, dann Mod-11. Typisch für ISBN-10.",
+        "fa": "(1) تعريف Variant:\nرقم كنترل بر اساس مجموع وزن‌دار و مدول 11.\n\n(2) تفاوت دقيق با نسخه‌ی كلاسيك:\nهر رقم با وزن ضرب می‌شود؛ سپس sum % 11 خروجی است.\n\n(3) اين تفاوت در شبه‌كد كجا ديده می‌شود:\nsum = sum + digit * weights[i] و در پايان check = sum % 11.\n\n(4) رفتار و پيچيدگی زمانی/فضايی:\nزمان O(n)، حافظه O(1).\n\n(5) دام‌های رايج IHK:\n- وزن‌ها با انديس اشتباه اعمال شوند.\n- طول weights با طول كد برابر نباشد.\n- اشتباه گرفتن Mod-11 با Mod-10.\n\n(6) نكته‌ی طلايی امتحان:\nهميشه ترتيب وزن‌ها مهم است؛ يك شيفت كوچك نتيجه را عوض می‌كند."
+      }
+    },
+    {
+      "id": "checksum_luhn_like",
+      "title": "checksum_luhn_like",
+      "labels": {
+        "de": "checksum_luhn_like",
+        "fa": "checksum_luhn_like"
+      },
+      "is_default": false,
+      "pseudocode": "FUNKTION CheckDigitLuhnLike(code)\n  sum = 0\n  pos = 0\n  FUER i = LAENGE(code)-1 BIS 0 SCHRITT -1\n    digit = TOINT(code[i])\n    WENN pos % 2 = 0 DANN\n      digit = digit * 2\n      WENN digit > 9 DANN\n        digit = digit - 9\n      ENDE\n    ENDE\n    sum = sum + digit\n    pos = pos + 1\n  ENDE\n  check = (10 - (sum % 10)) % 10\n  GIB check ZURUECK\nENDE",
+      "explain_variant": {
+        "de": "Luhn-ähnliche Berechnung mit alternierender Verdopplung.",
+        "fa": "(1) تعريف Variant:\nنسخه‌ی شبيه Luhn كه از سمت راست هر رقم دوم را دوبرابر می‌كند.\n\n(2) تفاوت دقيق با نسخه‌ی كلاسيك:\nوزن‌دهی متناوب (۲ و ۱) با قانون جمع رقمی برای اعداد > 9.\n\n(3) اين تفاوت در شبه‌كد كجا ديده می‌شود:\nحلقه از راست به چپ و شرط pos % 2 = 0 برای دوبرابر كردن.\n\n(4) رفتار و پيچيدگی زمانی/فضايی:\nزمان O(n)، حافظه O(1).\n\n(5) دام‌های رايج IHK:\n- شروع وزن‌دهی از سمت اشتباه.\n- فراموشی كم‌كردن 9 وقتی digit > 9.\n- اشتباه در ترتيب pos.\n\n(6) نكته‌ی طلايی امتحان:\nدر Luhn جهت حركت و اينكه كدام رقم‌ها دوبرابر می‌شوند حياتی است."
+      }
+    },
+    {
+      "id": "checksum_build_and_validate",
+      "title": "checksum_build_and_validate",
+      "labels": {
+        "de": "checksum_build_and_validate",
+        "fa": "checksum_build_and_validate"
+      },
+      "is_default": false,
+      "pseudocode": "FUNKTION BuildCodeWithCheck(code)\n  check = CheckDigitMod10(code)\n  GIB code + check ZURUECK\nENDE\n\nFUNKTION ValidateCode(fullCode)\n  code = fullCode[0..LAENGE-2]\n  given = TOINT(fullCode[LAENGE-1])\n  expected = CheckDigitMod10(code)\n  GIB (given = expected) ZURUECK\nENDE",
+      "explain_variant": {
+        "de": "Zeigt Erzeugen und Prüfen der Prüfziffer in einem Ablauf.",
+        "fa": "(1) تعريف Variant:\nدو بخش دارد: ساخت كد با رقم كنترل و سپس اعتبارسنجی كد كامل.\n\n(2) تفاوت دقيق با نسخه‌ی كلاسيك:\nبه‌جای فقط محاسبه‌ی check، يك مرحله‌ی validate با مقايسه‌ی expected/given دارد.\n\n(3) اين تفاوت در شبه‌كد كجا ديده می‌شود:\nدو تابع جدا: BuildCodeWithCheck و ValidateCode.\n\n(4) رفتار و پيچيدگی زمانی/فضايی:\nهر كدام O(n) زمان و O(1) حافظه.\n\n(5) دام‌های رايج IHK:\n- جدا نكردن رقم كنترل از كد.\n- مقايسه‌ی رشته‌ای به‌جای عددی.\n- فراموشی اينكه check آخرين رقم است.\n\n(6) نكته‌ی طلايی امتحان:\nدر اعتبارسنجی، expected بايد از «بدون رقم كنترل» محاسبه شود."
+      }
+    },
+    {
+      "id": "checksum_weighted_alternating",
+      "title": "checksum_weighted_alternating",
+      "labels": {
+        "de": "checksum_weighted_alternating",
+        "fa": "checksum_weighted_alternating"
+      },
+      "is_default": false,
+      "pseudocode": "FUNKTION CheckDigitAlternating(code)\n  sum = 0\n  pos = 0\n  FUER i = LAENGE(code)-1 BIS 0 SCHRITT -1\n    digit = TOINT(code[i])\n    WENN pos % 2 = 0 DANN\n      sum = sum + digit * 3\n    SONST\n      sum = sum + digit * 1\n    ENDE\n    pos = pos + 1\n  ENDE\n  check = (10 - (sum % 10)) % 10\n  GIB check ZURUECK\nENDE",
+      "explain_variant": {
+        "de": "Alternierende Gewichte (3,1) wie bei EAN/UPC.",
+        "fa": "(1) تعريف Variant:\nوزن‌دهی متناوب 3 و 1 (مانند EAN/UPC).\n\n(2) تفاوت دقيق با نسخه‌ی كلاسيك:\nهر رقم بسته به موقعيت از راست با 3 يا 1 ضرب می‌شود.\n\n(3) اين تفاوت در شبه‌كد كجا ديده می‌شود:\nشرط pos % 2 برای اعمال وزن 3 يا 1.\n\n(4) رفتار و پيچيدگی زمانی/فضايی:\nزمان O(n)، حافظه O(1).\n\n(5) دام‌های رايج IHK:\n- شروع وزن‌دهی از سمت اشتباه (چپ به‌جای راست).\n- جابه‌جايی 3 و 1.\n- فراموشی mod-10 نهايی.\n\n(6) نكته‌ی طلايی امتحان:\nابتدا تعيين كن «از راست» وزن 3 شروع می‌شود يا 1؛ سپس كل محاسبه درست می‌شود."
+      }
+    }
   ]
 }

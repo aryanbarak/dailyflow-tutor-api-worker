@@ -5,8 +5,50 @@
   "lang": "de",
   "mode": "pseudocode",
   "title": "MaxPeriod (Längste aufeinanderfolgende Serie) — FIAE Explain Core v1.0",
+  "selected_variant": "longest_ones_binary",
   "pseudocode": "FUNKTION MaxPeriodOnes(arr)\n  n = LAENGE(arr)\n  maxLen = 0\n  cur = 0\n  end = -1\n  FUER i = 0 BIS n-1\n    WENN arr[i] = 1 DANN\n      cur = cur + 1\n      WENN cur > maxLen DANN\n        maxLen = cur\n        end = i\n      ENDE\n    SONST\n      cur = 0\n    ENDE\n  ENDE\n  WENN maxLen = 0 DANN\n    start = -1\n  SONST\n    start = end - maxLen + 1\n  ENDE\n  GIB (maxLen, start, end) ZURUECK\nENDE",
-  "notes": [
-    "variant:longest_ones_binary"
+  "variants": [
+    {
+      "id": "longest_ones_binary",
+      "title": "longest_ones_binary",
+      "labels": {
+        "de": "longest_ones_binary",
+        "fa": "longest_ones_binary"
+      },
+      "is_default": true,
+      "pseudocode": "FUNKTION MaxPeriodOnes(arr)\n  n = LAENGE(arr)\n  maxLen = 0\n  cur = 0\n  end = -1\n  FUER i = 0 BIS n-1\n    WENN arr[i] = 1 DANN\n      cur = cur + 1\n      WENN cur > maxLen DANN\n        maxLen = cur\n        end = i\n      ENDE\n    SONST\n      cur = 0\n    ENDE\n  ENDE\n  WENN maxLen = 0 DANN\n    start = -1\n  SONST\n    start = end - maxLen + 1\n  ENDE\n  GIB (maxLen, start, end) ZURUECK\nENDE",
+      "explain_variant": {
+        "de": "Findet die längste zusammenhängende 1er-Serie in einem 0/1-Array und gibt Länge sowie Start/Ende zurück.",
+        "fa": "(1) تعریف Variant:\nاین نسخه طولانی‌ترین دنبالهٔ متوالی از ۱ها را در آرایهٔ دودویی پیدا می‌کند و طول و بازهٔ آن را برمی‌گرداند.\n\n(2) تفاوت دقیق با نسخهٔ کلاسیک:\nشرط فعال بودن فقط arr[i] = 1 است و در غیر این صورت cur ریست می‌شود.\n\n(3) این تفاوت در شبه‌کد کجا دیده می‌شود:\nخط شرط WENN arr[i] = 1 و در غیر این صورت cur = 0.\n\n(4) رفتار و پیچیدگی زمانی/فضایی:\nزمان O(n) با یک گذر، حافظه O(1). اگر maxLen = 0 باشد start/end = -1.\n\n(5) دام‌های رایج IHK:\n- فراموش کردن ریست cur در برخورد با 0.\n- محاسبهٔ اشتباه start = end - maxLen + 1.\n- به‌روزرسانی end فقط هنگام افزایش maxLen.\n\n(6) نکتهٔ طلایی امتحان:\nفقط وقتی cur > maxLen شد، maxLen و end را به‌روزرسانی کن."
+      }
+    },
+    {
+      "id": "longest_nonzero_run",
+      "title": "longest_nonzero_run",
+      "labels": {
+        "de": "longest_nonzero_run",
+        "fa": "longest_nonzero_run"
+      },
+      "is_default": false,
+      "pseudocode": "FUNKTION MaxPeriodNonZero(arr)\n  n = LAENGE(arr)\n  maxLen = 0\n  cur = 0\n  end = -1\n  FUER i = 0 BIS n-1\n    WENN arr[i] != 0 DANN\n      cur = cur + 1\n      WENN cur > maxLen DANN\n        maxLen = cur\n        end = i\n      ENDE\n    SONST\n      cur = 0\n    ENDE\n  ENDE\n  WENN maxLen = 0 DANN\n    start = -1\n  SONST\n    start = end - maxLen + 1\n  ENDE\n  GIB (maxLen, start, end) ZURUECK\nENDE",
+      "explain_variant": {
+        "de": "Wie die Binär-Version, aber aktiv ist jeder Wert != 0.",
+        "fa": "(1) تعریف Variant:\nاین نسخه طولانی‌ترین دنبالهٔ عناصر غیرصفر را پیدا می‌کند; مناسب برای آرایه‌های عددی عمومی.\n\n(2) تفاوت دقیق با نسخهٔ کلاسیک:\nبه‌جای شرط arr[i] = 1، شرط فعال بودن arr[i] != 0 است.\n\n(3) این تفاوت در شبه‌کد کجا دیده می‌شود:\nدر خط شرط: WENN arr[i] != 0 DANN ... وگرنه cur = 0.\n\n(4) رفتار و پیچیدگی زمانی/فضایی:\nزمان O(n)، حافظه O(1).\n\n(5) دام‌های رایج IHK:\n- اشتباه گرفتن شرط به صورت arr[i] > 0 (در حالی که مقدار منفی هم غیرصفر است).\n- فراموشی ریست cur.\n\n(6) نکتهٔ طلایی امتحان:\nاگر مسئله «غیرصفر» است، شرط باید != 0 باشد، نه > 0."
+      }
+    },
+    {
+      "id": "longest_condition_run",
+      "title": "longest_condition_run",
+      "labels": {
+        "de": "longest_condition_run",
+        "fa": "longest_condition_run"
+      },
+      "is_default": false,
+      "pseudocode": "FUNKTION MaxPeriodCondition(arr, threshold)\n  n = LAENGE(arr)\n  maxLen = 0\n  cur = 0\n  end = -1\n  FUER i = 0 BIS n-1\n    WENN arr[i] > threshold DANN\n      cur = cur + 1\n      WENN cur > maxLen DANN\n        maxLen = cur\n        end = i\n      ENDE\n    SONST\n      cur = 0\n    ENDE\n  ENDE\n  WENN maxLen = 0 DANN\n    start = -1\n  SONST\n    start = end - maxLen + 1\n  ENDE\n  GIB (maxLen, start, end) ZURUECK\nENDE",
+      "explain_variant": {
+        "de": "Variante mit frei definierter Bedingung, z.B. a[i] > threshold.",
+        "fa": "(1) تعریف Variant:\nاین نسخه طولانی‌ترین دنباله‌ای را پیدا می‌کند که یک شرط دلخواه را ارضا کند (مثلاً a[i] > threshold).\n\n(2) تفاوت دقیق با نسخهٔ کلاسیک:\nشرط فعال بودن قابل تغییر است؛ بقیهٔ ساختار ثابت می‌ماند.\n\n(3) این تفاوت در شبه‌کد کجا دیده می‌شود:\nدر خط شرط: WENN arr[i] > threshold DANN ... وگرنه cur = 0.\n\n(4) رفتار و پیچیدگی زمانی/فضایی:\nزمان O(n)، حافظه O(1). آستانه بخشی از ورودی است.\n\n(5) دام‌های رایج IHK:\n- اشتباه در جهت شرط (>= یا >).\n- فراموشی ریست cur.\n- نبود پارامتر threshold در ورودی.\n\n(6) نکتهٔ طلایی امتحان:\nاگر شرط تغییر کند، فقط همان خط if عوض می‌شود."
+      }
+    }
   ]
 }

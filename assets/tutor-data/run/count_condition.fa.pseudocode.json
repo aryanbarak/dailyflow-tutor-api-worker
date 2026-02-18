@@ -5,8 +5,50 @@
   "lang": "fa",
   "mode": "pseudocode",
   "title": "Count Condition (شمارش با شرط) — FIAE Explain Core v1.0",
+  "selected_variant": "count_gt",
   "pseudocode": "FUNKTION CountGt(arr, threshold)\n  count = 0\n  FUER i = 0 BIS LAENGE(arr)-1\n    WENN arr[i] > threshold DANN\n      count = count + 1\n    ENDE\n  ENDE\n  GIB count ZURUECK\nENDE",
-  "notes": [
-    "variant:count_gt"
+  "variants": [
+    {
+      "id": "count_gt",
+      "title": "count_gt",
+      "labels": {
+        "de": "count_gt",
+        "fa": "count_gt"
+      },
+      "is_default": true,
+      "pseudocode": "FUNKTION CountGt(arr, threshold)\n  count = 0\n  FUER i = 0 BIS LAENGE(arr)-1\n    WENN arr[i] > threshold DANN\n      count = count + 1\n    ENDE\n  ENDE\n  GIB count ZURUECK\nENDE",
+      "explain_variant": {
+        "de": "Lineare Zählung aller Elemente, die größer als ein Schwellwert sind.",
+        "fa": "(1) تعریف Variant:\nتعداد عناصر بزرگ‌تر از threshold را در یک پیمایش خطی می‌شمارد.\n\n(2) تفاوت دقیق با نسخهٔ کلاسیک:\nنسخهٔ پایهٔ Count Condition است؛ شرط فقط «بزرگ‌تر از آستانه» است.\n\n(3) این تفاوت در شبه‌کد کجا دیده می‌شود:\nشرط اصلی در حلقه: WENN arr[i] > threshold DANN count++.\n\n(4) رفتار و پیچیدگی زمانی/فضایی:\nزمان: O(n) در همه حالات. حافظه: O(1).\n\n(5) دام‌های رایج IHK:\n- فراموش کردن مقداردهی اولیه count = 0.\n- استفاده از >= به‌جای > (تغییر معنی سوال).\n- اشتباه در محدودهٔ حلقه (تا n-1).\n\n(6) نکتهٔ طلایی امتحان:\nکافی است یک پاس کامل بروی و فقط شمارنده را به‌روزرسانی کنی."
+      }
+    },
+    {
+      "id": "count_has_note",
+      "title": "count_has_note",
+      "labels": {
+        "de": "count_has_note",
+        "fa": "count_has_note"
+      },
+      "is_default": false,
+      "pseudocode": "FUNKTION CountByField(arr, key, value)\n  count = 0\n  FUER i = 0 BIS LAENGE(arr)-1\n    WENN arr[i][key] = value DANN\n      count = count + 1\n    ENDE\n  ENDE\n  GIB count ZURUECK\nENDE",
+      "explain_variant": {
+        "de": "Zählt Objekte, deren Feld (key) einen gewünschten Wert hat.",
+        "fa": "(1) تعریف Variant:\nدر آرایهٔ آبجکت‌ها، تعداد رکوردهایی را می‌شمارد که فیلد key مقدار خاصی دارد.\n\n(2) تفاوت دقیق با نسخهٔ کلاسیک:\nبه‌جای مقایسهٔ خود عنصر، روی arr[i][key] با مقدار value مقایسه می‌شود.\n\n(3) این تفاوت در شبه‌کد کجا دیده می‌شود:\nشرط حلقه: WENN arr[i][key] = value DANN count++.\n\n(4) رفتار و پیچیدگی زمانی/فضایی:\nزمان: O(n). حافظه: O(1). هزینهٔ دسترسی به فیلد ثابت است.\n\n(5) دام‌های رایج IHK:\n- اشتباه در نام key یا مسیر دسترسی به فیلد.\n- مقایسهٔ نوع ناهماهنگ (عدد/رشته).\n- فراموش کردن مقداردهی count = 0.\n\n(6) نکتهٔ طلایی امتحان:\nمقایسه همیشه روی فیلد است، نه روی کل آبجکت."
+      }
+    },
+    {
+      "id": "build_filtered_list",
+      "title": "build_filtered_list",
+      "labels": {
+        "de": "build_filtered_list",
+        "fa": "build_filtered_list"
+      },
+      "is_default": false,
+      "pseudocode": "FUNKTION BuildFiltered(arr, threshold)\n  out = []\n  FUER i = 0 BIS LAENGE(arr)-1\n    WENN arr[i] > threshold DANN\n      out.push(arr[i])\n    ENDE\n  ENDE\n  GIB out ZURUECK\nENDE",
+      "explain_variant": {
+        "de": "Erstellt eine neue Liste mit allen Elementen, die die Bedingung erfüllen.",
+        "fa": "(1) تعریف Variant:\nبه‌جای شمارش، یک لیست جدید از عناصرِ مطابق شرط می‌سازد.\n\n(2) تفاوت دقیق با نسخهٔ کلاسیک:\nخروجی عدد نیست؛ خروجی یک آرایهٔ فیلترشده است.\n\n(3) این تفاوت در شبه‌کد کجا دیده می‌شود:\nبه‌جای count++، عنصر را به out.push اضافه می‌کند و در پایان out برمی‌گردد.\n\n(4) رفتار و پیچیدگی زمانی/فضایی:\nزمان: O(n). حافظه: O(k) (به اندازه عناصر انتخاب‌شده).\n\n(5) دام‌های رایج IHK:\n- فراموش کردن مقداردهی اولیه out = [].\n- اشتباه در شرط فیلتر.\n- برگرداندن count به‌جای out.\n\n(6) نکتهٔ طلایی امتحان:\nاگر سؤال «لیست جدید» خواست، حتماً خروجی باید آرایه باشد نه عدد."
+      }
+    }
   ]
 }

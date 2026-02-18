@@ -1,5 +1,5 @@
 import { readdir, readFile, rm, mkdir, writeFile } from "node:fs/promises";
-import { resolve, join } from "node:path";
+import { resolve } from "node:path";
 
 const repoRoot = resolve(process.cwd());
 const workerRunDir = resolve(repoRoot, "assets", "tutor-data", "run");
@@ -9,6 +9,7 @@ const fiaeCoreDir = process.env.FIAE_TUTOR_CORE_DIR
   ? resolve(process.env.FIAE_TUTOR_CORE_DIR)
   : resolve(repoRoot, "..", "fiae-tutor-core");
 const sourceTopicsDir = resolve(fiaeCoreDir, "export", "tutor", "topics");
+const sourceTopicPythonDir = resolve(fiaeCoreDir, "src", "fiae_tutor", "topics");
 
 function stableJson(data) {
   return `${JSON.stringify(data, null, 2)}\n`;
@@ -23,6 +24,15 @@ function normalizeTopicTitle(topic) {
     .join(" ");
 }
 
+function firstNonEmptyString(values) {
+  for (const value of values) {
+    if (typeof value === "string" && value.trim()) {
+      return value.trim();
+    }
+  }
+  return "";
+}
+
 async function readJsonIfExists(path) {
   try {
     const raw = await readFile(path, "utf8");
@@ -32,44 +42,158 @@ async function readJsonIfExists(path) {
   }
 }
 
-function selectPseudocodeVariant(variants, lang) {
-  const withPseudo = variants.filter(
-    (variant) =>
-      variant &&
-      typeof variant === "object" &&
-      variant.pseudocode &&
-      typeof variant.pseudocode === "object" &&
-      typeof variant.pseudocode[lang] === "string" &&
-      variant.pseudocode[lang].trim(),
-  );
-
-  if (withPseudo.length === 0) return null;
-
-  const defaultVariant = withPseudo.find((variant) => variant.is_default === true);
-  return defaultVariant || withPseudo[0];
+function extractLocalizedText(value) {
+  if (!value || typeof value !== "object") {
+    return { de: "", fa: "" };
+  }
+  return {
+    de: typeof value.de === "string" ? value.de : "",
+    fa: typeof value.fa === "string" ? value.fa : "",
+  };
 }
 
-function buildPseudocodeAsset({ topic, lang, title, variant }) {
-  const notes = [];
-  if (variant?.id) {
-    notes.push(`variant:${variant.id}`);
+function extractPseudocode(value) {
+  if (!value || typeof value !== "object") {
+    return { de: "", fa: "" };
+  }
+  return {
+    de: typeof value.de === "string" ? value.de : "",
+    fa: typeof value.fa === "string" ? value.fa : "",
+  };
+}
+
+function decodeEscapedPythonString(value) {
+  return value
+    .replaceAll("\\r\\n", "\n")
+    .replaceAll("\\n", "\n")
+    .replaceAll("\\t", "\t")
+    .replaceAll("\\'", "'")
+    .replaceAll('\\"', '"')
+    .trim();
+}
+
+function extractPythonFunctionReturn(source, functionName) {
+  const pattern = new RegExp(
+    `def\\s+${functionName}\\s*\\([^)]*\\)\\s*(?:->\\s*[^:]+)?:\\s*[\\s\\S]*?return\\s+([\\'\\"]{3})([\\s\\S]*?)\\1`,
+    "m",
+  );
+  const match = source.match(pattern);
+  if (!match) return "";
+  return decodeEscapedPythonString(match[2] ?? "");
+}
+
+async function readTopicPseudocodeFallback(topic) {
+  const topicPath = resolve(sourceTopicPythonDir, `${topic}.py`);
+  try {
+    const source = await readFile(topicPath, "utf8");
+    const de = extractPythonFunctionReturn(source, "generate_pseudocode_de");
+    const fa = extractPythonFunctionReturn(source, "generate_pseudocode_fa");
+    return { de, fa };
+  } catch {
+    return { de: "", fa: "" };
+  }
+}
+
+function mergeVariantRecords(variantsDe, variantsFa) {
+  const order = [];
+  const byId = new Map();
+
+  const ingest = (items, lang) => {
+    for (const item of items) {
+      if (!item || typeof item !== "object") continue;
+      const id = typeof item.id === "string" && item.id.trim() ? item.id.trim() : "";
+      if (!id) continue;
+
+      if (!byId.has(id)) {
+        byId.set(id, { id, de: null, fa: null });
+        order.push(id);
+      }
+      const entry = byId.get(id);
+      entry[lang] = item;
+    }
+  };
+
+  ingest(Array.isArray(variantsDe) ? variantsDe : [], "de");
+  ingest(Array.isArray(variantsFa) ? variantsFa : [], "fa");
+
+  return order.map((id) => byId.get(id));
+}
+
+function buildPseudocodeAsset({ topic, lang, title, mergedVariants, fallbackPseudo }) {
+  const normalizedLang = lang.toLowerCase();
+  const variantEntries = [];
+
+  for (const record of mergedVariants) {
+    const deItem = record?.de && typeof record.de === "object" ? record.de : null;
+    const faItem = record?.fa && typeof record.fa === "object" ? record.fa : null;
+    const id = record?.id || "";
+    if (!id) continue;
+
+    const labels = {
+      de: firstNonEmptyString([deItem?.label, faItem?.label, id]),
+      fa: firstNonEmptyString([faItem?.label, deItem?.label, id]),
+    };
+    const explainFromDe = extractLocalizedText(deItem?.explain);
+    const explainFromFa = extractLocalizedText(faItem?.explain);
+    const explainVariant = {
+      de: firstNonEmptyString([explainFromDe.de, explainFromFa.de]),
+      fa: firstNonEmptyString([explainFromDe.fa, explainFromFa.fa]),
+    };
+
+    const pseudoFromDe = extractPseudocode(deItem?.pseudocode);
+    const pseudoFromFa = extractPseudocode(faItem?.pseudocode);
+    const pseudocodeByLang = {
+      de: firstNonEmptyString([pseudoFromDe.de, pseudoFromFa.de, fallbackPseudo.de, fallbackPseudo.fa]),
+      fa: firstNonEmptyString([pseudoFromDe.fa, pseudoFromFa.fa, fallbackPseudo.fa, fallbackPseudo.de]),
+    };
+    const preferredPseudo = normalizedLang === "fa"
+      ? firstNonEmptyString([pseudocodeByLang.fa, pseudocodeByLang.de])
+      : firstNonEmptyString([pseudocodeByLang.de, pseudocodeByLang.fa]);
+
+    if (!preferredPseudo) {
+      continue;
+    }
+
+    variantEntries.push({
+      id,
+      title: normalizedLang === "fa" ? labels.fa : labels.de,
+      labels,
+      is_default: Boolean(deItem?.is_default || faItem?.is_default),
+      pseudocode: preferredPseudo,
+      explain_variant: explainVariant,
+    });
   }
 
-  const payload = {
+  if (variantEntries.length === 0) {
+    const fallback = normalizedLang === "fa"
+      ? firstNonEmptyString([fallbackPseudo.fa, fallbackPseudo.de])
+      : firstNonEmptyString([fallbackPseudo.de, fallbackPseudo.fa]);
+    if (!fallback) {
+      return null;
+    }
+    variantEntries.push({
+      id: "default",
+      title: "Default",
+      labels: { de: "Default", fa: "پیش‌فرض" },
+      is_default: true,
+      pseudocode: fallback,
+      explain_variant: { de: "", fa: "" },
+    });
+  }
+
+  const selected = variantEntries.find((item) => item.is_default) ?? variantEntries[0];
+
+  return {
     schema_name: "tutor_asset.pseudocode.v1",
     version: "1.0",
     topic,
-    lang,
+    lang: normalizedLang,
     mode: "pseudocode",
     title,
-    pseudocode: variant.pseudocode[lang],
+    selected_variant: selected.id,
+    pseudocode: selected.pseudocode,
+    variants: variantEntries,
   };
-
-  if (notes.length > 0) {
-    payload.notes = notes;
-  }
-
-  return payload;
 }
 
 function getExplainSectionsInOrder(explainDoc) {
@@ -106,15 +230,6 @@ function getExplainSectionsInOrder(explainDoc) {
   }
 
   return ordered;
-}
-
-function firstNonEmptyString(values) {
-  for (const value of values) {
-    if (typeof value === "string" && value.trim()) {
-      return value.trim();
-    }
-  }
-  return "";
 }
 
 function buildExplainAsset({ topic, lang, title, explainDoc }) {
@@ -210,10 +325,8 @@ async function main() {
 
     const variantsDe = (await readJsonIfExists(variantsDePath)) ?? [];
     const variantsFa = (await readJsonIfExists(variantsFaPath)) ?? [];
-    const mergedVariants = [
-      ...(Array.isArray(variantsDe) ? variantsDe : []),
-      ...(Array.isArray(variantsFa) ? variantsFa : []),
-    ];
+    const mergedVariants = mergeVariantRecords(variantsDe, variantsFa);
+    const topicFallbackPseudo = await readTopicPseudocodeFallback(topic);
 
     for (const lang of langs) {
       const explainPath = resolve(topicDir, `explain.${lang}.v1.json`);
@@ -226,21 +339,21 @@ async function main() {
       const explainTitle = firstNonEmptyString([explainDoc?.title]);
       const title = explainTitle || defaultTitle;
 
-      const pseudoVariant = selectPseudocodeVariant(mergedVariants, lang);
-      if (pseudoVariant) {
-        const pseudoPayload = buildPseudocodeAsset({
-          topic,
-          lang,
-          title,
-          variant: pseudoVariant,
-        });
+      const pseudoPayload = buildPseudocodeAsset({
+        topic,
+        lang,
+        title,
+        mergedVariants,
+        fallbackPseudo: topicFallbackPseudo,
+      });
+      if (pseudoPayload) {
         const pseudoFileName = `${topic}.${lang}.pseudocode.json`;
         const pseudoOutPath = resolve(workerRunDir, pseudoFileName);
         await writeFile(pseudoOutPath, stableJson(pseudoPayload), "utf8");
         writtenFiles.push(pseudoFileName);
         includedTopics.add(topic);
       } else {
-        skipped.push(`${topic}.${lang}.pseudocode :: no pseudocode source`);
+        skipped.push(`${topic}.${lang}.pseudocode :: no pseudocode source (variants/python)`);
       }
 
       if (explainDoc) {

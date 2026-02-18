@@ -5,8 +5,106 @@
   "lang": "de",
   "mode": "pseudocode",
   "title": "BubbleSort — FIAE Explain Core v1.0",
+  "selected_variant": "classic_full",
   "pseudocode": "FUNKTION BubbleSort(arr)\n  n = LAENGE(arr)\n  FUER i = 0 BIS n-2\n    FUER j = 0 BIS n-2-i\n      WENN arr[j] > arr[j+1] DANN\n        TAUSCHE arr[j], arr[j+1]\n      ENDE\n    ENDE\n  ENDE\n  GIB arr ZURUECK\nENDE",
-  "notes": [
-    "variant:classic_full"
+  "variants": [
+    {
+      "id": "classic_full",
+      "title": "classic_full",
+      "labels": {
+        "de": "classic_full",
+        "fa": "classic_full"
+      },
+      "is_default": true,
+      "pseudocode": "FUNKTION BubbleSort(arr)\n  n = LAENGE(arr)\n  FUER i = 0 BIS n-2\n    FUER j = 0 BIS n-2-i\n      WENN arr[j] > arr[j+1] DANN\n        TAUSCHE arr[j], arr[j+1]\n      ENDE\n    ENDE\n  ENDE\n  GIB arr ZURUECK\nENDE",
+      "explain_variant": {
+        "de": "",
+        "fa": "1) تعریف Variant:\nBubbleSort کلاسیک (کامل) نسخهٔ پایه و استاندارد است: عناصر مجاور را مقایسه می‌کند و اگر ترتیب اشتباه باشد آن‌ها را جابجا می‌کند.\n\n2) تفاوت دقیق با نسخهٔ کلاسیک:\nاین همان نسخهٔ کلاسیک است؛ یعنی هیچ بهینه‌سازی مثل توقف زودهنگام (Early Exit) و هیچ Comparator ندارد. حتی اگر آرایه از قبل مرتب باشد، باز هم همهٔ پاس‌ها اجرا می‌شود.\n\n3) این تفاوت در شبه‌کد کجا دیده می‌شود:\nفقط دو حلقه داریم (i و j) و یک شرط swap:\n- شرط: arr[j] > arr[j+1]\n- کوتاه شدن حلقهٔ داخلی: j تا n-2-i (بعد از هر پاس، انتهای آرایه تثبیت می‌شود)\n\n4) رفتار و پیچیدگی:\n- Best/Worst/Avg در این نسخه عملاً O(n^2) است (بدون Early Exit).\n- حافظه: O(1) (In-place)\n- اگر فقط در حالت > swap کنیم، الگوریتم Stable می‌ماند.\n\n5) دام‌های رایج IHK:\n- اشتباه در محدودهٔ حلقهٔ داخلی (باید n-2-i باشد)\n- قاطی کردن BubbleSort با SelectionSort (BubbleSort = مقایسهٔ مجاور)\n- نتیجه‌گیری غلط که روی آرایهٔ مرتب، O(n) است (این فقط در Early Exit درست می‌شود)\n\n6) نکتهٔ طلایی امتحان:\nبعد از پاس i، آخرین i+1 عنصر قطعاً در جای نهایی خود قرار گرفته‌اند؛ بنابراین کوتاه شدن حلقهٔ داخلی یک نکتهٔ کلیدی است."
+      }
+    },
+    {
+      "id": "early_exit",
+      "title": "early_exit",
+      "labels": {
+        "de": "early_exit",
+        "fa": "early_exit"
+      },
+      "is_default": false,
+      "pseudocode": "FUNKTION BubbleSort(arr)\n  n = LAENGE(arr)\n  FUER i = 0 BIS n-2\n    swapped = FALSCH\n    FUER j = 0 BIS n-2-i\n      WENN arr[j] > arr[j+1] DANN\n        TAUSCHE arr[j], arr[j+1]\n        swapped = WAHR\n      ENDE\n    ENDE\n    WENN swapped = FALSCH DANN\n      ABBRUCH\n    ENDE\n  ENDE\n  GIB arr ZURUECK\nENDE",
+      "explain_variant": {
+        "de": "",
+        "fa": "1) تعریف Variant:\nEarly Exit نسخهٔ بهینه‌شدهٔ BubbleSort است که اگر در یک پاس هیچ جابجایی رخ ندهد، الگوریتم را زود متوقف می‌کند.\n\n2) تفاوت دقیق با نسخهٔ کلاسیک:\nیک فلگ مانند swapped اضافه می‌شود. اگر swapped بعد از حلقهٔ داخلی هنوز false باشد، یعنی آرایه مرتب است و ادامه دادن بی‌فایده است.\n\n3) این تفاوت در شبه‌کد کجا دیده می‌شود:\n- swapped = نادرست در ابتدای هر پاس\n- هنگام swap: swapped = درست\n- بعد از حلقهٔ داخلی: اگر swapped = نادرست → توقف\n\n4) رفتار و پیچیدگی:\n- Best-Case: O(n) (آرایه از قبل مرتب → یک پاس و توقف)\n- Worst-Case: O(n^2) (مثل نسخهٔ کلاسیک)\n- حافظه: O(1)\n\n5) دام‌های رایج IHK:\n- فراموش کردن reset کردن swapped در ابتدای هر پاس\n- بررسی swapped داخل حلقهٔ داخلی (جای درستش بعد از حلقهٔ داخلی است)\n- ادعای غلط اینکه همیشه O(n) می‌شود\n\n6) نکتهٔ طلایی امتحان:\nEarly Exit فقط Best-Case را بهتر می‌کند؛ Worst-Case همچنان O(n^2) باقی می‌ماند."
+      }
+    },
+    {
+      "id": "reverse",
+      "title": "reverse",
+      "labels": {
+        "de": "reverse",
+        "fa": "reverse"
+      },
+      "is_default": false,
+      "pseudocode": "FUNKTION BubbleSort(arr)\n  n = LAENGE(arr)\n  FUER i = 0 BIS n-2\n    FUER j = 0 BIS n-2-i\n      WENN arr[j] < arr[j+1] DANN\n        TAUSCHE arr[j], arr[j+1]\n      ENDE\n    ENDE\n  ENDE\n  GIB arr ZURUECK\nENDE",
+      "explain_variant": {
+        "de": "",
+        "fa": "1) تعریف Variant:\nنسخهٔ نزولی (Reverse/Absteigend) همان BubbleSort است، اما خروجی را به صورت نزولی مرتب می‌کند.\n\n2) تفاوت دقیق با نسخهٔ کلاسیک:\nفقط جهت مقایسه عوض می‌شود. به‌جای swap در حالت arr[j] > arr[j+1]، در نزولی swap زمانی انجام می‌شود که arr[j] < arr[j+1].\n\n3) این تفاوت در شبه‌کد کجا دیده می‌شود:\nتنها تفاوت در شرط WENN است:\n- نزولی: WENN arr[j] < arr[j+1] DANN → swap\nساختار حلقه‌ها و کوتاه شدن n-2-i همان است.\n\n4) رفتار و پیچیدگی:\n- Best/Worst/Avg: O(n^2) (اگر Early Exit نداشته باشیم)\n- حافظه: O(1)\n- ویژگی‌ها مشابه نسخهٔ کلاسیک است، فقط ترتیب خروجی عوض شده.\n\n5) دام‌های رایج IHK:\n- فراموش کردن تغییر شرط مقایسه (نتیجه صعودی می‌شود)\n- اشتباه در تحلیل “چه چیزی بعد از هر پاس تثبیت می‌شود”\n- تغییرات غیرضروری در حلقه‌ها (در حالی که فقط شرط تغییر می‌کند)\n\n6) نکتهٔ طلایی امتحان:\nبرای نزولی فقط علامت مقایسه را برعکس کن؛ اسکلت الگوریتم هیچ تغییری نمی‌کند."
+      }
+    },
+    {
+      "id": "comparator",
+      "title": "comparator",
+      "labels": {
+        "de": "comparator",
+        "fa": "comparator"
+      },
+      "is_default": false,
+      "pseudocode": "FUNKTION BubbleSort(arr, cmp)\n  n = LAENGE(arr)\n  FUER i = 0 BIS n-2\n    FUER j = 0 BIS n-2-i\n      WENN cmp(arr[j], arr[j+1]) > 0 DANN\n        TAUSCHE arr[j], arr[j+1]\n      ENDE\n    ENDE\n  ENDE\n  GIB arr ZURUECK\nENDE",
+      "explain_variant": {
+        "de": "",
+        "fa": "1) تعریف Variant:\nنسخهٔ Comparator برای مرتب‌سازی انواع داده (رشته، آبجکت، نوع دلخواه) استفاده می‌شود و مقایسه را به یک تابع cmp واگذار می‌کند.\n\n2) تفاوت دقیق با نسخهٔ کلاسیک:\nبه‌جای مقایسهٔ مستقیم با > یا <، از cmp(a,b) استفاده می‌شود. swap زمانی انجام می‌شود که cmp(arr[j], arr[j+1]) > 0.\n\n3) این تفاوت در شبه‌کد کجا دیده می‌شود:\nشرط swap به این شکل است:\n- WENN cmp(arr[j], arr[j+1]) > 0 DANN → swap\nحلقه‌ها همان BubbleSort کلاسیک هستند.\n\n4) رفتار و پیچیدگی:\n- از نظر تعداد مقایسه‌ها همچنان O(n^2) است\n- هزینهٔ واقعی ممکن است به سرعت تابع cmp هم وابسته باشد\n- حافظه: O(1)\n\n5) دام‌های رایج IHK:\n- تفسیر غلط خروجی cmp (cmp>0 یعنی a باید بعد از b بیاید)\n- استفاده از cmp اما swap نکردن خود عناصر (swap باید روی arr[j] و arr[j+1] باشد)\n- اشتباه در تعریف cmp که باعث برعکس شدن ترتیب می‌شود\n\n6) نکتهٔ طلایی امتحان:\nقاعدهٔ ثابت: اگر cmp(a,b)>0 یعنی a “بزرگ‌تر” است و باید بعد از b بیاید؛ پس swap لازم است."
+      }
+    },
+    {
+      "id": "objects",
+      "title": "objects",
+      "labels": {
+        "de": "objects",
+        "fa": "objects"
+      },
+      "is_default": false,
+      "pseudocode": "FUNKTION BubbleSort(arr, key)\n  n = LAENGE(arr)\n  FUER i = 0 BIS n-2\n    FUER j = 0 BIS n-2-i\n      WENN arr[j][key] > arr[j+1][key] DANN\n        TAUSCHE arr[j], arr[j+1]\n      ENDE\n    ENDE\n  ENDE\n  GIB arr ZURUECK\nENDE",
+      "explain_variant": {
+        "de": "",
+        "fa": "1) تعریف Variant:\nObjects/Feld برای مرتب‌سازی آرایه‌ای از آبجکت‌ها بر اساس یک فیلد مشخص (key) استفاده می‌شود.\n\n2) تفاوت دقیق با نسخهٔ کلاسیک:\nمقایسه روی فیلد انجام می‌شود (arr[j][key])، اما swap باید روی کل آبجکت انجام شود، نه فقط فیلد.\n\n3) این تفاوت در شبه‌کد کجا دیده می‌شود:\n- شرط: arr[j][key] > arr[j+1][key]\n- اما swap: TAUSCHE arr[j], arr[j+1] (کل آبجکت‌ها)\n\n4) رفتار و پیچیدگی:\n- زمان: O(n^2)\n- حافظه: O(1)\n- مناسب برای رکوردها/اشیاء وقتی فقط یک معیار مرتب‌سازی داریم.\n\n5) دام‌های رایج IHK:\n- اشتباه رایج: swap کردن فقط فیلد key (مثلاً فقط age) → داده‌ها ناسازگار می‌شود\n- فراموش کردن اینکه key باید معتبر باشد\n- اشتباه در مقایسه (مثلاً رشته بودن فیلد و نیاز به مقایسهٔ درست)\n\n6) نکتهٔ طلایی امتحان:\nمقایسه روی فیلد است، اما جابجایی همیشه روی کل آبجکت انجام می‌شود؛ این دام شمارهٔ ۱ سوالات آبجکت‌هاست."
+      }
+    },
+    {
+      "id": "strings",
+      "title": "strings",
+      "labels": {
+        "de": "strings",
+        "fa": "strings"
+      },
+      "is_default": false,
+      "pseudocode": "FUNKTION BubbleSort(arr)\n  // Wie klassisch, aber mit String-Vergleich\n  n = LAENGE(arr)\n  FUER i = 0 BIS n-2\n    FUER j = 0 BIS n-2-i\n      WENN arr[j] > arr[j+1] DANN  // lexikografisch\n        TAUSCHE arr[j], arr[j+1]\n      ENDE\n    ENDE\n  ENDE\n  GIB arr ZURUECK\nENDE",
+      "explain_variant": {
+        "de": "",
+        "fa": "1) تعریف Variant:\nStrings برای مرتب‌سازی رشته‌ها به صورت لغوی (lexicographic) استفاده می‌شود (مثل ترتیب الفبایی).\n\n2) تفاوت دقیق با نسخهٔ کلاسیک:\nاسکلت الگوریتم مثل کلاسیک است، اما مقایسهٔ “بزرگ‌تر/کوچک‌تر” بر اساس قواعد رشته‌ای انجام می‌شود (لغوی، نه عددی).\n\n3) این تفاوت در شبه‌کد کجا دیده می‌شود:\nشرط swap هنوز arr[j] > arr[j+1] است، اما معنای “>” در اینجا لغوی است (یا می‌تواند با comparator رشته‌ای پیاده شود).\n\n4) رفتار و پیچیدگی:\n- زمان: O(n^2) از نظر تعداد مقایسه‌ها\n- هزینهٔ هر مقایسه ممکن است به طول رشته‌ها وابسته باشد\n- حافظه: O(1)\n\n5) دام‌های رایج IHK:\n- فرض کردن اینکه مقایسهٔ رشته مثل عدد است\n- حساسیت به حروف بزرگ/کوچک (case) و نادیده گرفتن آن\n- نیاز به locale یا مقایسهٔ case-insensitive در برخی سناریوها\n\n6) نکتهٔ طلایی امتحان:\nاگر سؤال به حروف بزرگ/کوچک اشاره کرد، باید قبل از مقایسه نرمال‌سازی کنی (مثل lower/casefold) یا comparator مناسب بدهی."
+      }
+    },
+    {
+      "id": "cocktail",
+      "title": "cocktail",
+      "labels": {
+        "de": "cocktail",
+        "fa": "cocktail"
+      },
+      "is_default": false,
+      "pseudocode": "FUNKTION CocktailSort(arr)\n  left = 0\n  right = LAENGE(arr) - 1\n  SOLANGE left < right\n    // Vorwärts\n    FUER i = left BIS right-1\n      WENN arr[i] > arr[i+1] DANN\n        TAUSCHE arr[i], arr[i+1]\n      ENDE\n    ENDE\n    right = right - 1\n    // Rückwärts\n    FUER i = right BIS left+1 ABWAERTS\n      WENN arr[i-1] > arr[i] DANN\n        TAUSCHE arr[i-1], arr[i]\n      ENDE\n    ENDE\n    left = left + 1\n  ENDE\n  GIB arr ZURUECK\nENDE",
+      "explain_variant": {
+        "de": "",
+        "fa": "1) تعریف Variant:\nCocktail (Shaker Sort) نسخهٔ رفت‌وبرگشتی BubbleSort است: یک بار از چپ به راست و یک بار از راست به چپ پیمایش می‌کند.\n\n2) تفاوت دقیق با نسخهٔ کلاسیک:\nدر BubbleSort کلاسیک، “حباب” فقط در یک جهت حرکت می‌کند. در Cocktail، هم عناصر بزرگ به راست می‌روند و هم عناصر کوچک در مسیر برگشت به چپ نزدیک می‌شوند.\n\n3) این تفاوت در شبه‌کد کجا دیده می‌شود:\n- دو حلقهٔ داخلی داریم: یکی forward و یکی backward\n- مرزها با left و right کم/زیاد می‌شوند تا محدودهٔ مرتب‌نشده کوچک شود\n\n4) رفتار و پیچیدگی:\n- Worst-Case: O(n^2)\n- در عمل روی داده‌های تقریباً مرتب ممکن است کمی بهتر از کلاسیک باشد\n- حافظه: O(1)\n\n5) دام‌های رایج IHK:\n- اشتباه در کنترل مرزهای left/right\n- اشتباه در حلقهٔ backward (جهت و اندیس‌ها)\n- تصور غلط که مرتبهٔ زمانی بهتر از O(n^2) شده است\n\n6) نکتهٔ طلایی امتحان:\nCocktail یک بهبود عملی است، نه یک الگوریتم با مرتبهٔ زمانی جدید؛ همچنان O(n^2) باقی می‌ماند."
+      }
+    }
   ]
 }

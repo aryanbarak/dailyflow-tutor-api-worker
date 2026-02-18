@@ -2,11 +2,11 @@
   "schema_name": "tutor_asset.pseudocode.v1",
   "version": "1.0",
   "topic": "binarysearch",
-  "lang": "de",
+  "lang": "fa",
   "mode": "pseudocode",
-  "title": "Binary Search (Binäre Suche) – FIAE Core (Deutsch)",
+  "title": "Binary Search (جستجوی دودویی) — FIAE Core (فارسی)",
   "selected_variant": "classic_iterative",
-  "pseudocode": "FUNKTION BinarySearch(a, x)\n  links = 0\n  rechts = LAENGE(a) - 1\n  SOLANGE links <= rechts\n    mid = (links + rechts) / 2\n    WENN a[mid] = x DANN\n      GIB mid ZURUECK\n    SONST WENN a[mid] < x DANN\n      links = mid + 1\n    SONST\n      rechts = mid - 1\n  ENDE SOLANGE\n  GIB -1 ZURUECK\nENDE",
+  "pseudocode": "PROZEDUR BinarySearch(a, target, f)\r\n  low = 0\r\n  high = LAENGE(a) - 1\r\n  SOLANGE low <= high\r\n    mid = (low + high) DIV 2\r\n    cmp = f(target, a[mid])\r\n    WENN cmp = 0 DANN\r\n      GIB mid ZURUECK\r\n    SONST WENN cmp < 0 DANN\r\n      high = mid - 1\r\n    SONST\r\n      low = mid + 1\r\n  GIB -1 ZURUECK\r\nENDE",
   "variants": [
     {
       "id": "classic_iterative",
@@ -16,7 +16,7 @@
         "fa": "classic_iterative"
       },
       "is_default": true,
-      "pseudocode": "FUNKTION BinarySearch(a, x)\n  links = 0\n  rechts = LAENGE(a) - 1\n  SOLANGE links <= rechts\n    mid = (links + rechts) / 2\n    WENN a[mid] = x DANN\n      GIB mid ZURUECK\n    SONST WENN a[mid] < x DANN\n      links = mid + 1\n    SONST\n      rechts = mid - 1\n  ENDE SOLANGE\n  GIB -1 ZURUECK\nENDE",
+      "pseudocode": "PROZEDUR BinarySearch(a, target, f)\r\n  low = 0\r\n  high = LAENGE(a) - 1\r\n  SOLANGE low <= high\r\n    mid = (low + high) DIV 2\r\n    cmp = f(target, a[mid])\r\n    WENN cmp = 0 DANN\r\n      GIB mid ZURUECK\r\n    SONST WENN cmp < 0 DANN\r\n      high = mid - 1\r\n    SONST\r\n      low = mid + 1\r\n  GIB -1 ZURUECK\r\nENDE",
       "explain_variant": {
         "de": "",
         "fa": "(1) تعریف Variant: نسخهٔ کلاسیکِ تکراری با حلقه while که بازه را نصف می‌کند.\n(2) تفاوت دقیق با BinarySearch کلاسیک: همان نسخهٔ استاندارد است؛ بدون بازگشت و بدون Comparator.\n(3) این تفاوت در شبه‌کد کجا دیده می‌شود: شرط while (links <= rechts) و به‌روزرسانی links/rechts پس از مقایسهٔ a[mid].\n(4) رفتار و پیچیدگی زمانی/فضایی: زمان O(log n)، فضا O(1)؛ پیش‌شرط: آرایه مرتب باشد.\n(5) دام‌های رایج IHK: آرایهٔ نامرتب، به‌روزرسانی غلط links/rechts، شرط حلقهٔ نادرست.\n(6) نکتهٔ طلایی امتحان: هر مرحله بازه نصف می‌شود؛ حداکثر log2(n) گام."
@@ -30,7 +30,7 @@
         "fa": "classic_recursive"
       },
       "is_default": false,
-      "pseudocode": "FUNKTION BinarySearchRec(a, x, links, rechts)\n  WENN links > rechts DANN\n    GIB -1 ZURUECK\n  mid = (links + rechts) / 2\n  WENN a[mid] = x DANN\n    GIB mid ZURUECK\n  SONST WENN a[mid] < x DANN\n    GIB BinarySearchRec(a, x, mid+1, rechts) ZURUECK\n  SONST\n    GIB BinarySearchRec(a, x, links, mid-1) ZURUECK\nENDE",
+      "pseudocode": "PROZEDUR BinarySearch(a, target, f)\r\n  low = 0\r\n  high = LAENGE(a) - 1\r\n  SOLANGE low <= high\r\n    mid = (low + high) DIV 2\r\n    cmp = f(target, a[mid])\r\n    WENN cmp = 0 DANN\r\n      GIB mid ZURUECK\r\n    SONST WENN cmp < 0 DANN\r\n      high = mid - 1\r\n    SONST\r\n      low = mid + 1\r\n  GIB -1 ZURUECK\r\nENDE",
       "explain_variant": {
         "de": "",
         "fa": "(1) تعریف Variant: نسخهٔ بازگشتی که بازهٔ جست‌وجو را با فراخوانی‌های پی‌درپی نصف می‌کند.\n(2) تفاوت دقیق با BinarySearch کلاسیک: به‌جای حلقه while از recursion و شرط پایان links > rechts استفاده می‌شود.\n(3) این تفاوت در شبه‌کد کجا دیده می‌شود: base case با links > rechts و بازگرداندن -1.\n(4) رفتار و پیچیدگی زمانی/فضایی: زمان O(log n)، فضا O(log n) به‌دلیل پشتهٔ بازگشت.\n(5) دام‌های رایج IHK: فراموشی return در فراخوانی بازگشتی، شرط پایان اشتباه.\n(6) نکتهٔ طلایی امتحان: شرط توقف باید دقیقاً links > rechts باشد."
@@ -44,7 +44,7 @@
         "fa": "objects_by_key"
       },
       "is_default": false,
-      "pseudocode": "FUNKTION BinarySearchObj(a, key, x)\n  links = 0\n  rechts = LAENGE(a) - 1\n  SOLANGE links <= rechts\n    mid = (links + rechts) / 2\n    WENN a[mid][key] = x DANN\n      GIB mid ZURUECK\n    SONST WENN a[mid][key] < x DANN\n      links = mid + 1\n    SONST\n      rechts = mid - 1\n  ENDE SOLANGE\n  GIB -1 ZURUECK\nENDE",
+      "pseudocode": "PROZEDUR BinarySearch(a, target, f)\r\n  low = 0\r\n  high = LAENGE(a) - 1\r\n  SOLANGE low <= high\r\n    mid = (low + high) DIV 2\r\n    cmp = f(target, a[mid])\r\n    WENN cmp = 0 DANN\r\n      GIB mid ZURUECK\r\n    SONST WENN cmp < 0 DANN\r\n      high = mid - 1\r\n    SONST\r\n      low = mid + 1\r\n  GIB -1 ZURUECK\r\nENDE",
       "explain_variant": {
         "de": "",
         "fa": "(1) تعریف Variant: جست‌وجوی دودویی روی آرایهٔ آبجکت‌ها بر اساس یک فیلد (key).\n(2) تفاوت دقیق با BinarySearch کلاسیک: مقایسه روی a[mid][key] انجام می‌شود، نه خود شیء.\n(3) این تفاوت در شبه‌کد کجا دیده می‌شود: شرط‌ها از a[mid][key] استفاده می‌کنند.\n(4) رفتار و پیچیدگی زمانی/فضایی: زمان O(log n)، فضا O(1)؛ آرایه باید بر اساس همان key مرتب باشد.\n(5) دام‌های رایج IHK: مرتب نبودن بر اساس key، مقایسهٔ خود آبجکت به‌جای فیلد.\n(6) نکتهٔ طلایی امتحان: اگر ترتیب بر اساس key نباشد، نتیجه قابل اعتماد نیست."
@@ -58,7 +58,7 @@
         "fa": "generic_comparator"
       },
       "is_default": false,
-      "pseudocode": "FUNKTION BinarySearchCmp(a, x, f)\n  links = 0\n  rechts = LAENGE(a) - 1\n  SOLANGE links <= rechts\n    mid = (links + rechts) / 2\n    cmp = f(a[mid], x)\n    WENN cmp = 0 DANN\n      GIB mid ZURUECK\n    SONST WENN cmp < 0 DANN\n      links = mid + 1\n    SONST\n      rechts = mid - 1\n  ENDE SOLANGE\n  GIB -1 ZURUECK\nENDE",
+      "pseudocode": "PROZEDUR BinarySearch(a, target, f)\r\n  low = 0\r\n  high = LAENGE(a) - 1\r\n  SOLANGE low <= high\r\n    mid = (low + high) DIV 2\r\n    cmp = f(target, a[mid])\r\n    WENN cmp = 0 DANN\r\n      GIB mid ZURUECK\r\n    SONST WENN cmp < 0 DANN\r\n      high = mid - 1\r\n    SONST\r\n      low = mid + 1\r\n  GIB -1 ZURUECK\r\nENDE",
       "explain_variant": {
         "de": "",
         "fa": "(1) تعریف Variant: نسخهٔ جنریک با Comparator برای انواع دادهٔ دلخواه.\n(2) تفاوت دقیق با BinarySearch کلاسیک: مقایسه با cmp = f(a[mid], x) انجام می‌شود، نه با < و > مستقیم.\n(3) این تفاوت در شبه‌کد کجا دیده می‌شود: اگر cmp < 0 → راست، اگر cmp > 0 → چپ.\n(4) رفتار و پیچیدگی زمانی/فضایی: زمان O(log n)، فضا O(1)؛ هزینهٔ واقعی به سرعت f وابسته است.\n(5) دام‌های رایج IHK: تفسیر اشتباه علامت cmp و حرکت در جهت غلط.\n(6) نکتهٔ طلایی امتحان: cmp < 0 یعنی a[mid] کوچک‌تر از x است → باید به راست بروی."
@@ -72,7 +72,7 @@
         "fa": "safe_mid"
       },
       "is_default": false,
-      "pseudocode": "FUNKTION BinarySearchSafeMid(a, x)\n  links = 0\n  rechts = LAENGE(a) - 1\n  SOLANGE links <= rechts\n    mid = links + (rechts - links) / 2\n    WENN a[mid] = x DANN\n      GIB mid ZURUECK\n    SONST WENN a[mid] < x DANN\n      links = mid + 1\n    SONST\n      rechts = mid - 1\n  ENDE SOLANGE\n  GIB -1 ZURUECK\nENDE",
+      "pseudocode": "PROZEDUR BinarySearch(a, target, f)\r\n  low = 0\r\n  high = LAENGE(a) - 1\r\n  SOLANGE low <= high\r\n    mid = (low + high) DIV 2\r\n    cmp = f(target, a[mid])\r\n    WENN cmp = 0 DANN\r\n      GIB mid ZURUECK\r\n    SONST WENN cmp < 0 DANN\r\n      high = mid - 1\r\n    SONST\r\n      low = mid + 1\r\n  GIB -1 ZURUECK\r\nENDE",
       "explain_variant": {
         "de": "",
         "fa": "(1) تعریف Variant: همان نسخهٔ کلاسیک با محاسبهٔ امنِ mid برای جلوگیری از overflow.\n(2) تفاوت دقیق با BinarySearch کلاسیک: mid = links + (rechts - links)/2.\n(3) این تفاوت در شبه‌کد کجا دیده می‌شود: فقط خط محاسبهٔ mid عوض شده است.\n(4) رفتار و پیچیدگی زمانی/فضایی: زمان O(log n)، فضا O(1).\n(5) دام‌های رایج IHK: استفاده از (links+rechts)/2 در زبان‌های دارای سرریز عددی.\n(6) نکتهٔ طلایی امتحان: safe_mid منطق جست‌وجو را تغییر نمی‌دهد، فقط امن‌تر است."
@@ -86,7 +86,7 @@
         "fa": "trace_exam"
       },
       "is_default": false,
-      "pseudocode": "FUNKTION BinarySearchTrace(a, x)\n  links = 0\n  rechts = LAENGE(a) - 1\n  SOLANGE links <= rechts\n    mid = (links + rechts) / 2\n    // TRACE: gib links, mid, rechts aus\n    WENN a[mid] = x DANN\n      GIB mid ZURUECK\n    SONST WENN a[mid] < x DANN\n      links = mid + 1\n    SONST\n      rechts = mid - 1\n  ENDE SOLANGE\n  GIB -1 ZURUECK\nENDE",
+      "pseudocode": "PROZEDUR BinarySearch(a, target, f)\r\n  low = 0\r\n  high = LAENGE(a) - 1\r\n  SOLANGE low <= high\r\n    mid = (low + high) DIV 2\r\n    cmp = f(target, a[mid])\r\n    WENN cmp = 0 DANN\r\n      GIB mid ZURUECK\r\n    SONST WENN cmp < 0 DANN\r\n      high = mid - 1\r\n    SONST\r\n      low = mid + 1\r\n  GIB -1 ZURUECK\r\nENDE",
       "explain_variant": {
         "de": "",
         "fa": "(1) تعریف Variant: نسخهٔ تمرینی برای رسم جدول مراحل در امتحان.\n(2) تفاوت دقیق با BinarySearch کلاسیک: منطق همان است، فقط گزارش links/mid/rechts اضافه می‌شود.\n(3) این تفاوت در شبه‌کد کجا دیده می‌شود: کامنت TRACE داخل حلقهٔ while.\n(4) رفتار و پیچیدگی زمانی/فضایی: زمان O(log n)، فضا O(1).\n(5) دام‌های رایج IHK: ثبت اشتباه بازه‌ها و به‌روزرسانی‌ها در جدول Trace.\n(6) نکتهٔ طلایی امتحان: بعد از هر مرحله، بازه دقیقاً نصف می‌شود."
@@ -100,7 +100,7 @@
         "fa": "debug_common_errors"
       },
       "is_default": false,
-      "pseudocode": "FUNKTION BinarySearchDebug(a, x)\n  // Fehler-Checkliste\n  // 1) Array sortiert?\n  // 2) while links <= rechts?\n  // 3) mid korrekt?\n  // 4) low/high korrekt update?\n  // 5) Rueckgabe -1 bei Misserfolg\nENDE",
+      "pseudocode": "PROZEDUR BinarySearch(a, target, f)\r\n  low = 0\r\n  high = LAENGE(a) - 1\r\n  SOLANGE low <= high\r\n    mid = (low + high) DIV 2\r\n    cmp = f(target, a[mid])\r\n    WENN cmp = 0 DANN\r\n      GIB mid ZURUECK\r\n    SONST WENN cmp < 0 DANN\r\n      high = mid - 1\r\n    SONST\r\n      low = mid + 1\r\n  GIB -1 ZURUECK\r\nENDE",
       "explain_variant": {
         "de": "",
         "fa": "(1) تعریف Variant: چک‌لیست خطاهای رایج برای دیباگ دودویی.\n(2) تفاوت دقیق با BinarySearch کلاسیک: الگوریتم جدیدی نیست؛ فقط نکات کنترلی است.\n(3) این تفاوت در شبه‌کد کجا دیده می‌شود: به‌جای کد کامل، موارد بررسی نوشته شده‌اند.\n(4) رفتار و پیچیدگی زمانی/فضایی: مفهومی است.\n(5) دام‌های رایج IHK: فراموشی مرتب بودن آرایه، شرط حلقهٔ غلط، به‌روزرسانی اشتباه بازه.\n(6) نکتهٔ طلایی امتحان: همیشه چهار مورد «مرتب بودن، شرط حلقه، محاسبهٔ mid، بازگشت -1» را چک کن."
