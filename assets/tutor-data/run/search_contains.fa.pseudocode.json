@@ -1,0 +1,12 @@
+{
+  "schema_name": "tutor_asset.pseudocode.v1",
+  "version": "1.0",
+  "topic": "search_contains",
+  "lang": "fa",
+  "mode": "pseudocode",
+  "title": "Search/Contains — FIAE Core (فارسی)",
+  "pseudocode": "FUNKTION ContainsIndex(arr, x)\n  n = LAENGE(arr)\n  FUER i = 0 BIS n-1\n    WENN arr[i] = x DANN\n      GIB i ZURUECK\n    ENDE\n  ENDE\n  GIB -1 ZURUECK\nENDE",
+  "notes": [
+    "variant:array_contains_index"
+  ]
+}

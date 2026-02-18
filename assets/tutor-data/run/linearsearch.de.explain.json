@@ -1,0 +1,39 @@
+{
+  "schema_name": "tutor_asset.explain.v1",
+  "version": "1.0",
+  "topic": "linearsearch",
+  "lang": "de",
+  "mode": "explain",
+  "title": "Linear Search (Lineare Suche) – FIAE Core (Deutsch)",
+  "summary": "Die **Lineare Suche** (Linear Search) ist der einfachste Suchalgorithmus, der ein Array **sequenziell** von Anfang bis Ende durchläuft.\n\n**Grundprinzip:** Prüfe jedes Element nacheinander, bis das gesuchte gefunden wird oder das Array endet.\n\n**Voraussetzung:** KEINE – funktioniert auf **beliebigen** Arrays (sortiert oder unsortiert).\n\n**Zeitkomplexität:** `O(n)` – im schlechtesten Fall alle n Elemente.\n\n**Raumkomplexität:** `O(1)` – nur lokale Variablen.",
+  "blocks": [
+    {
+      "kind": "definition",
+      "text": "Die **Lineare Suche** (Linear Search) ist der einfachste Suchalgorithmus, der ein Array **sequenziell** von Anfang bis Ende durchläuft.\n\n**Grundprinzip:** Prüfe jedes Element nacheinander, bis das gesuchte gefunden wird oder das Array endet.\n\n**Voraussetzung:** KEINE – funktioniert auf **beliebigen** Arrays (sortiert oder unsortiert).\n\n**Zeitkomplexität:** `O(n)` – im schlechtesten Fall alle n Elemente.\n\n**Raumkomplexität:** `O(1)` – nur lokale Variablen."
+    },
+    {
+      "kind": "idea",
+      "text": "**Vorgehen:**\n1. Starte bei Index `i = 0`.\n2. Vergleiche `arr[i]` mit dem gesuchten Wert `x`.\n3. Wenn `arr[i] == x` → **Gefunden!** Gib Index `i` zurück.\n4. Wenn nicht, erhöhe `i` um 1 und wiederhole Schritt 2.\n5. Wenn `i >= n` (Ende des Arrays) → Element nicht gefunden, gib `-1` zurück.\n\n**Analogie:**\n- Wie ein Buch Seite für Seite durchblättern, um ein bestimmtes Wort zu finden.\n- **Early-Exit:** Sobald gefunden, wird sofort abgebrochen (Best-Case `O(1)`)."
+    },
+    {
+      "kind": "procedure",
+      "text": "**Beispiel:** Suche `x = 22` in `arr = [64, 25, 12, 22, 11]`\n\n**Schritt 1:**\n- `i = 0`, `arr[0] = 64 ≠ 22` → weiter\n\n**Schritt 2:**\n- `i = 1`, `arr[1] = 25 ≠ 22` → weiter\n\n**Schritt 3:**\n- `i = 2`, `arr[2] = 12 ≠ 22` → weiter\n\n**Schritt 4:**\n- `i = 3`, `arr[3] = 22 == 22` → **Treffer!** → Rückgabe `3`\n\n**Anzahl Vergleiche:** 4 (bis zum Treffer)\n\n**Beispiel 2:** Suche `x = 99` in `arr = [10, 20, 30]`\n\n**Schritt 1:** `i=0`, `arr[0]=10 ≠ 99` → weiter\n**Schritt 2:** `i=1`, `arr[1]=20 ≠ 99` → weiter\n**Schritt 3:** `i=2`, `arr[2]=30 ≠ 99` → weiter\n**Schritt 4:** `i=3` → Ende des Arrays → **Rückgabe `-1`**\n\n**Anzahl Vergleiche:** 3 (= n, alle Elemente)"
+    },
+    {
+      "kind": "example",
+      "text": "Suche x=22 in [64,25,12,22,11] ? Index 3."
+    },
+    {
+      "kind": "complexity",
+      "text": "**Zeitkomplexität:**\n- **Best Case:** `O(1)` – gesuchtes Element ist das erste\n- **Average Case:** `O(n/2) = O(n)` – durchschnittlich die Hälfte durchsuchen\n- **Worst Case:** `O(n)` – Element am Ende oder nicht vorhanden\n\n**Raumkomplexität:**\n- **Iterativ:** `O(1)` – nur lokale Variablen (i, n)\n\n**Eigenschaften:**\n- **Stabil:** Ja (findet erstes Vorkommen bei Duplikaten)\n- **In-Place:** Ja\n- **Vergleichsbasiert:** Ja\n- **Vorsortierung:** NICHT nötig (funktioniert auf beliebigen Arrays)"
+    },
+    {
+      "kind": "ihk_traps",
+      "text": "**1. Rückgabewert bei 'nicht gefunden':**\n- **Korrekt:** `-1` (Standardkonvention)\n- **Falsch:** `0`, `null`, oder `false` (0 ist gültiger Index!)\n\n**2. Early-Exit vergessen:**\n- Nach Fund SOFORT zurückkehren (nicht weiterlaufen)\n- **Korrekt:** `GIB i ZURUECK` direkt in der Schleife\n- **Falsch:** Erst nach Schleifenende zurückgeben\n\n**3. Schleifenbedingung:**\n- **Korrekt:** `FUER i = 0 BIS n-1` (oder `SOLANGE i < n`)\n- **Falsch:** `FUER i = 0 BIS n` → Index-Out-of-Bounds!\n\n**4. Vergleich mit Binary Search:**\n- Linear Search: **keine** Vorsortierung nötig, `O(n)`\n- Binary Search: **muss** sortiert sein, `O(log n)`\n- IHK fragt oft: \"Welcher Algorithmus ist hier besser?\"\n\n**5. All-Hits vs. First-Hit:**\n- **First-Hit:** Stoppt bei erstem Treffer → Rückgabe Index\n- **All-Hits:** Durchläuft IMMER alle Elemente → Rückgabe Liste\n\n**6. Boolean-Variante:**\n- Rückgabe `true/false` statt Index\n- Oft verwechselt mit: \"Index 0 bedeutet false\" (FALSCH!)"
+    },
+    {
+      "kind": "variants",
+      "text": "**first_hit**\nZiel: Ersten Trefferindex zur?ckgeben, sonst `-1`.\nKomplexit?t: Best `O(1)`, Worst `O(n)`, Space `O(1)`.\nTraps:\n- Index `0` ist g?ltig, nicht mit ?nicht gefunden? verwechseln.\n- Early-Exit sofort bei Treffer.\n\n**all_hits**\nZiel: Alle Trefferindizes sammeln.\nKomplexit?t: Best/Worst `O(n)`, Space `O(k)`.\nTraps:\n- Nicht beim ersten Treffer abbrechen.\n- Ergebnis ist Liste, nicht einzelner Index.\n\n**contains_bool**\nZiel: Nur `true/false` zur?ckgeben.\nKomplexit?t: Best `O(1)`, Worst `O(n)`, Space `O(1)`.\nTraps:\n- `true/false` nicht mit Index verwechseln.\n- Early-Exit bei Treffer.\n\n**range_limited**\nZiel: Suche nur im Bereich `[left, right]`.\nKomplexit?t: `O(right-left+1)`, Space `O(1)`.\nTraps:\n- Grenzen pr?fen (0 ? left ? right < n).\n- Off-by-one im Bereich.\n\n**start_index**\nZiel: Suche ab `startIndex`.\nKomplexit?t: `O(n-startIndex)`, Space `O(1)`.\nTraps:\n- `startIndex` validieren.\n- Nicht ab 0 starten, wenn Startindex vorgegeben.\n\n**strings_casefold**\nZiel: String-Suche ohne Gro?/Kleinschreibung.\nKomplexit?t: `O(n*L)`, Space `O(1)`.\nTraps:\n- `toLower()/casefold` auf beide Seiten.\n- Locale/Case-Fallen beachten.\n\n**objects_comparator**\nZiel: Objekte per Vergleichsfunktion `f` pr?fen.\nKomplexit?t: `O(n*T_f)`, Space `O(1)`.\nTraps:\n- `f(a,b)=0` bedeutet Gleichheit.\n- Falsche Comparator-Logik.\n\n**predicate**\nZiel: Erstes Element finden, das Pr?dikat erf?llt.\nKomplexit?t: Best `O(1)`, Worst `O(n)`, Space `O(1)`.\nTraps:\n- Pr?dikat ist Funktion, kein Wert.\n- Early-Exit bei erstem `true`.\n\n**generic_comparator**\nZiel: Generische Gleichheit ?ber `cmp`.\nKomplexit?t: `O(n*T_cmp)`, Space `O(1)`.\nTraps:\n- `cmp(arr[i], x) = 0` als Gleichheit.\n- Parameterreihenfolge beachten.\n\n**early_exit_sorted**\nZiel: Bei sortiertem Array fr?h abbrechen (`arr[i] > x`).\nKomplexit?t: Best `O(1)`, Worst `O(n)`, Space `O(1)`.\nTraps:\n- Nur korrekt bei **sortiertem** Array.\n- Abbruchbedingung `arr[i] > x` nicht vergessen.\n"
+    }
+  ]
+}

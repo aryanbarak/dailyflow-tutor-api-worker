@@ -1,0 +1,90 @@
+{
+  "schema_name": "tutor_asset.exam.v1",
+  "version": "1.0",
+  "topic": "insertionsort",
+  "lang": "de",
+  "mode": "exam",
+  "title": "InsertionSort (Einfügesortierung) — FIAE Explain Core v1.0",
+  "questions": [
+    {
+      "id": "ex01_trace_passes",
+      "type": "open",
+      "prompt": "F?hre InsertionSort auf arr = [7, 2, 6, 3] aus. Gib den Array-Zustand nach jedem i an.",
+      "answer": "i=1: [2,7,6,3]; i=2: [2,6,7,3]; i=3: [2,3,6,7]",
+      "explain_de": "i=1: key=2, 7 nach rechts -> [2,7,6,3]. i=2: key=6, 7 nach rechts -> [2,6,7,3]. i=3: key=3, 7 und 6 nach rechts -> [2,3,6,7].",
+      "explain_fa": ""
+    },
+    {
+      "id": "ex02_trace_after_i2",
+      "type": "open",
+      "prompt": "InsertionSort auf arr = [4, 3, 2, 1]. Wie lautet der Zustand nach i=2?",
+      "answer": "[2,3,4,1]",
+      "explain_de": "i=1: [3,4,2,1]; i=2: key=2, 4 und 3 nach rechts -> [2,3,4,1].",
+      "explain_fa": ""
+    },
+    {
+      "id": "ex03_trace_insert_pos",
+      "type": "open",
+      "prompt": "InsertionSort auf arr = [2, 5, 4, 1]. Gib den Zustand nach i=1 und i=2 an.",
+      "answer": "i=1: [2,5,4,1]; i=2: [2,4,5,1]",
+      "explain_de": "i=1: key=5, keine Verschiebung. i=2: key=4, 5 nach rechts -> [2,4,5,1].",
+      "explain_fa": ""
+    },
+    {
+      "id": "ex04_complexity_best",
+      "type": "open",
+      "prompt": "Wie viele Vergleiche im Best-Case fuer n=5?",
+      "answer": "4",
+      "explain_de": "Best-Case: Array sortiert, pro i genau 1 Vergleich -> n-1 = 4.",
+      "explain_fa": ""
+    },
+    {
+      "id": "ex05_complexity_worst",
+      "type": "open",
+      "prompt": "Wie viele Vergleiche im Worst-Case fuer n=5?",
+      "answer": "10",
+      "explain_de": "Worst-Case: Summe 1+2+3+4 = 10 = n(n-1)/2.",
+      "explain_fa": ""
+    },
+    {
+      "id": "ex06_trap_condition",
+      "type": "open",
+      "prompt": "Welche while-Bedingung ist korrekt (aufsteigend)?",
+      "answer": "j >= 0 UND a[j] > key",
+      "explain_de": "Nur wenn a[j] > key wird nach rechts verschoben; bei Gleichheit stoppt die Schleife.",
+      "explain_fa": ""
+    },
+    {
+      "id": "ex07_trap_stability",
+      "type": "open",
+      "prompt": "Warum ist InsertionSort stabil?",
+      "answer": "Weil nur bei > verschoben wird",
+      "explain_de": "Gleiche Elemente werden nicht vertauscht, da die Bedingung streng > ist.",
+      "explain_fa": ""
+    },
+    {
+      "id": "ex08_invariant",
+      "type": "open",
+      "prompt": "Welche Invariante gilt nach Durchlauf i?",
+      "answer": "Die ersten i+1 Elemente sind sortiert",
+      "explain_de": "Nach jedem i ist der linke Teil 0..i sortiert und enthaelt die kleinsten Elemente in korrekter Reihenfolge.",
+      "explain_fa": ""
+    },
+    {
+      "id": "ex09_comparator",
+      "type": "open",
+      "prompt": "InsertionSort mit Comparator f(x,y) (f<0 bedeutet x vor y). Welche Bedingung in der while-Schleife?",
+      "answer": "f(key, a[j]) < 0",
+      "explain_de": "Wenn key vor a[j] stehen soll, gilt f(key, a[j]) < 0 und es wird verschoben.",
+      "explain_fa": ""
+    },
+    {
+      "id": "ex10_edge_position",
+      "type": "open",
+      "prompt": "Was passiert, wenn j auf -1 faellt? Wo wird key eingefuegt?",
+      "answer": "An Position 0 (j+1)",
+      "explain_de": "Wenn j=-1, ist key kleiner als alle Elemente und wird an Index 0 eingefuegt.",
+      "explain_fa": ""
+    }
+  ]
+}

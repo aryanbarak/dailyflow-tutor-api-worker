@@ -1,0 +1,90 @@
+{
+  "schema_name": "tutor_asset.exam.v1",
+  "version": "1.0",
+  "topic": "binarysearch",
+  "lang": "de",
+  "mode": "exam",
+  "title": "Binary Search (Binäre Suche) – FIAE Core (Deutsch)",
+  "questions": [
+    {
+      "id": "binarysearch-01",
+      "type": "open",
+      "prompt": "Fuehre die binaere Suche auf arr=[1,3,5,7,9] mit target=7 aus. Gib die mid-Indizes und den Trefferindex an.",
+      "answer": "mid=2, mid=3; index=3",
+      "explain_de": "l=0,r=4 -> mid=2 (5<7) l=3; mid=3 (7) gefunden, Index 3.",
+      "explain_fa": ""
+    },
+    {
+      "id": "binarysearch-02",
+      "type": "open",
+      "prompt": "arr=[2,4,6,8,10], target=7. Gib das Ergebnis der binaeren Suche an.",
+      "answer": "nicht gefunden (-1)",
+      "explain_de": "mid=2 (6<7) l=3; mid=3 (8>7) r=2; l>r -> nicht gefunden.",
+      "explain_fa": ""
+    },
+    {
+      "id": "binarysearch-03",
+      "type": "open",
+      "prompt": "Wie viele Vergleiche maximal bei n=32 (klassische binaere Suche)?",
+      "answer": "5",
+      "explain_de": "log2(32)=5 Vergleiche im Worst-Case.",
+      "explain_fa": ""
+    },
+    {
+      "id": "binarysearch-04",
+      "type": "open",
+      "prompt": "Gib Best- und Worst-Case-Zeitkomplexitaet der binaeren Suche an.",
+      "answer": "Best O(1), Worst O(log n)",
+      "explain_de": "Best-Case: Treffer in der Mitte -> O(1). Worst-Case: Halbierung bis low>high -> O(log n).",
+      "explain_fa": ""
+    },
+    {
+      "id": "binarysearch-05",
+      "type": "open",
+      "prompt": "Welche Schleifenbedingung ist korrekt fuer die klassische iterative binaere Suche?",
+      "answer": "low <= high",
+      "explain_de": "Korrekt ist low <= high, sonst wird das letzte Element nicht geprueft.",
+      "explain_fa": ""
+    },
+    {
+      "id": "binarysearch-06",
+      "type": "open",
+      "prompt": "Warum nutzt man mid = low + (high-low)/2 statt (low+high)/2?",
+      "answer": "Overflow vermeiden",
+      "explain_de": "low+high kann ueberlaufen; low+(high-low)/2 ist overflow-sicher.",
+      "explain_fa": ""
+    },
+    {
+      "id": "binarysearch-07",
+      "type": "open",
+      "prompt": "first_occurrence-Variante: arr=[1,2,2,2,3], target=2. Welcher Index ist korrekt?",
+      "answer": "1",
+      "explain_de": "first_occurrence erzwingt die linkeste Position: Index 1.",
+      "explain_fa": ""
+    },
+    {
+      "id": "binarysearch-08",
+      "type": "open",
+      "prompt": "lower_bound: arr=[1,2,2,4,6], target=3. Welche Einfuegeposition?",
+      "answer": "3",
+      "explain_de": "Erstes Element >=3 ist 4 an Index 3.",
+      "explain_fa": ""
+    },
+    {
+      "id": "binarysearch-09",
+      "type": "open",
+      "prompt": "upper_bound: arr=[1,2,2,4,6], target=2. Welche Position?",
+      "answer": "3",
+      "explain_de": "Erstes Element >2 ist 4 an Index 3.",
+      "explain_fa": ""
+    },
+    {
+      "id": "binarysearch-10",
+      "type": "open",
+      "prompt": "Off-by-one: arr=[5,8,12], target=12. Was passiert mit der falschen Bedingung low < high?",
+      "answer": "letztes Element wird nicht geprueft",
+      "explain_de": "Mit low < high wird Index 2 nicht mehr geprueft; 12 kann verpasst werden.",
+      "explain_fa": ""
+    }
+  ]
+}

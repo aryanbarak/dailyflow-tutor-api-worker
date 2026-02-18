@@ -1,0 +1,90 @@
+{
+  "schema_name": "tutor_asset.exam.v1",
+  "version": "1.0",
+  "topic": "bubblesort",
+  "lang": "fa",
+  "mode": "exam",
+  "title": "BubbleSort (مرتب‌سازی حبابی) — FIAE Explain Core v1.0",
+  "questions": [
+    {
+      "id": "ex01_trace_passes",
+      "type": "open",
+      "prompt": "BubbleSort را روی arr = [5, 1, 4, 2] اجرا کن و وضعیت آرایه را بعد از هر پاس i=0..2 بنویس.",
+      "answer": "Pass0: [1,4,2,5]؛ Pass1: [1,2,4,5]؛ Pass2: [1,2,4,5]",
+      "explain_de": "",
+      "explain_fa": "پاس۰: (5,1) جابه‌جا → [1,5,4,2]، (5,4) → [1,4,5,2]، (5,2) → [1,4,2,5]. پاس۱: (4,2) → [1,2,4,5]. پاس۲ تغییری ندارد."
+    },
+    {
+      "id": "ex02_trace_after_pass0",
+      "type": "open",
+      "prompt": "arr = [3, 2, 1, 4] بعد از پاس i=0 چه می‌شود؟",
+      "answer": "[2,1,3,4]",
+      "explain_de": "",
+      "explain_fa": "پاس۰: (3,2) → [2,3,1,4]، (3,1) → [2,1,3,4]، (3,4) بدون جابه‌جایی."
+    },
+    {
+      "id": "ex03_trace_swaps_pass0",
+      "type": "open",
+      "prompt": "در پاس اول BubbleSort روی arr = [2, 5, 4, 1] چند Swap داریم و آرایه بعد از پاس۰ چیست؟",
+      "answer": "2 Swap، حالت [2,4,1,5]",
+      "explain_de": "",
+      "explain_fa": "(2,5) بدون Swap، (5,4) Swap → [2,4,5,1]، (5,1) Swap → [2,4,1,5]."
+    },
+    {
+      "id": "ex04_complexity_classic",
+      "type": "open",
+      "prompt": "BubbleSort کلاسیک (بدون Early-Exit) برای n=5 چند مقایسه دارد؟",
+      "answer": "10",
+      "explain_de": "",
+      "explain_fa": "n(n-1)/2 = 5*4/2 = 10."
+    },
+    {
+      "id": "ex05_complexity_early_exit",
+      "type": "open",
+      "prompt": "BubbleSort بهینه با swapped-flag، آرایه مرتب و n=5. چند مقایسه و چند پاس؟",
+      "answer": "4 مقایسه، 1 پاس",
+      "explain_de": "",
+      "explain_fa": "در پاس اول Swap نداریم و الگوریتم متوقف می‌شود؛ n-1=4 مقایسه."
+    },
+    {
+      "id": "ex06_trap_swap_condition",
+      "type": "open",
+      "prompt": "شرط درست Swap برای مرتب‌سازی صعودی و حفظ پایداری چیست؟",
+      "answer": "Swap وقتی arr[j] > arr[j+1]",
+      "explain_de": "",
+      "explain_fa": "فقط در حالت > جابه‌جایی انجام می‌شود تا عناصر برابر جای خود را حفظ کنند."
+    },
+    {
+      "id": "ex07_trap_loop_bounds",
+      "type": "open",
+      "prompt": "بازه‌های حلقه در BubbleSort کلاسیک چیست؟",
+      "answer": "i=0..n-2 ، j=0..n-2-i",
+      "explain_de": "",
+      "explain_fa": "حلقه بیرونی تا n-2 و حلقه داخلی تا n-2-i چون راست آرایه مرتب می‌شود."
+    },
+    {
+      "id": "ex08_trap_swapped_reset",
+      "type": "open",
+      "prompt": "چرا swapped باید در هر پاس به false برگردد؟",
+      "answer": "وگرنه توقف زودهنگام درست عمل نمی‌کند",
+      "explain_de": "",
+      "explain_fa": "اگر reset نشود، الگوریتم ممکن است همیشه ادامه دهد یا زودتر از حد لازم متوقف شود."
+    },
+    {
+      "id": "ex09_comparator",
+      "type": "open",
+      "prompt": "BubbleSort با Comparator f(a,b) (f<0 یعنی a قبل از b). چه زمانی Swap می‌کنیم؟",
+      "answer": "وقتی f(arr[j], arr[j+1]) > 0",
+      "explain_de": "",
+      "explain_fa": "اگر arr[j] باید بعد از arr[j+1] بیاید، Swap لازم است (f>0)."
+    },
+    {
+      "id": "ex10_trace_sorted_early_exit",
+      "type": "open",
+      "prompt": "BubbleSort بهینه: arr = [1,2,3,4]. چند مقایسه و چه زمانی توقف؟",
+      "answer": "3 مقایسه، توقف بعد از پاس۰",
+      "explain_de": "",
+      "explain_fa": "پاس اول Swap ندارد، پس متوقف می‌شود؛ n-1=3 مقایسه."
+    }
+  ]
+}

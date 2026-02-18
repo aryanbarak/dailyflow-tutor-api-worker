@@ -1,0 +1,12 @@
+{
+  "schema_name": "tutor_asset.pseudocode.v1",
+  "version": "1.0",
+  "topic": "count_condition",
+  "lang": "fa",
+  "mode": "pseudocode",
+  "title": "Count Condition (شمارش با شرط) — FIAE Explain Core v1.0",
+  "pseudocode": "FUNKTION CountGt(arr, threshold)\n  count = 0\n  FUER i = 0 BIS LAENGE(arr)-1\n    WENN arr[i] > threshold DANN\n      count = count + 1\n    ENDE\n  ENDE\n  GIB count ZURUECK\nENDE",
+  "notes": [
+    "variant:count_gt"
+  ]
+}

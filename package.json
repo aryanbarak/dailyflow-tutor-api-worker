@@ -6,8 +6,9 @@
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
+    "sync:fiae": "node scripts/sync_from_fiae_tutor_core.js",
     "gen:topics": "node scripts/generate_topics.js",
-    "pretest": "npm run gen:topics",
+    "pretest": "npm run sync:fiae && npm run gen:topics",
     "test": "node tests/worker.test.js"
   }
 }

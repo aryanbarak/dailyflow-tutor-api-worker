@@ -1,0 +1,546 @@
+{
+  "schema_name": "tutor_asset.exam.v1",
+  "version": "1.0",
+  "topic": "exam_bank_ap2",
+  "lang": "de",
+  "mode": "exam",
+  "title": "Exam Bank Ap2 (DE)",
+  "questions": [
+    {
+      "id": "ap2_seed_001_password_rules",
+      "type": "open",
+      "prompt": "Ein Passwort muss mindestens 10 Zeichen lang sein und mindestens einen Buchstaben, eine Ziffer und ein Sonderzeichen enthalten. Beschreiben Sie den prufungssicheren Algorithmus.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "ap2_seed_002_sql_count_having",
+      "type": "open",
+      "prompt": "Ermitteln Sie per SQL alle Kunden mit mehr als 3 Bestellungen.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "ap2_seed_003_recursion_output_order",
+      "type": "open",
+      "prompt": "Welche Aussage zur Ausgabe in rekursiven Funktionen ist korrekt?",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "ap2_seed_004_compare_contract",
+      "type": "open",
+      "prompt": "Erklaren Sie den Comparator-Vertrag fur aufsteigende Sortierung mit compare(a,b).",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "ap2_seed_005_3nf_transitive_dependency",
+      "type": "open",
+      "prompt": "Zeigen Sie eine Verletzung der 3NF durch transitive Abhangigkeit und nennen Sie die Korrektur.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "patterns_p01_search_contains",
+      "type": "open",
+      "prompt": "Erlaeutern Sie das Muster P01 (Search/Contains) und geben Sie ein passendes Pseudocode-Grundgeruest fuer lineares Suchen an.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "patterns_p02_count_filter",
+      "type": "open",
+      "prompt": "Beschreiben Sie P02 (Count/Filter condition) und zeigen Sie, wie Anzahl und gefilterte Elemente konsistent im selben Durchlauf entstehen.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "patterns_p03_min_max_avg",
+      "type": "open",
+      "prompt": "Skizzieren Sie P03 (Min/Max/Avg one-pass) und begruenden Sie, warum alle Kennzahlen in einem Durchlauf berechnet werden sollten.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "patterns_p04_two_index_window",
+      "type": "open",
+      "prompt": "Erklaeren Sie P04 (Two-index window) mit links/rechts-Indizes und nennen Sie den zentralen Unterschied zwischen if und while beim Verkleinern des Fensters.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "patterns_p05_sorted_binary_search",
+      "type": "open",
+      "prompt": "Formulieren Sie fuer P05 die Vorbedingung von Binary Search und skizzieren Sie den Kernalgorithmus mit lo/hi/mid.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "patterns_p06_stability",
+      "type": "open",
+      "prompt": "Definieren Sie Stabilitaet bei Sortierverfahren (P06) und erlaeutern Sie, warum sie bei gleichen Schluesseln fachlich wichtig sein kann.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "s2222_2_2_1a_statistik_aus_array",
+      "type": "open",
+      "prompt": "Entwerfen Sie eine Methode statistik(verbrauch:int[][], limit:int), die aus Monatszählerständen den minimalen und maximalen Monatsverbrauch sowie alle Monatsverbrauch-Objekte über einem Grenzwert bestimmt.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "s2222_2_2_2aa_unit_test_begriff_und_zweck",
+      "type": "open",
+      "prompt": "Beschreiben Sie, was ein Unit-Test ist und wozu er in der Softwareentwicklung eingesetzt wird.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "s2222_2_2_2ab_eigenschaften_unit_test",
+      "type": "open",
+      "prompt": "Nennen und beschreiben Sie zwei wichtige Eigenschaften, die ein Unit-Test erfüllen sollte.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "s2222_2_2_2ba_unittest_testfaelle_bewerten",
+      "type": "open",
+      "prompt": "Bewerten Sie die angegebenen assertEquals-Testfälle für berechneDifferenz und geben Sie je Testfall an, ob der Test OK ist oder fehlschlägt.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "s2222_2_2_2bb_code_fix_berechne_differenz",
+      "type": "open",
+      "prompt": "Passen Sie den Quellcode von berechneDifferenz so an, dass der gezeigte Unit-Test erfolgreich durchläuft.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "s2222_2_2_2bc_Äquivalenzklassen_minus1",
+      "type": "open",
+      "prompt": "Geben Sie zwei weitere Äquivalenzklassen mit Testdaten an, für die berechneDifferenz den Wert -1 liefern soll.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "s2222_2_2_3a_datenbankmodell_3nf_tarifuebersicht",
+      "type": "open",
+      "prompt": "Erstellen Sie für die gegebene Tarifübersicht ein relationales Datenbankmodell in 3NF mit Tabellen, Attributen, PK/FK und Kardinalitäten.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "s2222_2_2_4aa_stored_procedure_definieren",
+      "type": "open",
+      "prompt": "Beschreiben Sie den Begriff Stored Procedure im Kontext relationaler Datenbanken.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "s2222_2_2_4ab_trigger_definieren",
+      "type": "open",
+      "prompt": "Beschreiben Sie, was ein Trigger ist und wann er ausgeführt wird.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "s2222_2_2_4ac_index_nutzen_erklaeren",
+      "type": "open",
+      "prompt": "Beschreiben Sie, wozu Spalten in Datenbanktabellen indiziert werden.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "s2222_2_2_4ba_index_auf_zst_datum",
+      "type": "open",
+      "prompt": "Erstellen Sie die SQL-Anweisung, um in Tabelle Zählerstand das Feld ZST_Datum mit dem Indexnamen idx_datum zu indizieren.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "s2222_2_2_4bb_haushalte_ohne_zaehler_loeschen",
+      "type": "open",
+      "prompt": "Formulieren Sie eine SQL-Anweisung, die alle Haushalte löscht, zu denen kein Zähler vorhanden ist.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "s2222_2_2_4bc_anzahl_zaehler_je_haushalt",
+      "type": "open",
+      "prompt": "Erstellen Sie eine SQL-Abfrage, die alle Haushalte mit der Anzahl vorhandener Zähler liefert und Haushalte mit den wenigsten Zählern unten zeigt.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "s2222_2_2_4bd_verbrauch_2021_2022_je_zaehler",
+      "type": "open",
+      "prompt": "Erstellen Sie eine SQL-Abfrage, die Haushalte mit Zählern und dem jeweiligen Verbrauch zwischen den Ablesungen 2021 und 2022 liefert, sortiert nach Nachnamen.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "s2323_2_2_1a_uml_activity_new_planting_process",
+      "type": "open",
+      "prompt": "Dokumentieren Sie den Prozess fuer neue Pflanzungen als UML-Aktivitaetsdiagramm mit Swimlanes (Gartenplanung, Gaertner, Einkauf, Lieferant). Beruecksichtigen Sie Quarantaene, Krankheitsfall und Abschlussbedingungen.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "s2323_2_2_2a_count_visitors_2d_array",
+      "type": "open",
+      "prompt": "Entwerfen Sie countVisitors(entry: ComeLeave[]): Integer[][] fuer einen vorgegebenen Monat. Fuer jeden Tag und jede Stunde der Oeffnungszeit 9:00 bis 18:59 soll die Anzahl anwesender Personen ermittelt werden.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "s2323_2_2_3a_trace_ticket_statistik",
+      "type": "open",
+      "prompt": "Pruefen Sie den gegebenen TicketStatistik-Code mit den Testdaten ueber eine Datenverlaufstabelle.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "s2323_2_2_3aa_find_two_code_errors",
+      "type": "open",
+      "prompt": "Nennen Sie kurz zwei gefundene Fehler im gegebenen TicketStatistik-Code.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "s2323_2_2_3ab_fix_code_for_expected_output",
+      "type": "open",
+      "prompt": "Machen Sie Vorschlaege zur Aenderung oder Erweiterung des Codes, sodass die erwartete Ausgabe erzeugt wird.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "s2323_2_2_3ba_explain_statement_coverage",
+      "type": "open",
+      "prompt": "Erlaeutern Sie die Anweisungsueberdeckung im White-Box-Test.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "s2323_2_2_3bb_uncovered_statements",
+      "type": "open",
+      "prompt": "Nennen Sie die Anweisungen, die mit den vorgegebenen Testdaten nicht durchlaufen werden.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "s2323_2_2_3bc_adjust_testdata_for_full_coverage",
+      "type": "open",
+      "prompt": "Passen Sie die Testdaten so an, dass alle Anweisungen durchlaufen werden, und begruenden Sie die Aenderungen.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "s2323_2_2_4a_sql_count_planned_not_completed_2023",
+      "type": "open",
+      "prompt": "Erstellen Sie eine SQL-Abfrage zur Anzahl der Pflegearbeiten, die im Jahr 2023 geplant, aber noch nicht abgeschlossen sind.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "s2323_2_2_4b_sql_weekday_tasks_nord",
+      "type": "open",
+      "prompt": "Erstellen Sie eine SQL-Abfrage fuer geplante Pflegearbeiten in der Aussenanlage Nord im Zeitraum 19.06.2023 bis 30.06.2023 mit Datum, Wochentag und Taetigkeit, sortiert nach Datum aufsteigend.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "s2323_2_2_4c_sql_avg_activities_per_month_2021",
+      "type": "open",
+      "prompt": "Erstellen Sie eine SQL-Abfrage, die fuer jeden Mitarbeiter die durchschnittliche Anzahl der Taetigkeiten pro Monat im Jahr 2021 auflistet.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "s2323_2_2_4d_sql_create_user_grant_select_objekt",
+      "type": "open",
+      "prompt": "Geben Sie SQL-Anweisungen an, um den Nutzer Maier mit Passwort 5jk2T! zu erstellen und Leserechte auf Tabelle Objekt zu vergeben.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "w2122_2_2_10_sql_aggregation_hersteller",
+      "type": "open",
+      "prompt": "Ermitteln Sie Hersteller mit mehr als 50 nicht rezeptpflichtigen Arzneimitteln (Name + Anzahl).",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "w2122_2_2_11_sql_preis_update_5_prozent",
+      "type": "open",
+      "prompt": "Erhöhen Sie per SQL den Preis aller Arzneimittel eines Herstellers (Name='CCC') um 5 Prozent.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "w2122_2_2_12_sql_rezeptpflicht_pruefen",
+      "type": "open",
+      "prompt": "Prüfen Sie per SQL, ob das Arzneimittel mit Bezeichnung 'abc' rezeptpflichtig ist.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "w2122_2_2_13_sql_wirkstoff_join_sort",
+      "type": "open",
+      "prompt": "Erstellen Sie eine SQL-Abfrage mit Mehrfach-JOIN für Wirkstoff-Filterung und kombinierte Sortierung (Menge DESC, Preis ASC).",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "w2122_2_2_14_transaktion_archivierung",
+      "type": "open",
+      "prompt": "Beschreiben Sie ein transaktionales Verfahren für Archivierung und Löschung unter Wahrung referenzieller Integrität.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "w2122_2_2_15_sql_substring_plz",
+      "type": "open",
+      "prompt": "Geben Sie eine SQL-Abfrage an, die die Regionalkennung aus einer PLZ über SUBSTRING extrahiert.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "w2122_2_2_1c_passwortpruefung_korrektur",
+      "type": "open",
+      "prompt": "Für ein Login gilt: Passwortlänge mindestens 10 sowie mindestens ein Buchstabe, eine Ziffer und ein Sonderzeichen. Geben Sie eine prüfungssichere Lösung in Pseudocode an.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "w2122_2_2_2_compare_raum_aufsteigend",
+      "type": "open",
+      "prompt": "Definieren Sie eine compare-Funktion für Raum-Objekte auf Basis von getBelegung() für aufsteigende Sortierung.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "w2122_2_2_3_generische_klasse_begriff",
+      "type": "open",
+      "prompt": "Erläutern Sie den Begriff einer generischen Klasse im Kontext flexibler Sortierlösungen.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "w2122_2_2_4_sort_list_t_compare_function",
+      "type": "open",
+      "prompt": "Skizzieren Sie den Sortierkern für List<T> mit einer übergebenen Vergleichsfunktion compare(a,b)->int.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "w2122_2_2_5_trace_rekursion_dezimal_binaer",
+      "type": "open",
+      "prompt": "Führen Sie einen Schreibtest für die rekursive Dezimal-zu-Binär-Umwandlung durch und begründen Sie die Ausgabereihenfolge.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "w2122_2_2_6_whitebox_statement_coverage",
+      "type": "open",
+      "prompt": "Erläutern Sie White-Box-Testing mit Statement Coverage für eine rekursive Funktion und nennen Sie sinnvolle Testfälle.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "w2122_2_2_7_rekursive_ausgabe_reihenfolge",
+      "type": "open",
+      "prompt": "Erklären Sie, wie die Position der Ausgabeanweisung in einer Rekursion die Reihenfolge der Ausgabe beeinflusst.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "w2122_2_2_8_er_erweiterung",
+      "type": "open",
+      "prompt": "Erweitern Sie ein ER-Modell um medizinische Entitäten und nennen Sie sinnvolle Kardinalitäten.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "w2122_2_2_9_3nf_beweis",
+      "type": "open",
+      "prompt": "Zeigen Sie an einem Beispiel die Verletzung der 3NF durch transitive Abhängigkeit und nennen Sie die Korrektur.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "w2223_2_2_1a_stable_sort_rooms_by_occupancy",
+      "type": "open",
+      "prompt": "Es gibt ein Array mit Raum-Objekten. Jedes Raum-Objekt liefert über getBelegung() einen Belegungsgrad. Skizzieren Sie in Pseudocode einen stabilen Sortierablauf, der die Räume aufsteigend nach Belegung sortiert (benachbarte Vergleiche und ggf. Tausch).",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "w2223_2_2_1b_compare_function_room",
+      "type": "open",
+      "prompt": "Für den Sortierablauf soll eine compare-Funktion für Raum-Objekte definiert werden (ähnlich compareTo). Sie liefert -1/0/1 für kleiner/gleich/größer. Geben Sie die Logik auf Basis von getBelegung() für aufsteigende Sortierung an.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "w2223_2_2_1c_generic_class_concept",
+      "type": "open",
+      "prompt": "Im Kontext eines flexiblen Sortieralgorithmus soll mit generischen Klassen gearbeitet werden. Erläutern Sie kurz den Begriff 'generische Klasse'.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "w2223_2_2_1d_sort_with_function_and_list",
+      "type": "open",
+      "prompt": "Ein Sortieralgorithmus soll nicht mehr ein Array, sondern eine List<T> verarbeiten und eine übergebene Function<T>-Funktion für den Vergleich verwenden (z. B. compare(a,b) -> int). Aktualisieren Sie den Sortierkern in Pseudocode so, dass er List<T> und die gespeicherte Vergleichsfunktion nutzt.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "w2223_2_2_2a_trace_table_recursive_decimal_to_binary",
+      "type": "open",
+      "prompt": "Ein rekursiver Algorithmus zur Umwandlung Dezimal -> Binär ist gegeben. Führen Sie für zwei Testwerte einen Schreib-/Trace-Test durch und tragen Sie das Ergebnis ein (Ausgabe der Funktion).",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "w2223_2_2_2b_explain_and_fix_recursive_binary_bug",
+      "type": "open",
+      "prompt": "Der rekursive Dezimal->Binär-Algorithmus liefert eine falsche Ausgabe. Erklären Sie kurz die Ursache und nennen Sie eine Korrekturmöglichkeit.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "w2223_2_2_2c_statement_coverage_min_tests",
+      "type": "open",
+      "prompt": "Der Algorithmus soll als White-Box-Test geprüft werden. Erklären Sie kurz den Begriff 'Anweisungsüberdeckung' und nennen Sie eine minimale Anzahl an Testfällen, um beim gegebenen Ablauf Anweisungsüberdeckung zu erreichen (mit kurzen Beispielwerten).",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "w2223_2_2_2d_recursion_pro_con",
+      "type": "open",
+      "prompt": "Nennen Sie je einen Vorteil und einen Nachteil einer rekursiven Lösung im Vergleich zu einer iterativen Lösung (bezogen auf die Binärumwandlung bzw. ähnliche Probleme).",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "w2223_2_2_2e_iterative_binary_with_custom_list",
+      "type": "open",
+      "prompt": "Ersetzen Sie den rekursiven Dezimal->Binär-Algorithmus durch eine iterative Lösung. Nutzen Sie dabei eine bereitgestellte List-Klasse (z. B. insert(element), elementAt(pos), size()). Ziel: korrekte Bitreihenfolge.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "w2223_2_2_3a_extend_er_model_booking_confirmation",
+      "type": "open",
+      "prompt": "Ein bestehendes ER-Modell enthält u. a. Mitarbeiter und Serviceleistung. Es soll um 'Raumbuchung' erweitert werden (Kunde bucht Räume/Zeitraum; Buchungsbestätigung enthält Infos). Nennen Sie sinnvolle zusätzliche Entitätstypen und Beziehungen inkl. Kardinalitäten.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "w2223_2_2_3b_relational_schema_3nf_from_model",
+      "type": "open",
+      "prompt": "Leiten Sie aus dem erweiterten Modell ein relationales Schema (3NF) ab. Geben Sie Tabellen mit PK/FK an und berücksichtigen Sie n:m-Beziehungen über Zwischentabellen.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "w2223_2_2_3c_choose_sql_datatypes_duration_plz_name",
+      "type": "open",
+      "prompt": "Ordnen Sie den Attributen Dauer, PLZ und Name geeignete SQL-Datentypen zu und begründen Sie kurz.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "w2223_2_2_4a_sql_sum_vacation_by_department_2022",
+      "type": "open",
+      "prompt": "Gegeben sind Tabellen zu Mitarbeiter, Abteilung, Fehlzeiten und FehlzeitArt. Formulieren Sie eine SQL-Abfrage, die pro Abteilung die Summe der Urlaubstage für das Jahr 2022 ausgibt.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "w2223_2_2_4b_archive_then_delete_transaction",
+      "type": "open",
+      "prompt": "Beschreiben Sie SQL-Schritte, um Datensätze (z. B. Fehlzeiten eines Mitarbeiters) zu kopieren/archivieren und anschließend zu löschen. Nutzen Sie eine Transaktion, um Datenverlust zu vermeiden.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "w2223_2_2_4c_sql_filter_plz_4th_digit_is_3",
+      "type": "open",
+      "prompt": "Formulieren Sie eine SQL-Abfrage, die alle Datensätze liefert, bei denen die 4. Stelle der Postleitzahl (PLZ als Zeichenkette) die Ziffer '3' enthält.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    }
+  ]
+}

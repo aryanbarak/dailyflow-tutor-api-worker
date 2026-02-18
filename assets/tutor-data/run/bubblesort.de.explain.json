@@ -1,0 +1,39 @@
+{
+  "schema_name": "tutor_asset.explain.v1",
+  "version": "1.0",
+  "topic": "bubblesort",
+  "lang": "de",
+  "mode": "explain",
+  "title": "BubbleSort — FIAE Explain Core v1.0",
+  "summary": "BubbleSort ist ein Sortierverfahren, das benachbarte Elemente wiederholt vergleicht und bei falscher Reihenfolge tauscht.",
+  "blocks": [
+    {
+      "kind": "definition",
+      "text": "BubbleSort ist ein Sortierverfahren, das benachbarte Elemente wiederholt vergleicht und bei falscher Reihenfolge tauscht.\n"
+    },
+    {
+      "kind": "idea",
+      "text": "- Rechts entsteht der sortierte Bereich; nach Pass `i` sind die letzten `i+1` Elemente fix.\n- Die innere Schleife wird k?rzer: `j = 0 .. n-2-i`.\n- Es werden nur Nachbarn getauscht (Adjacent Swap).\n"
+    },
+    {
+      "kind": "procedure",
+      "text": "- ?u?ere Schleife: `i = 0 .. n-2` (P?sse).\n- Innere Schleife: `j = 0 .. n-2-i`.\n- Vergleiche `arr[j]` und `arr[j+1]`; bei `arr[j] > arr[j+1]` swap.\n- Nach jedem Pass steht das gr??te Element des Restbereichs rechts fix.\n- Early-Exit (optimiert): `swapped=false` vor dem Pass; wenn kein Swap ? Abbruch.\n"
+    },
+    {
+      "kind": "example",
+      "text": "Beispiel: `arr = [5,1,4,2,8]`\n- Pass 0 ? `[1,4,2,5,8]`\n- Pass 1 ? `[1,2,4,5,8]`\n- Pass 2 ? `[1,2,4,5,8]` (fertig)\n"
+    },
+    {
+      "kind": "complexity",
+      "text": "- Klassisch: Best/Worst `O(n^2)` (immer `n(n-1)/2` Vergleiche).\n- Early-Exit: Best `O(n)`, Worst `O(n^2)`.\n- Speicher: `O(1)` (in-place).\n- Stabil, wenn nur bei `>` getauscht wird.\n"
+    },
+    {
+      "kind": "ihk_traps",
+      "text": "- Schleifenbereiche falsch: `i=0..n-2`, `j=0..n-2-i`.\n- Vergleichsrichtung falsch (aufsteigend nur bei `>` tauschen).\n- `swapped` nicht pro Pass resetten; Abbruch nicht nach innerer Schleife.\n- Stabilit?t falsch: bei `>=` ist es nicht stabil.\n- Bei Objekten nur Feld tauschen (falsch).\n- Comparator: `cmp(arr[j], arr[j+1]) > 0` bedeutet Swap.\n"
+    },
+    {
+      "kind": "variants",
+      "text": "**classic_full**\nZiel: klassisches Adjacent-Swap (asc).\nPseudocode: `BubbleSort(arr)`.\nKomplexit?t: Best/Worst `O(n^2)`, Space `O(1)`.\nTraps:\n- `j` bis `n-2-i`.\n- Swap nur bei `>`.\n\n**early_exit**\nZiel: Abbruch, wenn ein Pass ohne Swap bleibt.\nPseudocode: `BubbleSort(arr)` mit `swapped`.\nKomplexit?t: Best `O(n)`, Worst `O(n^2)`, Space `O(1)`.\nTraps:\n- `swapped` vor jedem Pass resetten.\n- Abbruch erst nach der inneren Schleife.\n\n**reverse**\nZiel: absteigend sortieren.\nPseudocode: `BubbleSort(arr)` mit Vergleich `<`.\nKomplexit?t: Best/Worst `O(n^2)`, Space `O(1)`.\nTraps:\n- Vergleichsrichtung umdrehen.\n- Schleifenbereiche bleiben gleich.\n\n**comparator**\nZiel: Sortieren per `cmp(a,b)`.\nPseudocode: `BubbleSort(arr, cmp)`.\nKomplexit?t: Best/Worst `O(n^2)`, Space `O(1)`.\nTraps:\n- Swap bei `cmp(arr[j], arr[j+1]) > 0`.\n- Parameterreihenfolge nicht vertauschen.\n\n**objects**\nZiel: nach Feld `key` sortieren.\nPseudocode: `BubbleSort(arr, key)`.\nKomplexit?t: Best/Worst `O(n^2)`, Space `O(1)`.\nTraps:\n- Ganze Objekte tauschen.\n- Falscher `key`/Typ.\n\n**strings**\nZiel: lexikografisch sortieren.\nPseudocode: `BubbleSort(arr)` (Stringvergleich).\nKomplexit?t: Best/Worst `O(n^2)`, Space `O(1)`.\nTraps:\n- Case/Locale beachten.\n- Stringvergleich nicht numerisch interpretieren.\n\n**cocktail**\nZiel: bidirektionale P?sse (vorw?rts/r?ckw?rts).\nPseudocode: `CocktailSort(arr)`.\nKomplexit?t: Best/Worst `O(n^2)`, Space `O(1)`.\nTraps:\n- Grenzen `left/right` falsch aktualisiert.\n- R?ckw?rtslauf-Indizes vertauscht.\n"
+    }
+  ]
+}

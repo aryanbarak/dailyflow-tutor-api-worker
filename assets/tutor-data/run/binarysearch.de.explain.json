@@ -1,0 +1,39 @@
+{
+  "schema_name": "tutor_asset.explain.v1",
+  "version": "1.0",
+  "topic": "binarysearch",
+  "lang": "de",
+  "mode": "explain",
+  "title": "Binary Search (Binäre Suche) – FIAE Core (Deutsch)",
+  "summary": "Die **Binäre Suche** (Binary Search) ist ein effizienter Such-Algorithmus zum Auffinden eines Wertes in einem **sortierten** Array.\n\n**Grundprinzip:** Teile-und-herrsche (Divide & Conquer) – in jedem Schritt wird der Suchraum halbiert.\n\n**Voraussetzung:** Das Array muss vor der Suche **sortiert** sein (aufsteigend oder absteigend).\n\n**Zeitkomplexität:** `O(log n)` – deutlich schneller als lineare Suche (`O(n)`).\n\n**Raumkomplexität:** `O(1)` (iterativ) oder `O(log n)` (rekursiv wegen Call Stack).",
+  "blocks": [
+    {
+      "kind": "definition",
+      "text": "Die **Binäre Suche** (Binary Search) ist ein effizienter Such-Algorithmus zum Auffinden eines Wertes in einem **sortierten** Array.\n\n**Grundprinzip:** Teile-und-herrsche (Divide & Conquer) – in jedem Schritt wird der Suchraum halbiert.\n\n**Voraussetzung:** Das Array muss vor der Suche **sortiert** sein (aufsteigend oder absteigend).\n\n**Zeitkomplexität:** `O(log n)` – deutlich schneller als lineare Suche (`O(n)`).\n\n**Raumkomplexität:** `O(1)` (iterativ) oder `O(log n)` (rekursiv wegen Call Stack)."
+    },
+    {
+      "kind": "idea",
+      "text": "**Vorgehen:**\n1. Vergleiche das mittlere Element (`arr[mid]`) mit dem gesuchten Wert (`target`).\n2. Wenn `arr[mid] == target` → **Gefunden!** Gib Index `mid` zurück.\n3. Wenn `arr[mid] < target` → Suche in der **rechten Hälfte** weiter (`low = mid + 1`).\n4. Wenn `arr[mid] > target` → Suche in der **linken Hälfte** weiter (`high = mid - 1`).\n5. Wiederhole Schritte 1–4, bis der Wert gefunden ist oder `low > high` (nicht gefunden → `-1`).\n\n**Warum so schnell?**\n- Bei jedem Schritt wird die Anzahl der zu durchsuchenden Elemente **halbiert**.\n- Für ein Array mit 1.000.000 Elementen sind maximal ~20 Vergleiche nötig (`log₂(1.000.000) ≈ 20`)."
+    },
+    {
+      "kind": "procedure",
+      "text": "**Beispiel:** Suche `target = 7` in `arr = [1, 3, 5, 7, 9, 11, 13]`\n\n**Schritt 1:**\n- `low = 0`, `high = 6`, `mid = (0 + 6) / 2 = 3`\n- `arr[3] = 7` → **Treffer!** → Rückgabe `3`\n\n**Beispiel 2:** Suche `target = 10` in `arr = [1, 3, 5, 7, 9, 11, 13]`\n\n**Schritt 1:**\n- `low = 0`, `high = 6`, `mid = 3`\n- `arr[3] = 7 < 10` → Suche rechts: `low = 4`\n\n**Schritt 2:**\n- `low = 4`, `high = 6`, `mid = 5`\n- `arr[5] = 11 > 10` → Suche links: `high = 4`\n\n**Schritt 3:**\n- `low = 4`, `high = 4`, `mid = 4`\n- `arr[4] = 9 < 10` → Suche rechts: `low = 5`\n\n**Schritt 4:**\n- `low = 5`, `high = 4` → **Abbruch** (`low > high`) → Rückgabe `-1` (nicht gefunden)"
+    },
+    {
+      "kind": "example",
+      "text": "Suche `target = 7` in `arr = [1, 3, 5, 7, 9]` ??? Index `3`."
+    },
+    {
+      "kind": "complexity",
+      "text": "**Zeitkomplexität:**\n- **Best Case:** `O(1)` – gesuchtes Element ist in der Mitte\n- **Average Case:** `O(log n)` – durchschnittlich log₂(n) Vergleiche\n- **Worst Case:** `O(log n)` – Element am Rand oder nicht vorhanden\n\n**Raumkomplexität:**\n- **Iterativ:** `O(1)` – nur lokale Variablen\n- **Rekursiv:** `O(log n)` – Rekursionstiefe (Call Stack)\n\n**Eigenschaften:**\n- **Stabil:** Nein (bei Varianten mit Duplikaten relevant)\n- **In-Place:** Ja (iterativ)\n- **Vergleichsbasiert:** Ja\n- **Voraussetzung:** Array MUSS sortiert sein!"
+    },
+    {
+      "kind": "ihk_traps",
+      "text": "**1. Unsortiertes Array:**\n- Die Binäre Suche funktioniert NUR auf sortierten Arrays.\n- Bei unsortiertem Array → Ergebnis kann falsch sein (kein Fehler, aber falsches Ergebnis).\n\n**2. Schleifenbedingung:**\n- **Korrekt:** `SOLANGE low <= high` (mit Gleichheit!)\n- **Falsch:** `SOLANGE low < high` → letztes Element wird nicht geprüft.\n\n**3. Berechnung von `mid`:**\n- **Standard:** `mid = (low + high) / 2`\n- **Problem:** Bei sehr großen Werten kann `low + high` überlaufen (Integer Overflow).\n- **Sicherer:** `mid = low + (high - low) / 2`\n\n**4. Update von `low` und `high`:**\n- **Korrekt:** `low = mid + 1` und `high = mid - 1` (NICHT einfach `mid`!)\n- **Falsch:** `low = mid` oder `high = mid` → führt zu Endlosschleife bei bestimmten Inputs.\n\n**5. Rückgabewert:**\n- **Klassisch:** `-1` wenn nicht gefunden\n- **lower_bound/upper_bound:** Einfügeposition (immer gültig, 0 bis n)\n\n**6. Duplikate:**\n- **Klassisch:** Gibt irgendeinen Index zurück (nicht deterministisch)\n- **first_occurrence:** Weiterlaufen nach links (`high = mid - 1`)\n- **last_occurrence:** Weiterlaufen nach rechts (`low = mid + 1`)"
+    },
+    {
+      "kind": "variants",
+      "text": "**classic_iterative**: Standard-Variante (iterativ). Kernlogik bleibt gleich, O(log n) Zeit, O(1) Platz. Fallen: low <= high, Updates mit mid?1.\n**classic_recursive**: Rekursiv mit Base-Case links > rechts. Zeit O(log n), Stack O(log n). Fallen: return vergessen.\n**objects_by_key**: Vergleich auf a[mid][key]. Array muss nach key sortiert sein. Falle: falsches Feld / unsortiert.\n**generic_comparator**: Vergleich ??ber cmp = f(a,b). Logik gleich, aber Richtung beachten. Falle: cmp < 0 / > 0 verwechselt.\n**safe_mid**: mid = links + (rechts - links)/2. Verhindert Overflow, Logik unver??ndert.\n**trace_exam**: Klassisch, aber Trace links/mid/rechts ausgeben. Falle: falsche Trace-Tabelle.\n**debug_common_errors**: Checkliste: sortiert?, while-Bedingung, mid korrekt, low/high-Update, -1 bei Misserfolg.\n"
+    }
+  ]
+}

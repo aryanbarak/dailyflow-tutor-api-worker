@@ -1,0 +1,90 @@
+{
+  "schema_name": "tutor_asset.exam.v1",
+  "version": "1.0",
+  "topic": "selectionsort",
+  "lang": "de",
+  "mode": "exam",
+  "title": "SelectionSort (Auswahlsortierung) — FIAE Explain Core v1.0",
+  "questions": [
+    {
+      "id": "ex01_trace_passes",
+      "type": "open",
+      "prompt": "F?hre SelectionSort auf arr = [7, 2, 6, 3] aus. Gib den Array-Zustand nach jedem Durchlauf i an.",
+      "answer": "i=0: [2,7,6,3]; i=1: [2,3,6,7]; i=2: [2,3,6,7]",
+      "explain_de": "i=0: Minimum 2 (Index1) tauschen -> [2,7,6,3]. i=1: Minimum 3 (Index3) tauschen -> [2,3,6,7]. i=2: Minimum bereits an Stelle.",
+      "explain_fa": ""
+    },
+    {
+      "id": "ex02_trace_after_i1",
+      "type": "open",
+      "prompt": "SelectionSort auf arr = [5, 1, 4, 2]. Wie lautet der Zustand nach i=1?",
+      "answer": "[1,2,4,5]",
+      "explain_de": "i=0: Minimum 1 nach vorne -> [1,5,4,2]. i=1: Minimum 2 nach Index1 -> [1,2,4,5].",
+      "explain_fa": ""
+    },
+    {
+      "id": "ex03_trace_desc",
+      "type": "open",
+      "prompt": "SelectionSort absteigend auf arr = [3, 1, 4, 2]. Gib den Zustand nach i=0 an.",
+      "answer": "[4,1,3,2]",
+      "explain_de": "Absteigend: Maximum 4 (Index2) wird nach vorne getauscht -> [4,1,3,2].",
+      "explain_fa": ""
+    },
+    {
+      "id": "ex04_complexity_comparisons",
+      "type": "open",
+      "prompt": "Wieviele Vergleiche macht SelectionSort bei n=5 immer?",
+      "answer": "10",
+      "explain_de": "Vergleiche = (n-1)+(n-2)+...+1 = n(n-1)/2 = 10.",
+      "explain_fa": ""
+    },
+    {
+      "id": "ex05_complexity_swaps",
+      "type": "open",
+      "prompt": "Wie viele Swaps maximal bei n=5?",
+      "answer": "4",
+      "explain_de": "Pro Durchlauf hoechstens ein Swap, insgesamt n-1 = 4.",
+      "explain_fa": ""
+    },
+    {
+      "id": "ex06_trap_stability",
+      "type": "open",
+      "prompt": "Ist klassischer SelectionSort stabil? Begr?nde kurz.",
+      "answer": "Nein, nicht stabil",
+      "explain_de": "Ein Swap kann die Reihenfolge gleicher Elemente veraendern, daher ist der klassische SelectionSort nicht stabil.",
+      "explain_fa": ""
+    },
+    {
+      "id": "ex07_trap_minindex_init",
+      "type": "open",
+      "prompt": "Warum muss minIndex in jedem Durchlauf mit i initialisiert werden?",
+      "answer": "Weil nur der Restbereich i..n-1 durchsucht wird",
+      "explain_de": "minIndex muss auf den aktuellen Start des Restbereichs gesetzt werden, sonst werden bereits sortierte Teile falsch einbezogen.",
+      "explain_fa": ""
+    },
+    {
+      "id": "ex08_trap_bounds",
+      "type": "open",
+      "prompt": "Welche Schleifenbereiche sind korrekt?",
+      "answer": "i=0..n-2, j=i+1..n-1",
+      "explain_de": "Aeusserer i von 0 bis n-2, innerer j von i+1 bis n-1 fuer die Minimumsuche.",
+      "explain_fa": ""
+    },
+    {
+      "id": "ex09_trap_comparator",
+      "type": "open",
+      "prompt": "SelectionSort mit Comparator f(a,b) (f<0 bedeutet a vor b). Welche Bedingung aktualisiert minIndex?",
+      "answer": "Wenn f(a[j], a[minIndex]) < 0",
+      "explain_de": "Das aktuelle Element wird neuer Kandidat, wenn es nach Comparator vor dem bisherigen Minimum liegt.",
+      "explain_fa": ""
+    },
+    {
+      "id": "ex10_trap_bestcase",
+      "type": "open",
+      "prompt": "Warum bleibt der Best-Case bei SelectionSort O(n^2)?",
+      "answer": "Weil das Minimum in jedem Durchlauf gesucht werden muss",
+      "explain_de": "Auch bei bereits sortiertem Array muss der Restbereich voll durchsucht werden, daher bleiben die Vergleiche n(n-1)/2.",
+      "explain_fa": ""
+    }
+  ]
+}

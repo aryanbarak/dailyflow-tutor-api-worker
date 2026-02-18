@@ -1,0 +1,39 @@
+{
+  "schema_name": "tutor_asset.explain.v1",
+  "version": "1.0",
+  "topic": "count_condition",
+  "lang": "de",
+  "mode": "explain",
+  "title": "Count Condition (Zählen mit Bedingung) — FIAE Explain Core v1.0",
+  "summary": "**Count Condition (Zählen mit Bedingung)** ist ein einfacher Algorithmus, der ein Array durchläuft und die Anzahl der Elemente zählt, die eine **bestimmte Bedingung** erfüllen, oder eine gefilterte Liste aufbaut.\n\n**Kernprinzip:**\n- Zählvariable count startet bei 0\n- Array von Anfang bis Ende durchlaufen\n- Für jedes Element: Wenn Bedingung erfüllt → count erhöhen (oder Element zu Liste hinzufügen)\n- Ausgabe: Anzahl (count) oder gefilterte Liste (filtered)\n\n**IHK-Fokus:** Linearer Algorithmus O(n), Unterschied zwischen Zählen (count) und Filtern (build list), genaue Bedingungen (>, >=, ==, <, <=), Zugriff auf Objektfelder.",
+  "blocks": [
+    {
+      "kind": "definition",
+      "text": "**Count Condition (Zählen mit Bedingung)** ist ein einfacher Algorithmus, der ein Array durchläuft und die Anzahl der Elemente zählt, die eine **bestimmte Bedingung** erfüllen, oder eine gefilterte Liste aufbaut.\n\n**Kernprinzip:**\n- Zählvariable count startet bei 0\n- Array von Anfang bis Ende durchlaufen\n- Für jedes Element: Wenn Bedingung erfüllt → count erhöhen (oder Element zu Liste hinzufügen)\n- Ausgabe: Anzahl (count) oder gefilterte Liste (filtered)\n\n**IHK-Fokus:** Linearer Algorithmus O(n), Unterschied zwischen Zählen (count) und Filtern (build list), genaue Bedingungen (>, >=, ==, <, <=), Zugriff auf Objektfelder."
+    },
+    {
+      "kind": "idea",
+      "text": "TBD"
+    },
+    {
+      "kind": "procedure",
+      "text": "TBD"
+    },
+    {
+      "kind": "example",
+      "text": "TBD"
+    },
+    {
+      "kind": "complexity",
+      "text": "**Zeit:**\n- **Alle Varianten:** O(n) — linear\n- Grund: Einmaliges Durchlaufen des Arrays\n\n**Speicher:**\n- **count_gt:** O(1) — nur Variable count\n- **count_has_note:** O(1) — nur Variable count\n- **build_filtered_list:** O(k) — k gefilterte Elemente (Worst-Case: O(n))"
+    },
+    {
+      "kind": "ihk_traps",
+      "text": "1) **count mit i verwechseln:** count und i sind unabhängig\n2) **count in jeder Runde erhöhen:** Nur bei erfüllter Bedingung\n3) **Initialisierung vergessen:** count = 0 vor Schleife\n4) **Falsche Bedingung:** Unterschied >, >=, ==, <, <=\n5) **Falscher Feldzugriff:** arr[i][field], nicht arr[field]\n6) **count statt filtered zurückgeben:** Bei build_filtered_list Liste zurückgeben\n7) **i statt arr[i] hinzufügen:** filtered.append(arr[i]), nicht i\n8) **filtered = [] vergessen:** Initialisierung vor Schleife"
+    },
+    {
+      "kind": "variants",
+      "text": "**1) count_gt (Zähle größer als Schwellwert):**\n- **Eingabe:** Zahlen-Array + threshold\n- **Bedingung:** arr[i] > threshold\n- **Ausgabe:** Anzahl (count)\n- **Beispiel:** arr = [5, 2, 8, 3], threshold = 4 → count = 2 (Elemente 5 und 8)\n\n**2) count_has_note (Zähle Objekte mit bestimmtem Feldwert):**\n- **Eingabe:** Objekt-Array + field + value\n- **Bedingung:** arr[i][field] == value\n- **Ausgabe:** Anzahl (count)\n- **Beispiel:** students = [{note: 2}, {note: 3}, {note: 2}], field = \"note\", value = 2 → count = 2\n\n**3) build_filtered_list (Baue gefilterte Liste):**\n- **Eingabe:** Zahlen-Array + threshold\n- **Bedingung:** arr[i] > threshold\n- **Ausgabe:** Liste filtered (nicht nur count!)\n- **Beispiel:** arr = [5, 2, 8, 3], threshold = 4 → filtered = [5, 8]\n\n**Gemeinsamkeit:** Alle Varianten sind linear O(n)"
+    }
+  ]
+}

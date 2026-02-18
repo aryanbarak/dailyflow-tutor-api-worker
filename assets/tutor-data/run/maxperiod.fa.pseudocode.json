@@ -1,0 +1,12 @@
+{
+  "schema_name": "tutor_asset.pseudocode.v1",
+  "version": "1.0",
+  "topic": "maxperiod",
+  "lang": "fa",
+  "mode": "pseudocode",
+  "title": "MaxPeriod (طولانی‌ترین دنباله متوالی) — FIAE Explain Core v1.0",
+  "pseudocode": "FUNKTION MaxPeriodOnes(arr)\n  n = LAENGE(arr)\n  maxLen = 0\n  cur = 0\n  end = -1\n  FUER i = 0 BIS n-1\n    WENN arr[i] = 1 DANN\n      cur = cur + 1\n      WENN cur > maxLen DANN\n        maxLen = cur\n        end = i\n      ENDE\n    SONST\n      cur = 0\n    ENDE\n  ENDE\n  WENN maxLen = 0 DANN\n    start = -1\n  SONST\n    start = end - maxLen + 1\n  ENDE\n  GIB (maxLen, start, end) ZURUECK\nENDE",
+  "notes": [
+    "variant:longest_ones_binary"
+  ]
+}

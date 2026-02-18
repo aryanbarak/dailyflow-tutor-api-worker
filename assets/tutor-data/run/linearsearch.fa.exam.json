@@ -1,0 +1,50 @@
+{
+  "schema_name": "tutor_asset.exam.v1",
+  "version": "1.0",
+  "topic": "linearsearch",
+  "lang": "fa",
+  "mode": "exam",
+  "title": "Linear Search (جستجوی خطی) — FIAE Explain Core v1.0",
+  "questions": [
+    {
+      "id": "ex1_trace",
+      "type": "open",
+      "prompt": "جستجوی خطی برای x=22 را در آرایهٔ [64, 25, 12, 22, 11] انجام بده. اندیس‌های بررسی‌شده به ترتیب و مقدار بازگشتی را بنویس.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "ex2_not_found",
+      "type": "open",
+      "prompt": "x=99 را در آرایهٔ [10, 20, 30] جستجو کن. چند مقایسه انجام می‌شود؟ مقدار بازگشتی چیست؟",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "ex3_pseudocode_gap",
+      "type": "open",
+      "prompt": "شبه‌کد جستجوی خطی را کامل کن:\n\nتابع LinearSearch(arr, x)\n  n = طول(arr)\n  برای i = 0 تا _____\n    اگر _____ آنگاه\n      _____ را برگردان\n    پایان\n  پایان\n  _____ را برگردان\nپایان",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "ex4_complexity",
+      "type": "open",
+      "prompt": "برای n=100: **کمترین** و **بیشترین** تعداد مقایسه در Linear Search چقدر است؟",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "ex5_binary_comparison",
+      "type": "open",
+      "prompt": "چرا Binary Search سریع‌تر از Linear Search است؟ پیش‌نیاز چیست؟",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    }
+  ]
+}

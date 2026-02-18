@@ -1,0 +1,12 @@
+{
+  "schema_name": "tutor_asset.pseudocode.v1",
+  "version": "1.0",
+  "topic": "minmax_avg",
+  "lang": "de",
+  "mode": "pseudocode",
+  "title": "Min/Max/Average (Min/Max/Durchschnitt) — FIAE Explain Core v1.0",
+  "pseudocode": "FUNKTION MinMaxAvg(arr)\n  n = LAENGE(arr)\n  min = arr[0]\n  max = arr[0]\n  sum = 0\n  FUER i = 0 BIS n-1\n    WENN arr[i] < min DANN min = arr[i]\n    WENN arr[i] > max DANN max = arr[i]\n    sum = sum + arr[i]\n  ENDE\n  avg = sum / n\n  GIB (min, max, avg) ZURUECK\nENDE",
+  "notes": [
+    "variant:classic_minmax_avg"
+  ]
+}

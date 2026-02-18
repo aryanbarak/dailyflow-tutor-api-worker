@@ -1,0 +1,90 @@
+{
+  "schema_name": "tutor_asset.exam.v1",
+  "version": "1.0",
+  "topic": "minimum",
+  "lang": "de",
+  "mode": "exam",
+  "title": "Minimum (Minimumsuche) — FIAE Explain Core v1.0",
+  "questions": [
+    {
+      "id": "ex01_trace_full",
+      "type": "open",
+      "prompt": "Minimumsuche auf arr = [7, 3, 9, 1, 5]. Gib minIndex und min am Ende an.",
+      "answer": "minIndex=3, min=1",
+      "explain_de": "Start min=7 (Index0). 3<7 -> min=3 (1), 9 kein Update, 1<3 -> min=1 (3), 5 kein Update.",
+      "explain_fa": ""
+    },
+    {
+      "id": "ex02_trace_start_index",
+      "type": "open",
+      "prompt": "Minimumsuche mit start_index=2 auf arr = [7, 3, 9, 1, 5]. Gib Ergebnis (Index und Wert).",
+      "answer": "minIndex=3, min=1",
+      "explain_de": "Start bei Index2 (Wert 9). Vergleiche 1 und 5, Minimum wird 1 bei Index3.",
+      "explain_fa": ""
+    },
+    {
+      "id": "ex03_trace_negative",
+      "type": "open",
+      "prompt": "Minimumsuche auf arr = [-5, -2, -8, -3]. Was ist minIndex und min?",
+      "answer": "minIndex=2, min=-8",
+      "explain_de": "Start min=-5 (Index0), -2 kein Update, -8 Update (Index2), -3 kein Update.",
+      "explain_fa": ""
+    },
+    {
+      "id": "ex04_complexity_comparisons",
+      "type": "open",
+      "prompt": "Wie viele Vergleiche bei n=5 und start_index=0?",
+      "answer": "4",
+      "explain_de": "Vergleiche = n - start_index - 1 = 5-0-1 = 4.",
+      "explain_fa": ""
+    },
+    {
+      "id": "ex05_complexity_big",
+      "type": "open",
+      "prompt": "Array mit n=100, start_index=20. Wie viele Vergleiche?",
+      "answer": "79",
+      "explain_de": "Vergleiche = 100-20-1 = 79.",
+      "explain_fa": ""
+    },
+    {
+      "id": "ex06_trap_init",
+      "type": "open",
+      "prompt": "Warum ist min = 0 als Initialisierung falsch?",
+      "answer": "Bei nur negativen Zahlen waere 0 falsch",
+      "explain_de": "Wenn alle Werte negativ sind, bleibt min f?lschlich 0. Richtig ist min = arr[start_index].",
+      "explain_fa": ""
+    },
+    {
+      "id": "ex07_trap_return",
+      "type": "open",
+      "prompt": "Was gibt der Algorithmus zurueck: Wert oder Index?",
+      "answer": "Index des Minimums",
+      "explain_de": "Die Minimumsuche gibt den Index zurueck; der Wert ist arr[minIndex].",
+      "explain_fa": ""
+    },
+    {
+      "id": "ex08_trap_empty",
+      "type": "open",
+      "prompt": "Wie muss ein leeres Array behandelt werden?",
+      "answer": "Fehler/Exception oder spezieller Rueckgabewert",
+      "explain_de": "Bei n=0 darf nicht auf arr[0] zugegriffen werden; man gibt z.B. -1 oder eine Exception zurueck.",
+      "explain_fa": ""
+    },
+    {
+      "id": "ex09_trap_tie",
+      "type": "open",
+      "prompt": "Array = [5, 2, 8, 2]. Welcher Index wird als Minimum geliefert?",
+      "answer": "Index 1",
+      "explain_de": "Mit Bedingung < bleibt das erste Minimum erhalten; das zweite 2 fuehrt zu keinem Update.",
+      "explain_fa": ""
+    },
+    {
+      "id": "ex10_trap_bounds",
+      "type": "open",
+      "prompt": "Warum beginnt die Schleife bei start_index+1 und nicht bei start_index?",
+      "answer": "Weil arr[start_index] bereits als min gesetzt ist",
+      "explain_de": "Das Start-Element ist initialer Kandidat; es waere ein ueberfluessiger Vergleich.",
+      "explain_fa": ""
+    }
+  ]
+}

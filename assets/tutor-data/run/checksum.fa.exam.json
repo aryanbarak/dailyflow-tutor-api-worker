@@ -1,0 +1,42 @@
+{
+  "schema_name": "tutor_asset.exam.v1",
+  "version": "1.0",
+  "topic": "checksum",
+  "lang": "fa",
+  "mode": "exam",
+  "title": "رقم بررسی (Checksum / Prüfziffer) — FIAE Explain Core v1.0",
+  "questions": [
+    {
+      "id": "ex1_mod10_build",
+      "type": "open",
+      "prompt": "داده شده: code = \"12345\", weights = [2, 1]. رقم بررسی را با فرمول (10 - sum % 10) % 10 محاسبه کن.",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "ex2_isbn10_build",
+      "type": "open",
+      "prompt": "کد: \"012345678\". وزن‌ها: [10,9,8,7,6,5,4,3,2]. رقم بررسی را محاسبه کن (اگر 10 شد → 'X').",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "ex3_validate",
+      "type": "open",
+      "prompt": "کد کامل: \"123456\". weights = [2, 1]. آیا معتبر است؟",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "ex4_luhn_trace",
+      "type": "open",
+      "prompt": "کد: \"1234\". از راست به چپ، ارقام زوج را دو برابر کن. اگر > 9 باشد، Quersumme بگیر. مجموع باید بخش‌پذیر بر 10 باشد؟",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    }
+  ]
+}

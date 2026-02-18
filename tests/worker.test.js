@@ -75,7 +75,8 @@ async function run() {
     assert.equal(res.status, 200);
     const body = await readJson(res);
     assert.ok(Array.isArray(body.topics));
-    assert.deepEqual(body.topics, ["binarysearch", "bubblesort", "selectionsort"]);
+    assert.ok(body.topics.length >= 5);
+    assert.ok(body.topics.includes("binarysearch"));
     assert.equal(body.source, "generated-from-assets");
   }
 
@@ -106,6 +107,12 @@ async function run() {
     assert.equal(res.status, 200);
     const body = await readJson(res);
     assert.deepEqual(body, expected);
+    assert.equal(body.schema_name, "tutor_asset.pseudocode.v1");
+    assert.equal(body.topic, "bubblesort");
+    assert.equal(body.lang, "de");
+    assert.equal(body.mode, "pseudocode");
+    assert.equal(typeof body.pseudocode, "string");
+    assert.ok(body.pseudocode.length > 0);
   }
 
   {

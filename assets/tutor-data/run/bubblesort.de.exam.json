@@ -1,0 +1,90 @@
+{
+  "schema_name": "tutor_asset.exam.v1",
+  "version": "1.0",
+  "topic": "bubblesort",
+  "lang": "de",
+  "mode": "exam",
+  "title": "BubbleSort — FIAE Explain Core v1.0",
+  "questions": [
+    {
+      "id": "ex01_trace_passes",
+      "type": "open",
+      "prompt": "F?hre BubbleSort auf arr = [5, 1, 4, 2] aus. Gib den Array-Zustand nach jedem Pass i=0..2 an.",
+      "answer": "Pass0: [1,4,2,5]; Pass1: [1,2,4,5]; Pass2: [1,2,4,5]",
+      "explain_de": "Pass0: (5,1) tauschen -> [1,5,4,2], (5,4) -> [1,4,5,2], (5,2) -> [1,4,2,5]. Pass1: (4,2) -> [1,2,4,5]. Pass2: keine Aenderung.",
+      "explain_fa": ""
+    },
+    {
+      "id": "ex02_trace_after_pass0",
+      "type": "open",
+      "prompt": "Gegeben arr = [3, 2, 1, 4]. Wie sieht der Array-Zustand nach Pass i=0 aus?",
+      "answer": "[2,1,3,4]",
+      "explain_de": "Pass0: (3,2) tauschen -> [2,3,1,4], (3,1) tauschen -> [2,1,3,4], (3,4) kein Tausch.",
+      "explain_fa": ""
+    },
+    {
+      "id": "ex03_trace_swaps_pass0",
+      "type": "open",
+      "prompt": "Im ersten Pass von BubbleSort auf arr = [2, 5, 4, 1]: Wie viele Swaps passieren und wie lautet der Zustand nach Pass0?",
+      "answer": "2 Swaps, Zustand [2,4,1,5]",
+      "explain_de": "Vergleiche: (2,5) kein Swap, (5,4) Swap -> [2,4,5,1], (5,1) Swap -> [2,4,1,5]. Swaps=2.",
+      "explain_fa": ""
+    },
+    {
+      "id": "ex04_complexity_classic",
+      "type": "open",
+      "prompt": "Wieviele Vergleiche macht klassischer BubbleSort (ohne Early-Exit) bei n=5?",
+      "answer": "10",
+      "explain_de": "Vergleiche = n(n-1)/2 = 5*4/2 = 10.",
+      "explain_fa": ""
+    },
+    {
+      "id": "ex05_complexity_early_exit",
+      "type": "open",
+      "prompt": "Optimierter BubbleSort mit swapped-Flag, arr ist bereits sortiert, n=5. Wieviele Vergleiche und wie viele P?sse?",
+      "answer": "4 Vergleiche, 1 Pass",
+      "explain_de": "Im ersten Pass keine Swaps, daher Abbruch. Vergleiche = n-1 = 4.",
+      "explain_fa": ""
+    },
+    {
+      "id": "ex06_trap_swap_condition",
+      "type": "open",
+      "prompt": "Welche Tauschbedingung ist korrekt f?r aufsteigende Sortierung und erhaelt Stabilitaet?",
+      "answer": "Tauschen bei arr[j] > arr[j+1]",
+      "explain_de": "Nur bei > tauschen; bei Gleichheit kein Swap, damit die Reihenfolge gleicher Elemente erhalten bleibt.",
+      "explain_fa": ""
+    },
+    {
+      "id": "ex07_trap_loop_bounds",
+      "type": "open",
+      "prompt": "Gib die korrekten Schleifenbereiche f?r klassischen BubbleSort an.",
+      "answer": "i=0..n-2, j=0..n-2-i",
+      "explain_de": "Aeusserer Pass i von 0 bis n-2, innerer j von 0 bis n-2-i, da rechts bereits sortiert ist.",
+      "explain_fa": ""
+    },
+    {
+      "id": "ex08_trap_swapped_reset",
+      "type": "open",
+      "prompt": "Warum muss das swapped-Flag in jedem Pass zurueckgesetzt werden?",
+      "answer": "Sonst bricht der Algorithmus falsch ab",
+      "explain_de": "Wenn swapped nicht pro Pass auf false gesetzt wird, bleibt es eventuell true und der Algorithmus beendet nie frueh oder bricht zu frueh ab.",
+      "explain_fa": ""
+    },
+    {
+      "id": "ex09_comparator",
+      "type": "open",
+      "prompt": "BubbleSort mit Comparator f(a,b) (f<0 bedeutet a kommt vor b). Wann wird getauscht?",
+      "answer": "Wenn f(arr[j], arr[j+1]) > 0",
+      "explain_de": "Ein Swap ist noetig, wenn arr[j] nach der Ordnung hinter arr[j+1] stehen soll, also f(arr[j], arr[j+1]) > 0.",
+      "explain_fa": ""
+    },
+    {
+      "id": "ex10_trace_sorted_early_exit",
+      "type": "open",
+      "prompt": "Optimierter BubbleSort: arr = [1, 2, 3, 4]. Wie viele Vergleiche und wann wird beendet?",
+      "answer": "3 Vergleiche, Abbruch nach Pass0",
+      "explain_de": "Im ersten Pass keine Swaps, daher Abbruch; Vergleiche = n-1 = 3.",
+      "explain_fa": ""
+    }
+  ]
+}

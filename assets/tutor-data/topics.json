@@ -2,7 +2,17 @@
   "topics": [
     "binarysearch",
     "bubblesort",
-    "selectionsort"
+    "checksum",
+    "count_condition",
+    "exam_bank_ap2",
+    "insertionsort",
+    "linearsearch",
+    "maxperiod",
+    "minimum",
+    "minmax_avg",
+    "search_contains",
+    "selectionsort",
+    "software_testing"
   ],
   "source": "generated-from-assets"
 }

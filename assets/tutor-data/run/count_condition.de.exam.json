@@ -1,0 +1,26 @@
+{
+  "schema_name": "tutor_asset.exam.v1",
+  "version": "1.0",
+  "topic": "count_condition",
+  "lang": "de",
+  "mode": "exam",
+  "title": "Count Condition (Zählen mit Bedingung) — FIAE Explain Core v1.0",
+  "questions": [
+    {
+      "id": "ex1_count_gt",
+      "type": "open",
+      "prompt": "Gegeben: arr = [3, 7, 2, 9, 5], threshold = 4. Wie viele Elemente sind größer als 4?",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "ex2_filtered",
+      "type": "open",
+      "prompt": "Gegeben: arr = [3, 7, 2, 9, 5], threshold = 4. Was ist filtered?",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "schema_name": "tutor_asset.pseudocode.v1",
+  "version": "1.0",
+  "topic": "linearsearch",
+  "lang": "de",
+  "mode": "pseudocode",
+  "title": "Linear Search (Lineare Suche) – FIAE Core (Deutsch)",
+  "pseudocode": "FUNKTION LinearSearch(arr, x)\n  n = LAENGE(arr)\n  FUER i = 0 BIS n-1\n    WENN arr[i] = x DANN\n      GIB i ZURUECK\n    ENDE\n  ENDE\n  GIB -1 ZURUECK\nENDE",
+  "notes": [
+    "variant:first_hit"
+  ]
+}

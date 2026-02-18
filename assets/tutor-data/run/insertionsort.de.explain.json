@@ -1,0 +1,39 @@
+{
+  "schema_name": "tutor_asset.explain.v1",
+  "version": "1.0",
+  "topic": "insertionsort",
+  "lang": "de",
+  "mode": "explain",
+  "title": "InsertionSort (Einfügesortierung) — FIAE Explain Core v1.0",
+  "summary": "**InsertionSort (Einfügesortierung)** ist ein Sortieralgorithmus, der in jedem Durchlauf das **nächste Element aus dem unsortierten Teil** nimmt und es an der **richtigen Position im bereits sortierten Teil** einfügt.\n\n**Kernprinzip:**\n- Array wird in zwei Bereiche geteilt: **sortiert** (links) und **unsortiert** (rechts)\n- Pro Durchlauf i (startet bei i=1):\n  - Element a[i] wird herausgenommen (key)\n  - Größere Elemente werden um eine Position nach rechts **verschoben** (nicht getauscht)\n  - key wird an freier Stelle eingefügt\n- Sortierter Bereich wächst schrittweise\n\n**IHK-Fokus:** Array-Zustand nach jedem Durchlauf, Loop-Invariante, Unterschied Shift vs Swap, Best-Case O(n) für fast sortierte Arrays (adaptiv).",
+  "blocks": [
+    {
+      "kind": "definition",
+      "text": "**InsertionSort (Einfügesortierung)** ist ein Sortieralgorithmus, der in jedem Durchlauf das **nächste Element aus dem unsortierten Teil** nimmt und es an der **richtigen Position im bereits sortierten Teil** einfügt.\n\n**Kernprinzip:**\n- Array wird in zwei Bereiche geteilt: **sortiert** (links) und **unsortiert** (rechts)\n- Pro Durchlauf i (startet bei i=1):\n  - Element a[i] wird herausgenommen (key)\n  - Größere Elemente werden um eine Position nach rechts **verschoben** (nicht getauscht)\n  - key wird an freier Stelle eingefügt\n- Sortierter Bereich wächst schrittweise\n\n**IHK-Fokus:** Array-Zustand nach jedem Durchlauf, Loop-Invariante, Unterschied Shift vs Swap, Best-Case O(n) für fast sortierte Arrays (adaptiv)."
+    },
+    {
+      "kind": "idea",
+      "text": "Sortierter Bereich beginnt links und wächst schrittweise.\n\n**Ablauf:**\n1. **Start:** Erstes Element (i=0) ist bereits sortiert → Schleife startet bei i=1\n2. **Durchlauf i:** Element a[i] herausnehmen (key)\n3. **Suche:** Von rechts nach links im sortierten Bereich (0..i-1):\n   - Solange a[j] > key: Element a[j] um eine Position nach rechts verschieben\n   - Wenn a[j] ≤ key oder j < 0: richtige Position gefunden\n4. **Einfügen:** key an Position j+1 einsetzen\n5. **Wiederholen** bis alle Elemente verarbeitet\n\n**Merke:** Nach Durchlauf i sind die ersten i+1 Elemente sortiert (Loop-Invariante)."
+    },
+    {
+      "kind": "procedure",
+      "text": "```text\nPROZEDUR InsertionSort(a)\n  n = LAENGE(a)\n  FUER i = 1 BIS n-1\n    key = a[i]\n    j = i - 1\n    SOLANGE j >= 0 UND a[j] > key\n      a[j+1] = a[j]  // Shift\n      j = j - 1\n    ENDE\n    a[j+1] = key  // Einfügen\n  ENDE\n  GIB a ZURUECK\nENDE\n```"
+    },
+    {
+      "kind": "example",
+      "text": "**Beispiel:** a = [12, 11, 13, 5, 6]\n\n**Start:** Sortierter Bereich = [12]\n\n**i = 1:** key = 11\n- a[0]=12 > 11 → verschiebe 12: a[1] = 12\n- Füge key ein: a[0] = 11\n- **Ergebnis:** [11, 12, 13, 5, 6]\n\n**i = 2:** key = 13\n- a[1]=12 < 13 → keine Verschiebung\n- **Ergebnis:** [11, 12, 13, 5, 6]\n\n**i = 3:** key = 5\n- Verschiebe 13, 12, 11 nach rechts\n- Füge key ein: a[0] = 5\n- **Ergebnis:** [5, 11, 12, 13, 6]\n\n**i = 4:** key = 6\n- Verschiebe 13, 12, 11 nach rechts\n- Füge key ein: a[1] = 6\n- **Endergebnis:** [5, 6, 11, 12, 13]"
+    },
+    {
+      "kind": "complexity",
+      "text": "**Zeit:**\n- **Best-Case:** O(n) — bei (fast) sortiertem Array (adaptiv!)\n- **Average-Case:** O(n²)\n- **Worst-Case:** O(n²) — bei umgekehrt sortiertem Array\n\n**Speicher:** O(1) — In-Place\n\n**Stabilität:** Ja — Bedingung `>` (nicht `>=`) erhält relative Reihenfolge gleicher Elemente"
+    },
+    {
+      "kind": "ihk_traps",
+      "text": "1) **Schleife bei i=0 starten:** Falsch! Muss bei i=1 starten\n2) **Vergleich mit a[i] statt key:** key ist herausgenommenes Element\n3) **Swap statt Shift:** InsertionSort verschiebt (a[j+1] = a[j]), tauscht nicht\n4) **Best-Case falsch:** O(n) für fast sortierte Arrays, nicht O(n²)\n5) **j-Bedingung:** Muss `j >= 0 UND a[j] > key` sein\n6) **Einfügeposition:** key an j+1, nicht an j\n7) **Stabilität:** Bedingung `>` (nicht `>=`) ist entscheidend\n8) **Binary InsertionSort:** Vergleiche O(n log n), aber Shifts bleiben O(n²) — Gesamtlaufzeit unverändert!"
+    },
+    {
+      "kind": "variants",
+      "text": "**classic_int_asc**\nZiel: Klassisch aufsteigend einf?gen (Shift statt Swap).\nPseudocode: `InsertionSort(a)`.\nKomplexit?t: Best `O(n)`, Worst `O(n^2)`, Space `O(1)`.\nTraps:\n- `i` startet bei 1.\n- Shift statt Swap.\n\n**optimized_shift**\nZiel: Inneren Shift fr?h stoppen bei `a[j] <= key`.\nPseudocode: `InsertionSort(a)` (early stop in innerer Schleife).\nKomplexit?t: Best `O(n)`, Worst `O(n^2)`, Space `O(1)`.\nTraps:\n- Best-Case nicht als immer `O(n)` missverstehen.\n- key am Ende bei `j+1` einsetzen.\n\n**comparator_f**\nZiel: Einf?gen mit Vergleichsfunktion `f(a,b)`.\nPseudocode: `InsertionSort(a, f)`.\nKomplexit?t: Best `O(n)`, Worst `O(n^2)`, Space `O(1)`.\nTraps:\n- Bedingung: `f(a[j], key) > 0`.\n- Parameterreihenfolge nicht vertauschen.\n\n**strings_lex**\nZiel: Lexikografisches Einf?gen von Strings.\nPseudocode: `InsertionSort_Strings(a)`.\nKomplexit?t: Best `O(n)`, Worst `O(n^2)`, Space `O(1)`.\nTraps:\n- Case/Locale beachten.\n- Stringvergleich nicht numerisch interpretieren.\n\n**objects_by_field**\nZiel: Objekte nach Feld `key` einf?gen (ganze Objekte verschieben).\nPseudocode: `InsertionSort_Objects(a, key)`.\nKomplexit?t: Best `O(n)`, Worst `O(n^2)`, Space `O(1)`.\nTraps:\n- Shift muss das ganze Objekt bewegen.\n- Falscher `key`/Typ.\n\n**generic_concept**\nZiel: Generisch mit Comparator, Algorithmus bleibt gleich.\nPseudocode: `InsertionSort_Generic(a, cmp)`.\nKomplexit?t: Best `O(n)`, Worst `O(n^2)`, Space `O(1)`.\nTraps:\n- Comparator-Richtung vertauscht.\n- Gleichheit falsch definiert.\n\n**binary_insertion_bonus**\nZiel: Einf?geposition per Binary Search finden.\nPseudocode: `BinaryInsertionSort(a)`.\nKomplexit?t: Vergleiche `O(n log n)`, Shifts `O(n^2)`, Space `O(1)`.\nTraps:\n- Gesamtlaufzeit bleibt `O(n^2)` wegen Shifts.\n- Bin?rsuche nur im sortierten Teil.\n"
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "schema_name": "tutor_asset.exam.v1",
+  "version": "1.0",
+  "topic": "minimum",
+  "lang": "fa",
+  "mode": "exam",
+  "title": "Minimum (کمینه‌یابی) — FIAE Core (فارسی)",
+  "questions": [
+    {
+      "id": "ex01_trace_full",
+      "type": "open",
+      "prompt": "Minimum روی arr = [7, 3, 9, 1, 5]. minIndex و min را بده.",
+      "answer": "minIndex=3, min=1",
+      "explain_de": "",
+      "explain_fa": "شروع با 7 (Index0)، 3 کوچک‌تر، سپس 1 کوچک‌تر (Index3)."
+    },
+    {
+      "id": "ex02_trace_start_index",
+      "type": "open",
+      "prompt": "Minimum با start_index=2 روی arr = [7, 3, 9, 1, 5]. نتیجه؟",
+      "answer": "minIndex=3, min=1",
+      "explain_de": "",
+      "explain_fa": "شروع از Index2 (9)، سپس 1 کوچک‌تر می‌شود."
+    },
+    {
+      "id": "ex03_trace_negative",
+      "type": "open",
+      "prompt": "Minimum روی arr = [-5, -2, -8, -3]. minIndex و min؟",
+      "answer": "minIndex=2, min=-8",
+      "explain_de": "",
+      "explain_fa": "-8 از همه کوچک‌تر است (Index2)."
+    },
+    {
+      "id": "ex04_complexity_comparisons",
+      "type": "open",
+      "prompt": "n=5 و start_index=0 چند مقایسه؟",
+      "answer": "4",
+      "explain_de": "",
+      "explain_fa": "n - start_index - 1 = 4."
+    },
+    {
+      "id": "ex05_complexity_big",
+      "type": "open",
+      "prompt": "n=100 و start_index=20 چند مقایسه؟",
+      "answer": "79",
+      "explain_de": "",
+      "explain_fa": "100-20-1 = 79."
+    },
+    {
+      "id": "ex06_trap_init",
+      "type": "open",
+      "prompt": "چرا min=0 اشتباه است؟",
+      "answer": "در آرایه منفی غلط می‌شود",
+      "explain_de": "",
+      "explain_fa": "اگر همه مقادیر منفی باشند، min=0 باقی می‌ماند که غلط است."
+    },
+    {
+      "id": "ex07_trap_return",
+      "type": "open",
+      "prompt": "خروجی الگوریتم مقدار است یا ایندکس؟",
+      "answer": "ایندکس مینیمم",
+      "explain_de": "",
+      "explain_fa": "minIndex برگردانده می‌شود؛ مقدار = arr[minIndex]."
+    },
+    {
+      "id": "ex08_trap_empty",
+      "type": "open",
+      "prompt": "آرایه خالی را چگونه باید مدیریت کرد؟",
+      "answer": "خطا/Exception یا مقدار ویژه",
+      "explain_de": "",
+      "explain_fa": "n=0 است؛ نباید arr[0] خوانده شود. مقدار ویژه یا خطا لازم است."
+    },
+    {
+      "id": "ex09_trap_tie",
+      "type": "open",
+      "prompt": "arr = [5, 2, 8, 2]؛ کدام ایندکس برمی‌گردد؟",
+      "answer": "Index 1",
+      "explain_de": "",
+      "explain_fa": "با شرط < اولین 2 حفظ می‌شود؛ پس Index1."
+    },
+    {
+      "id": "ex10_trap_bounds",
+      "type": "open",
+      "prompt": "چرا حلقه از start_index+1 شروع می‌شود؟",
+      "answer": "چون arr[start_index] قبلاً کاندید است",
+      "explain_de": "",
+      "explain_fa": "عنصر شروع به‌عنوان min گرفته شده و مقایسه دوباره لازم نیست."
+    }
+  ]
+}

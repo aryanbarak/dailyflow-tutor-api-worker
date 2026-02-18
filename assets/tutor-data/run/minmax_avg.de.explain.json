@@ -1,0 +1,39 @@
+{
+  "schema_name": "tutor_asset.explain.v1",
+  "version": "1.0",
+  "topic": "minmax_avg",
+  "lang": "de",
+  "mode": "explain",
+  "title": "Min/Max/Average (Min/Max/Durchschnitt) — FIAE Explain Core v1.0",
+  "summary": "**Min/Max/Average (Min/Max/Durchschnitt)** ist ein grundlegender Algorithmus, der den **kleinsten**, **größten** und **durchschnittlichen** Wert in einem Array findet.\n\n**Kernprinzip:**\n- Array einmal durchlaufen (O(n))\n- Bei jedem Element:\n  - Wenn kleiner als min → min aktualisieren\n  - Wenn größer als max → max aktualisieren\n  - Zur sum addieren\n- Am Ende: avg = sum / n\n\n**IHK-Fokus:** Linearer Algorithmus O(n), korrekte Initialisierung (min = max = a[0], nicht 0!), Integer-Division bei avg, Unterschied zwischen Wert und Index.",
+  "blocks": [
+    {
+      "kind": "definition",
+      "text": "**Min/Max/Average (Min/Max/Durchschnitt)** ist ein grundlegender Algorithmus, der den **kleinsten**, **größten** und **durchschnittlichen** Wert in einem Array findet.\n\n**Kernprinzip:**\n- Array einmal durchlaufen (O(n))\n- Bei jedem Element:\n  - Wenn kleiner als min → min aktualisieren\n  - Wenn größer als max → max aktualisieren\n  - Zur sum addieren\n- Am Ende: avg = sum / n\n\n**IHK-Fokus:** Linearer Algorithmus O(n), korrekte Initialisierung (min = max = a[0], nicht 0!), Integer-Division bei avg, Unterschied zwischen Wert und Index."
+    },
+    {
+      "kind": "idea",
+      "text": "TBD"
+    },
+    {
+      "kind": "procedure",
+      "text": "**Schritt 1: Leeres Array prüfen**\n```\nWENN n = 0:\n  Fehler zurückgeben\n```\n\n**Schritt 2: Initialisierung**\n```\nmin = a[0]    // nicht 0 — falsch bei negativen Zahlen!\nmax = a[0]    // nicht 0\nsum = a[0]    // oder sum = 0 wenn ab i=0\n```\n\n**Schritt 3: Array durchlaufen (i = 1 bis n-1)**\n```\nFür jedes Element a[i]:\n  WENN a[i] < min:\n    min = a[i]\n  WENN a[i] > max:\n    max = a[i]\n  sum = sum + a[i]\n```\n\n**Schritt 4: Durchschnitt berechnen**\n```\navg = sum / n\n```\n\n**Schritt 5: Ergebnis zurückgeben**\n```\nRückgabe (min, max, avg)\n```"
+    },
+    {
+      "kind": "example",
+      "text": "TBD"
+    },
+    {
+      "kind": "complexity",
+      "text": "**Zeit:**\n- **Alle Varianten:** O(n) — linear\n- Grund: Einmaliges Durchlaufen des Arrays\n- Anzahl Vergleiche: 2n (für min und max)\n\n**Speicher:**\n- **Alle Varianten:** O(1) — konstant\n- Nur Variablen min, max, sum, avg\n- Keine zusätzlichen Arrays\n\n**Optimierung:** Schneller als O(n) nicht möglich — jedes Element muss mindestens einmal betrachtet werden."
+    },
+    {
+      "kind": "ihk_traps",
+      "text": "1) **Falsche Initialisierung:** min = 0 statt min = a[0] (falsch bei negativen Zahlen)\n2) **Integer-Division:** sum / n ohne Beachtung des Typs (in Java/C: float(sum) / n)\n3) **sum vergessen:** oder in Schleife zurücksetzen\n4) **< und > vertauschen:** WENN a[i] > min (falsch!)\n5) **WENN...SONST für min/max:** Zwei getrennte IF-Blöcke nötig\n6) **Leeres Array:** n = 0 nicht prüfen (Division durch 0)\n7) **Index mit Wert verwechseln:** min = i statt min = a[i]\n8) **Falscher Feldzugriff:** arr[field] statt arr[i][field]\n9) **Index-Update vergessen:** Nur min = a[i] ohne minIndex = i"
+    },
+    {
+      "kind": "variants",
+      "text": "**1) classic_minmax_avg (Klassisch komplett):**\n- **Eingabe:** Zahlen-Array\n- **Ausgabe:** min, max, avg\n- **Beispiel:** [5, 2, 8, 3] → min=2, max=8, avg=4.5\n\n**2) min_only (Nur Minimum):**\n- **Eingabe:** Zahlen-Array\n- **Ausgabe:** min, minIndex\n- **Beispiel:** [5, 2, 8, 3] → min=2, minIndex=1\n\n**3) max_only (Nur Maximum):**\n- **Eingabe:** Zahlen-Array\n- **Ausgabe:** max, maxIndex\n- **Beispiel:** [5, 2, 8, 3] → max=8, maxIndex=2\n\n**4) average_only (Nur Durchschnitt):**\n- **Eingabe:** Zahlen-Array\n- **Ausgabe:** avg\n- **Beispiel:** [5, 2, 8, 3] → avg=4.5\n\n**5) minmax_only (Ohne Durchschnitt):**\n- **Eingabe:** Zahlen-Array\n- **Ausgabe:** min, max\n- **Beispiel:** [5, 2, 8, 3] → min=2, max=8\n\n**6) minmax_avg_by_field (Objekt-Feld):**\n- **Eingabe:** Objekt-Array + field\n- **Ausgabe:** min, max, avg des Feldes\n- **Beispiel:** [{note: 2}, {note: 3}] → min=2, max=3, avg=2.5\n\n**7) minmax_with_indices (Mit Indizes):**\n- **Eingabe:** Zahlen-Array\n- **Ausgabe:** min, minIndex, max, maxIndex\n- **Beispiel:** [5, 2, 8, 3] → min=2, minIndex=1, max=8, maxIndex=2\n\n**Gemeinsamkeit:** Alle Varianten sind linear O(n), Initialisierung mit a[0]."
+    }
+  ]
+}

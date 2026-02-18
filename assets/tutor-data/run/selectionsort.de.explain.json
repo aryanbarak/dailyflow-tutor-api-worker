@@ -1,0 +1,39 @@
+{
+  "schema_name": "tutor_asset.explain.v1",
+  "version": "1.0",
+  "topic": "selectionsort",
+  "lang": "de",
+  "mode": "explain",
+  "title": "SelectionSort (Auswahlsortierung) — FIAE Explain Core v1.0",
+  "summary": "**SelectionSort (Auswahlsortierung)** ist ein Sortieralgorithmus, der in jedem Durchlauf aus dem unsortierten Teil das **„beste“ Element** auswählt (klassisch: das kleinste) und es an die nächste Position im sortierten Teil setzt.\n\n**Ziel:** Ein Array sortieren (aufsteigend oder absteigend) mit **möglichst wenigen Vertauschungen**, während die Anzahl der Vergleiche in allen Fällen **hoch und nahezu fest** bleibt.\n\n**Kernidee (prüfungsrelevant):** Nach Durchlauf `i` ist `a[i]` endgültig korrekt platziert; die ersten `i+1` Elemente sind garantiert sortiert.",
+  "blocks": [
+    {
+      "kind": "definition",
+      "text": "**SelectionSort (Auswahlsortierung)** ist ein Sortieralgorithmus, der in jedem Durchlauf aus dem unsortierten Teil das **„beste“ Element** auswählt (klassisch: das kleinste) und es an die nächste Position im sortierten Teil setzt.\n\n**Ziel:** Ein Array sortieren (aufsteigend oder absteigend) mit **möglichst wenigen Vertauschungen**, während die Anzahl der Vergleiche in allen Fällen **hoch und nahezu fest** bleibt.\n\n**Kernidee (prüfungsrelevant):** Nach Durchlauf `i` ist `a[i]` endgültig korrekt platziert; die ersten `i+1` Elemente sind garantiert sortiert.\n"
+    },
+    {
+      "kind": "idea",
+      "text": "Teile das Array gedanklich in zwei Bereiche:\n- **Sortierter Bereich:** `0 .. i-1` (wächst pro Durchlauf)\n- **Unsortierter Bereich:** `i .. n-1` (schrumpft pro Durchlauf)\n\nIn jedem Durchlauf `i`:\n1) Suche im unsortierten Bereich `i .. n-1` das Minimum (Index `minIndex`).\n2) Tausche dieses Minimum (falls nötig) an Position `i`.\n3) Danach ist `a[i]` **fix** und wird später nicht mehr verändert.\n\n**Merksatz:** Links wird „aufgebaut“ (sortiert), rechts wird „durchsucht“ (unsortiert).\n"
+    },
+    {
+      "kind": "procedure",
+      "text": "SelectionSort arbeitet mit zwei Schleifen:\n\n**1) Äußere Schleife (Durchläufe):**\n- `i` läuft von `0` bis `n-2`.\n- Ziel jedes Durchlaufs: Das beste Element aus `i .. n-1` finden und nach `i` bringen.\n\n**2) Innere Schleife (Minimum finden):**\n- Starte mit der Annahme: `minIndex = i`.\n- Prüfe alle Positionen `j` von `i+1` bis `n-1`.\n- Wenn `a[j]` kleiner ist als das aktuelle Minimum, aktualisiere `minIndex`.\n\n**3) Bedingtes Tauschen (Swap):**\n- Nur wenn `minIndex ≠ i`, wird getauscht.\n- Das vermeidet unnötige Vertauschungen.\n\n**Prüfungstipp:** Auch wenn das Array bereits sortiert ist, wird das Minimum in jedem Durchlauf gesucht → **Best-Case bleibt O(n²)** (kein Early-Exit wie beim optimierten BubbleSort).\n"
+    },
+    {
+      "kind": "example",
+      "text": "Array [64,25,12,22,11] ? nach erstem Durchlauf steht 11 an Index 0."
+    },
+    {
+      "kind": "complexity",
+      "text": "**Zeit (Time):**\n- Anzahl der Vergleiche ist (nahezu) immer gleich:\n  - `(n-1) + (n-2) + ... + 1 = n(n-1)/2` ⇒ `O(n²)`\n- **Best-Case bleibt O(n²)**, weil in jedem Durchlauf der Restbereich durchsucht werden muss.\n\n**Speicher (Space):**\n- `O(1)` (nur Variablen wie `i`, `j`, `minIndex` + temporär für Swap)\n- Algorithmus ist **In-Place**.\n\n**Swaps:**\n- maximal `n-1` (pro Durchlauf höchstens ein Tausch)\n- im Best-Case (bereits sortiert) sind Swaps ggf. `0`, aber die Vergleiche bleiben.\n\n**Stabilität:**\n- klassischer SelectionSort ist **meist nicht stabil**, da ein Tausch die Reihenfolge gleicher Elemente verändern kann.\n"
+    },
+    {
+      "kind": "ihk_traps",
+      "text": "1) **minIndex falsch initialisiert:** muss bei `i` starten, nicht bei `0`.\n2) **j-Bereich falsch:** `j` muss von `i+1` bis `n-1` laufen.\n3) **Falscher Vergleich:** Es wird gegen `a[minIndex]` verglichen (nicht gegen `a[i]`).\n4) **Unnötiger Tausch:** Wenn `minIndex == i`, ist kein Tausch nötig.\n5) **Best-Case falsch:** bleibt `O(n²)` (kein Early-Exit).\n6) **Stabilität falsch behauptet:** klassisch nicht stabil.\n7) **Objekte:** Immer **ganze Objekte** tauschen, nicht nur Feldwerte.\n8) **Maximale Swaps:** `n-1` ist ein wichtiges Vergleichsargument (z. B. vs. Bubble/Insertion).\n"
+    },
+    {
+      "kind": "variants",
+      "text": "**classic_int_asc**\nZiel: Minimum im Restbereich finden und nach links setzen (asc, int).\nPseudocode: `SelectionSort(a)`.\nKomplexit?t: Best `O(n^2)`, Worst `O(n^2)`.\nTraps:\n- `minIndex` muss bei `i` starten.\n- Best-Case bleibt `O(n^2)`.\n\n**comparator_f**\nZiel: Vergleich ?ber `f(a,b)`.\nPseudocode: `SelectionSort(a, f)`.\nKomplexit?t: Best `O(n^2)`, Worst `O(n^2)` (Kosten pro Vergleich abh?ngig von `f`).\nTraps:\n- `f(a,b) < 0` bedeutet `a` vor `b`.\n- Parameterreihenfolge in `f` nicht vertauschen.\n\n**strings**\nZiel: Strings lexikografisch sortieren.\nPseudocode: `SelectionSort_Strings(a)`.\nKomplexit?t: Best `O(n^2)`, Worst `O(n^2)` (Vergleichskosten abh?ngig von String-L?nge).\nTraps:\n- Case/Locale beachten.\n- Vergleichsregel nicht numerisch interpretieren.\n\n**objects**\nZiel: Objekte nach Feld `key` sortieren.\nPseudocode: `SelectionSort_Objects(a, key)`.\nKomplexit?t: Best `O(n^2)`, Worst `O(n^2)`.\nTraps:\n- Swap muss ganze Objekte tauschen.\n- Falscher `key`/Typ.\n\n**generic**\nZiel: Typunabh?ngig mit Comparator `comp`.\nPseudocode: `SelectionSort_Generic(a, comp)`.\nKomplexit?t: Best `O(n^2)`, Worst `O(n^2)`.\nTraps:\n- Comparator-Richtung verwechselt.\n- `comp(a,b) < 0` falsch interpretiert.\n\n**stable_shift_variant**\nZiel: Stabilit?t durch Shift statt Swap.\nPseudocode: `SelectionSort_Stable(a)`.\nKomplexit?t: Best `O(n^2)`, Worst `O(n^2)` (mehr Verschiebungen).\nTraps:\n- Stabilit?t f?lschlich f?r klassische Version annehmen.\n- Shift-Block vergessen.\n\n**minmax_variant**\nZiel: Pro Durchlauf Minimum und Maximum platzieren.\nPseudocode: `SelectionSort_MinMax(a)`.\nKomplexit?t: Best `O(n^2)`, Worst `O(n^2)`.\nTraps:\n- Grenzen (`links`/`rechts`) nicht korrekt aktualisieren.\n- `maxIdx` nach erstem Swap korrigieren.\n"
+    }
+  ]
+}

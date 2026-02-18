@@ -1,0 +1,9 @@
+{
+  "schema_name": "tutor_asset.exam.v1",
+  "version": "1.0",
+  "topic": "maxperiod",
+  "lang": "fa",
+  "mode": "exam",
+  "title": "MaxPeriod (طولانی‌ترین دنباله متوالی) — FIAE Explain Core v1.0",
+  "questions": []
+}

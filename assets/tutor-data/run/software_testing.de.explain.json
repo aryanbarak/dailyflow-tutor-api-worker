@@ -1,0 +1,39 @@
+{
+  "schema_name": "tutor_asset.explain.v1",
+  "version": "1.0",
+  "topic": "software_testing",
+  "lang": "de",
+  "mode": "explain",
+  "title": "Software Testing — FIAE Prüfungsvorbereitung",
+  "summary": "**Software Testing** ist der systematische Prozess zur Überprüfung, ob eine Software die Anforderungen erfüllt und fehlerfrei funktioniert.\n\n**Kernbegriffe:**\n- **Defekt (Bug):** Fehler im Code (falsche Logik, Syntax)\n- **Fehlerwirkung (Failure):** Sichtbare Abweichung vom erwarteten Verhalten\n- **Testfall (Test Case):** Definierte Eingabe + erwartetes Ergebnis + Schritte\n- **Test Oracle:** Mechanismus zur Bestimmung des erwarteten Ergebnisses\n- **Actual vs Expected:** Tatsächliches Ergebnis vs. erwartetes Ergebnis\n\n**Ziele des Testens:**\n1. Fehler finden (nicht beweisen dass es keine gibt!)\n2. Qualität sichern (funktional + nicht-funktional)\n3. Risiken minimieren\n4. Vertrauen in Software schaffen\n\n**Wichtig:** Tests können nur Fehler aufzeigen, nicht deren Abwesenheit beweisen (Dijkstra).",
+  "blocks": [
+    {
+      "kind": "definition",
+      "text": "**Software Testing** ist der systematische Prozess zur Überprüfung, ob eine Software die Anforderungen erfüllt und fehlerfrei funktioniert.\n\n**Kernbegriffe:**\n- **Defekt (Bug):** Fehler im Code (falsche Logik, Syntax)\n- **Fehlerwirkung (Failure):** Sichtbare Abweichung vom erwarteten Verhalten\n- **Testfall (Test Case):** Definierte Eingabe + erwartetes Ergebnis + Schritte\n- **Test Oracle:** Mechanismus zur Bestimmung des erwarteten Ergebnisses\n- **Actual vs Expected:** Tatsächliches Ergebnis vs. erwartetes Ergebnis\n\n**Ziele des Testens:**\n1. Fehler finden (nicht beweisen dass es keine gibt!)\n2. Qualität sichern (funktional + nicht-funktional)\n3. Risiken minimieren\n4. Vertrauen in Software schaffen\n\n**Wichtig:** Tests können nur Fehler aufzeigen, nicht deren Abwesenheit beweisen (Dijkstra)."
+    },
+    {
+      "kind": "idea",
+      "text": "TBD"
+    },
+    {
+      "kind": "procedure",
+      "text": "TBD"
+    },
+    {
+      "kind": "example",
+      "text": "TBD"
+    },
+    {
+      "kind": "complexity",
+      "text": "TBD"
+    },
+    {
+      "kind": "ihk_traps",
+      "text": "**1. Test-Ebenen verwechseln**\n❌ \"Unit Test mit Datenbank\"\n✅ Unit Test = isoliert, Mock für DB verwenden\n\n**2. Erwartetes Ergebnis fehlt**\n❌ Testfall: \"Login mit gültigen Daten\"\n✅ Testfall: \"Login mit user='admin', pwd='123' → Erwartung: Seite /dashboard wird angezeigt\"\n\n**3. Testdaten nicht dokumentiert**\n- Immer konkrete Werte angeben (nicht \"gültige Eingabe\")\n- Given-When-Then Pattern nutzen\n\n**4. Verification vs Validation verwechseln**\n- **Verification:** Bauen wir das Produkt richtig? (nach Spezifikation)\n- **Validation:** Bauen wir das richtige Produkt? (Kundenbedürfnis)\n\n**5. Nur Happy Path testen**\n- Auch negative/ungültige Eingaben testen\n- Grenzwerte und Fehlerfälle wichtig\n\n**6. Coverage als Ziel statt Mittel**\n❌ \"100% Coverage erreichen\"\n✅ \"Kritische Pfade absichern, Coverage als Indikator\"\n\n**7. Grenzwerte falsch**\n- Bereich 18-65: teste 17, 18, 19 und 64, 65, 66\n- Nicht nur 18 und 65!\n\n**8. Test-Pyramide ignorieren**\n❌ Nur E2E Tests (langsam, brüchig)\n✅ Viele Unit Tests, wenige E2E\n\n**9. Äquivalenzklassen unvollständig**\n- Gültige UND ungültige Klassen testen\n- Beispiel: Alter → <0, 0-17, 18-120, >120\n\n**10. State Transition: ungültige Übergänge vergessen**\n- Nicht nur gültige Pfade, auch verbotene testen"
+    },
+    {
+      "kind": "variants",
+      "text": "TBD"
+    }
+  ]
+}

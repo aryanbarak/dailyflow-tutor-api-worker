@@ -1,0 +1,12 @@
+{
+  "schema_name": "tutor_asset.pseudocode.v1",
+  "version": "1.0",
+  "topic": "checksum",
+  "lang": "fa",
+  "mode": "pseudocode",
+  "title": "رقم بررسی (Checksum / Prüfziffer) — FIAE Explain Core v1.0",
+  "pseudocode": "FUNKTION ChecksumSumDigits(code)\n  sum = 0\n  FUER i = 0 BIS LAENGE(code)-1\n    digit = TOINT(code[i])\n    sum = sum + digit\n  ENDE\n  GIB sum ZURUECK\nENDE",
+  "notes": [
+    "variant:checksum_sum_digits"
+  ]
+}

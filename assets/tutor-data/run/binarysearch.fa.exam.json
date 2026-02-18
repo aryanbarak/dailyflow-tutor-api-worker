@@ -1,0 +1,90 @@
+{
+  "schema_name": "tutor_asset.exam.v1",
+  "version": "1.0",
+  "topic": "binarysearch",
+  "lang": "fa",
+  "mode": "exam",
+  "title": "Binary Search (جستجوی دودویی) — FIAE Core (فارسی)",
+  "questions": [
+    {
+      "id": "binarysearch-01",
+      "type": "open",
+      "prompt": "جست‌وجوی دودویی روی arr=[1,3,5,7,9] با target=7 را اجرا کن. توالی midها و اندیس نهایی را بنویس.",
+      "answer": "mid=2, mid=3; index=3",
+      "explain_de": "",
+      "explain_fa": "l=0,r=4 -> mid=2 (5<7) l=3? mid=3 (7)    3."
+    },
+    {
+      "id": "binarysearch-02",
+      "type": "open",
+      "prompt": "arr=[2,4,6,8,10] و target=7. نتیجه جست‌وجوی دودویی چیست؟",
+      "answer": "پیدا نشد (-1)",
+      "explain_de": "",
+      "explain_fa": "mid=2 (6<7) l=3? mid=3 (8>7) r=2? l>r ->  ."
+    },
+    {
+      "id": "binarysearch-03",
+      "type": "open",
+      "prompt": "حداکثر چند مقایسه برای n=32 در جست‌وجوی دودویی کلاسیک؟",
+      "answer": "5",
+      "explain_de": "",
+      "explain_fa": "log2(32)=5 مقایسه در بدترین حالت."
+    },
+    {
+      "id": "binarysearch-04",
+      "type": "open",
+      "prompt": "پیچیدگی زمانی بهترین و بدترین حالت جست‌وجوی دودویی را بگو.",
+      "answer": "Best O(1), Worst O(log n)",
+      "explain_de": "",
+      "explain_fa": "بهترین حالت: یافتن در وسط -> O(1). بدترین حالت: نصف‌کردن تا low>high -> O(log n)."
+    },
+    {
+      "id": "binarysearch-05",
+      "type": "open",
+      "prompt": "شرط درست حلقه در نسخه تکراری کلاسیک چیست؟",
+      "answer": "low <= high",
+      "explain_de": "",
+      "explain_fa": "شرط درست low <= high است، وگرنه آخرین عنصر بررسی نمی‌شود."
+    },
+    {
+      "id": "binarysearch-06",
+      "type": "open",
+      "prompt": "چرا از mid = low + (high-low)/2 به‌جای (low+high)/2 استفاده می‌شود؟",
+      "answer": "جلوگیری از overflow",
+      "explain_de": "",
+      "explain_fa": "جمع low+high ممکن است سرریز دهد؛ low+(high-low)/2 امن است."
+    },
+    {
+      "id": "binarysearch-07",
+      "type": "open",
+      "prompt": "نسخه first_occurrence: arr=[1,2,2,2,3], target=2. اندیس درست چیست؟",
+      "answer": "1",
+      "explain_de": "",
+      "explain_fa": "first_occurrence چپ‌ترین موقعیت را می‌دهد: اندیس 1."
+    },
+    {
+      "id": "binarysearch-08",
+      "type": "open",
+      "prompt": "lower_bound: arr=[1,2,2,4,6], target=3. موقعیت درج چیست؟",
+      "answer": "3",
+      "explain_de": "",
+      "explain_fa": "اولین عنصر >=3 عدد 4 در اندیس 3 است."
+    },
+    {
+      "id": "binarysearch-09",
+      "type": "open",
+      "prompt": "upper_bound: arr=[1,2,2,4,6], target=2. موقعیت چیست؟",
+      "answer": "3",
+      "explain_de": "",
+      "explain_fa": "اولین عنصر >2 عدد 4 در اندیس 3 است."
+    },
+    {
+      "id": "binarysearch-10",
+      "type": "open",
+      "prompt": "خطای off-by-one: arr=[5,8,12], target=12. با شرط اشتباه low < high چه می‌شود؟",
+      "answer": "آخرین عنصر بررسی نمی‌شود",
+      "explain_de": "",
+      "explain_fa": "با low < high اندیس 2 بررسی نمی‌شود و 12 ممکن است پیدا نشود."
+    }
+  ]
+}

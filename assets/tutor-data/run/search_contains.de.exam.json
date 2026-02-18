@@ -1,0 +1,9 @@
+{
+  "schema_name": "tutor_asset.exam.v1",
+  "version": "1.0",
+  "topic": "search_contains",
+  "lang": "de",
+  "mode": "exam",
+  "title": "Search/Contains (Suchen/Enthalten) — FIAE Explain Core v1.0",
+  "questions": []
+}

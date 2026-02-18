@@ -1,0 +1,90 @@
+{
+  "schema_name": "tutor_asset.exam.v1",
+  "version": "1.0",
+  "topic": "selectionsort",
+  "lang": "fa",
+  "mode": "exam",
+  "title": "SelectionSort (مرتب‌سازی انتخابی) — FIAE Explain Core v1.0",
+  "questions": [
+    {
+      "id": "ex01_trace_passes",
+      "type": "open",
+      "prompt": "SelectionSort را روی arr = [7, 2, 6, 3] اجرا کن و بعد از هر i وضعیت آرایه را بنویس.",
+      "answer": "i=0: [2,7,6,3]؛ i=1: [2,3,6,7]؛ i=2: [2,3,6,7]",
+      "explain_de": "",
+      "explain_fa": "i=0: کمینه 2 (Index1) → [2,7,6,3]. i=1: کمینه 3 (Index3) → [2,3,6,7]. i=2 بدون تغییر."
+    },
+    {
+      "id": "ex02_trace_after_i1",
+      "type": "open",
+      "prompt": "SelectionSort روی arr = [5, 1, 4, 2]. بعد از i=1 چه می‌شود؟",
+      "answer": "[1,2,4,5]",
+      "explain_de": "",
+      "explain_fa": "i=0: 1 به جلو → [1,5,4,2]. i=1: 2 به Index1 → [1,2,4,5]."
+    },
+    {
+      "id": "ex03_trace_desc",
+      "type": "open",
+      "prompt": "SelectionSort نزولی روی arr = [3, 1, 4, 2]، بعد از i=0؟",
+      "answer": "[4,1,3,2]",
+      "explain_de": "",
+      "explain_fa": "نزولی یعنی بیشینه انتخاب می‌شود؛ 4 به ابتدا می‌آید."
+    },
+    {
+      "id": "ex04_complexity_comparisons",
+      "type": "open",
+      "prompt": "SelectionSort برای n=5 چند مقایسه دارد؟",
+      "answer": "10",
+      "explain_de": "",
+      "explain_fa": "(n-1)+...+1 = n(n-1)/2 = 10."
+    },
+    {
+      "id": "ex05_complexity_swaps",
+      "type": "open",
+      "prompt": "حداکثر Swap برای n=5؟",
+      "answer": "4",
+      "explain_de": "",
+      "explain_fa": "در هر i حداکثر یک Swap؛ پس n-1 = 4."
+    },
+    {
+      "id": "ex06_trap_stability",
+      "type": "open",
+      "prompt": "آیا SelectionSort کلاسیک پایدار است؟",
+      "answer": "خیر",
+      "explain_de": "",
+      "explain_fa": "Swap می‌تواند ترتیب عناصر برابر را عوض کند؛ پس پایدار نیست."
+    },
+    {
+      "id": "ex07_trap_minindex_init",
+      "type": "open",
+      "prompt": "چرا minIndex باید در هر دور با i مقداردهی شود؟",
+      "answer": "چون فقط بخش i..n-1 جستجو می‌شود",
+      "explain_de": "",
+      "explain_fa": "minIndex باید ابتدای بخش باقی‌مانده باشد تا بخش مرتب دست نخورَد."
+    },
+    {
+      "id": "ex08_trap_bounds",
+      "type": "open",
+      "prompt": "بازه‌های حلقه درست چیست؟",
+      "answer": "i=0..n-2 ، j=i+1..n-1",
+      "explain_de": "",
+      "explain_fa": "حلقه بیرونی تا n-2 و حلقه داخلی از i+1 تا n-1."
+    },
+    {
+      "id": "ex09_trap_comparator",
+      "type": "open",
+      "prompt": "SelectionSort با Comparator f(a,b) (f<0 یعنی a قبل از b). شرط بروزرسانی minIndex چیست؟",
+      "answer": "اگر f(a[j], a[minIndex]) < 0",
+      "explain_de": "",
+      "explain_fa": "اگر عنصر j طبق comparator جلوتر باشد، minIndex عوض می‌شود."
+    },
+    {
+      "id": "ex10_trap_bestcase",
+      "type": "open",
+      "prompt": "چرا Best-Case در SelectionSort همچنان O(n^2) است؟",
+      "answer": "چون در هر دور باید کمینه جستجو شود",
+      "explain_de": "",
+      "explain_fa": "حتی اگر آرایه مرتب باشد، باید بخش باقی‌مانده کامل بررسی شود."
+    }
+  ]
+}

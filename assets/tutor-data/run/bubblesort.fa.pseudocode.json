@@ -1,26 +1,12 @@
 {
-  "api_version": "v1",
+  "schema_name": "tutor_asset.pseudocode.v1",
+  "version": "1.0",
   "topic": "bubblesort",
-  "mode": "pseudocode",
   "lang": "fa",
-  "variants": [
-    {
-      "id": "classic_full",
-      "title": "کلاسیک (کامل)",
-      "labels": {
-        "de": "Klassisch (voll)",
-        "fa": "کلاسیک (کامل)"
-      },
-      "is_default": true,
-      "pseudocode": "تابع BubbleSort(arr)\n  n = طول(arr)\n  برای i از 0 تا n-2\n    برای j از 0 تا n-2-i\n      اگر arr[j] > arr[j+1] آنگاه\n        جابجا(arr[j], arr[j+1])\n      پایان\n    پایان\n  پایان\n  برگردان arr\nپایان",
-      "explain_variant": {
-        "de": "Die klassische Variante vergleicht in jedem Durchlauf benachbarte Elemente.",
-        "fa": "این نسخه در هر دور، عناصر مجاور را بررسی و در صورت نیاز جابه‌جا می‌کند."
-      }
-    }
-  ],
-  "meta": {
-    "source": "worker-static",
-    "profile": "ap2"
-  }
+  "mode": "pseudocode",
+  "title": "BubbleSort (مرتب‌سازی حبابی) — FIAE Explain Core v1.0",
+  "pseudocode": "تابع BubbleSort(arr)\n  n = طول(arr)\n  برای i = 0 تا n-2\n    برای j = 0 تا n-2-i\n      اگر arr[j] > arr[j+1] آنگاه\n        جابجا کن arr[j], arr[j+1]\n      پایان\n    پایان\n  پایان\n  برگردان arr\nپایان",
+  "notes": [
+    "variant:classic_full"
+  ]
 }

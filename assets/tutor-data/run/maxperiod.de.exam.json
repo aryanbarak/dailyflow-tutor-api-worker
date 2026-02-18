@@ -1,0 +1,9 @@
+{
+  "schema_name": "tutor_asset.exam.v1",
+  "version": "1.0",
+  "topic": "maxperiod",
+  "lang": "de",
+  "mode": "exam",
+  "title": "MaxPeriod (Längste aufeinanderfolgende Serie) — FIAE Explain Core v1.0",
+  "questions": []
+}

@@ -1,0 +1,90 @@
+{
+  "schema_name": "tutor_asset.exam.v1",
+  "version": "1.0",
+  "topic": "minmax_avg",
+  "lang": "de",
+  "mode": "exam",
+  "title": "Min/Max/Average (Min/Max/Durchschnitt) — FIAE Explain Core v1.0",
+  "questions": [
+    {
+      "id": "ex01_trace_classic",
+      "type": "open",
+      "prompt": "Berechne min, max und avg fuer arr = [7, 2, 9, 3, 5].",
+      "answer": "min=2, max=9, avg=5.2",
+      "explain_de": "sum=26, avg=26/5=5.2, min=2, max=9.",
+      "explain_fa": ""
+    },
+    {
+      "id": "ex02_trace_negative",
+      "type": "open",
+      "prompt": "Berechne min, max und avg fuer arr = [-5, -2, -8, -3].",
+      "answer": "min=-8, max=-2, avg=-4.5",
+      "explain_de": "sum=-18, avg=-18/4=-4.5, min=-8, max=-2.",
+      "explain_fa": ""
+    },
+    {
+      "id": "ex03_trace_small",
+      "type": "open",
+      "prompt": "Gegeben arr = [4, 1, 6]. Gib min, max, avg an.",
+      "answer": "min=1, max=6, avg=3.666...",
+      "explain_de": "sum=11, avg=11/3, min=1, max=6.",
+      "explain_fa": ""
+    },
+    {
+      "id": "ex04_complexity_comparisons",
+      "type": "open",
+      "prompt": "Wie viele Vergleiche fuer min+max in einem Durchlauf bei n=5 (klassisch mit zwei IFs)?",
+      "answer": "8",
+      "explain_de": "Nach Initialisierung werden pro Element zwei Vergleiche gemacht: 2*(n-1)=8.",
+      "explain_fa": ""
+    },
+    {
+      "id": "ex05_complexity_big",
+      "type": "open",
+      "prompt": "Zeitkomplexitaet fuer min/max/avg (Best/Worst).",
+      "answer": "Best/Worst O(n)",
+      "explain_de": "Es wird jedes Element genau einmal betrachtet, daher immer O(n).",
+      "explain_fa": ""
+    },
+    {
+      "id": "ex06_trap_init",
+      "type": "open",
+      "prompt": "Warum ist min = max = 0 falsch als Initialisierung?",
+      "answer": "Bei negativen Arrays falsch",
+      "explain_de": "Wenn alle Werte negativ sind, wuerde 0 als min/max bleiben. Richtig: min=max=arr[0].",
+      "explain_fa": ""
+    },
+    {
+      "id": "ex07_trap_integer_div",
+      "type": "open",
+      "prompt": "Was ist die typische Falle beim Durchschnitt in Java/C?",
+      "answer": "Integer-Division",
+      "explain_de": "sum/n muss als float/double gerechnet werden, sonst wird gerundet.",
+      "explain_fa": ""
+    },
+    {
+      "id": "ex08_trap_if_blocks",
+      "type": "open",
+      "prompt": "Warum braucht man zwei getrennte IF-Bloecke fuer min und max?",
+      "answer": "Weil ein Wert gleichzeitig min oder max sein kann",
+      "explain_de": "Mit else-if wuerde ein Wert, der z.B. neues min ist, nicht mehr auf max gepr?ft (oder umgekehrt).",
+      "explain_fa": ""
+    },
+    {
+      "id": "ex09_trap_empty",
+      "type": "open",
+      "prompt": "Wie behandelt man ein leeres Array?",
+      "answer": "Fehler/Exception oder spezieller Rueckgabewert",
+      "explain_de": "Bei n=0 darf nicht durch n geteilt werden und arr[0] existiert nicht.",
+      "explain_fa": ""
+    },
+    {
+      "id": "ex10_trap_index_value",
+      "type": "open",
+      "prompt": "Was ist der Unterschied zwischen minIndex und min?",
+      "answer": "minIndex ist die Position, min der Wert",
+      "explain_de": "minIndex speichert die Position des kleinsten Werts, min speichert den Wert selbst.",
+      "explain_fa": ""
+    }
+  ]
+}

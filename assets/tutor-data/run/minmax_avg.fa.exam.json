@@ -1,0 +1,90 @@
+{
+  "schema_name": "tutor_asset.exam.v1",
+  "version": "1.0",
+  "topic": "minmax_avg",
+  "lang": "fa",
+  "mode": "exam",
+  "title": "Min/Max/Average (کمینه/بیشینه/میانگین) — FIAE Explain Core v1.0",
+  "questions": [
+    {
+      "id": "ex01_trace_classic",
+      "type": "open",
+      "prompt": "برای arr = [7, 2, 9, 3, 5] min/max/avg را حساب کن.",
+      "answer": "min=2, max=9, avg=5.2",
+      "explain_de": "",
+      "explain_fa": "sum=26، avg=26/5=5.2، min=2، max=9."
+    },
+    {
+      "id": "ex02_trace_negative",
+      "type": "open",
+      "prompt": "برای arr = [-5, -2, -8, -3] min/max/avg را حساب کن.",
+      "answer": "min=-8, max=-2, avg=-4.5",
+      "explain_de": "",
+      "explain_fa": "sum=-18، avg=-18/4=-4.5، min=-8، max=-2."
+    },
+    {
+      "id": "ex03_trace_small",
+      "type": "open",
+      "prompt": "arr = [4, 1, 6]؛ min/max/avg؟",
+      "answer": "min=1, max=6, avg=3.666...",
+      "explain_de": "",
+      "explain_fa": "sum=11، avg=11/3، min=1، max=6."
+    },
+    {
+      "id": "ex04_complexity_comparisons",
+      "type": "open",
+      "prompt": "برای n=5 چند مقایسه برای min+max (دو if) داریم؟",
+      "answer": "8",
+      "explain_de": "",
+      "explain_fa": "دو مقایسه برای هر عنصر بعد از اولیه: 2*(n-1)=8."
+    },
+    {
+      "id": "ex05_complexity_big",
+      "type": "open",
+      "prompt": "پیچیدگی زمانی min/max/avg (Best/Worst) چیست؟",
+      "answer": "Best/Worst O(n)",
+      "explain_de": "",
+      "explain_fa": "هر عنصر دقیقاً یک بار دیده می‌شود، پس همیشه O(n)."
+    },
+    {
+      "id": "ex06_trap_init",
+      "type": "open",
+      "prompt": "چرا min=max=0 اشتباه است؟",
+      "answer": "در آرایه منفی غلط می‌شود",
+      "explain_de": "",
+      "explain_fa": "برای اعداد منفی، 0 بزرگ‌تر از همه است؛ درست: min=max=arr[0]."
+    },
+    {
+      "id": "ex07_trap_integer_div",
+      "type": "open",
+      "prompt": "دام رایج در محاسبه avg در C/Java چیست؟",
+      "answer": "تقسیم صحیح (Integer Division)",
+      "explain_de": "",
+      "explain_fa": "باید sum/n را به float/double تبدیل کرد، وگرنه اعشار حذف می‌شود."
+    },
+    {
+      "id": "ex08_trap_if_blocks",
+      "type": "open",
+      "prompt": "چرا برای min و max باید دو if جدا داشت؟",
+      "answer": "چون یک مقدار می‌تواند یکی از آن‌ها باشد",
+      "explain_de": "",
+      "explain_fa": "با else-if ممکن است یک آپدیت از دست برود."
+    },
+    {
+      "id": "ex09_trap_empty",
+      "type": "open",
+      "prompt": "آرایه خالی را چگونه مدیریت کنیم؟",
+      "answer": "خطا/Exception یا مقدار ویژه",
+      "explain_de": "",
+      "explain_fa": "n=0 است؛ arr[0] وجود ندارد و تقسیم بر 0 رخ می‌دهد."
+    },
+    {
+      "id": "ex10_trap_index_value",
+      "type": "open",
+      "prompt": "فرق minIndex و min چیست؟",
+      "answer": "minIndex موقعیت است، min مقدار",
+      "explain_de": "",
+      "explain_fa": "minIndex مکان کوچک‌ترین عنصر است و min خود مقدار است."
+    }
+  ]
+}

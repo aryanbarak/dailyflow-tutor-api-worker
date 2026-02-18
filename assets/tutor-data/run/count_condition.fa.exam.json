@@ -1,0 +1,34 @@
+{
+  "schema_name": "tutor_asset.exam.v1",
+  "version": "1.0",
+  "topic": "count_condition",
+  "lang": "fa",
+  "mode": "exam",
+  "title": "Count Condition (شمارش با شرط) — FIAE Explain Core v1.0",
+  "questions": [
+    {
+      "id": "ex1_count_gt",
+      "type": "open",
+      "prompt": "داده شده: arr = [3, 7, 2, 9, 5], threshold = 4. چند عنصر بزرگ‌تر از 4 هستند؟",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "ex2_count_has_note",
+      "type": "open",
+      "prompt": "داده شده: students = [{note: 2}, {note: 1}, {note: 2}, {note: 3}]. چند دانشجو نمره 2 دارند؟",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    },
+    {
+      "id": "ex3_build_filtered",
+      "type": "open",
+      "prompt": "داده شده: arr = [3, 7, 2, 9, 5], threshold = 4. لیست filtered چیست؟",
+      "answer": "",
+      "explain_de": "",
+      "explain_fa": ""
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "schema_name": "tutor_asset.explain.v1",
+  "version": "1.0",
+  "topic": "maxperiod",
+  "lang": "de",
+  "mode": "explain",
+  "title": "MaxPeriod (Längste aufeinanderfolgende Serie) — FIAE Explain Core v1.0",
+  "summary": "**MaxPeriod (Längste aufeinanderfolgende Serie)** ist ein Algorithmus, der die **längste zusammenhängende Teilfolge** von Elementen findet, die eine **bestimmte Bedingung** erfüllen (z.B. `a[i] == 1`, `a[i] > 0`, `a[i] != 0`).\n\n**Ziel:** Ermittlung von `maxLen` (maximale Länge), `startIndex` (Anfang der Serie) und `endIndex` (Ende der Serie) in **einem einzigen Durchlauf** durch das Array.\n\n**Schlüsselpunkt (prüfungsrelevant):** Der Algorithmus arbeitet mit **zwei Längenvariablen**:\n- `currentLen`: Länge der **aktuellen** Serie (temporärer Zähler, wird zurückgesetzt)\n- `maxLen`: **Maximale Länge**, die bisher gesehen wurde (wird nur bei Verbesserung aktualisiert)",
+  "blocks": [
+    {
+      "kind": "definition",
+      "text": "**MaxPeriod (Längste aufeinanderfolgende Serie)** ist ein Algorithmus, der die **längste zusammenhängende Teilfolge** von Elementen findet, die eine **bestimmte Bedingung** erfüllen (z.B. `a[i] == 1`, `a[i] > 0`, `a[i] != 0`).\n\n**Ziel:** Ermittlung von `maxLen` (maximale Länge), `startIndex` (Anfang der Serie) und `endIndex` (Ende der Serie) in **einem einzigen Durchlauf** durch das Array.\n\n**Schlüsselpunkt (prüfungsrelevant):** Der Algorithmus arbeitet mit **zwei Längenvariablen**:\n- `currentLen`: Länge der **aktuellen** Serie (temporärer Zähler, wird zurückgesetzt)\n- `maxLen`: **Maximale Länge**, die bisher gesehen wurde (wird nur bei Verbesserung aktualisiert)\n"
+    },
+    {
+      "kind": "idea",
+      "text": "Stell dir vor, du durchläufst das Array **Element für Element** und führst einen **temporären Zähler** (`currentLen`):\n\n**Fall 1: Bedingung ist erfüllt** (z.B. `a[i] == 1`):\n- Erhöhe den temporären Zähler: `currentLen += 1`\n- Falls dieser Zähler den bisherigen **Rekord** (`maxLen`) übertrifft → Rekord aktualisieren\n\n**Fall 2: Bedingung ist nicht erfüllt** (z.B. `a[i] == 0`):\n- Serie ist unterbrochen → Zähler **zurücksetzen**: `currentLen = 0`\n- Bisheriger Rekord (`maxLen`) bleibt unverändert\n\n**Mentales Bild:** Wie beim Zählen von aufeinanderfolgenden Tagen ohne Regen; wenn es regnet, startest du von vorne, aber den **bisherigen Rekord** behältst du.\n"
+    },
+    {
+      "kind": "procedure",
+      "text": "MaxPeriod arbeitet mit einer einfachen Schleife:\n\n**1) Initialisierung:**\n- `maxLen = 0` (bisher beste Serie)\n- `currentLen = 0` (aktueller temporärer Zähler)\n- `endIndex = -1` (letzter Index der besten Serie)\n\n**2) Hauptschleife (Array durchlaufen):**\n- Für jedes `i` von `0` bis `n-1`:\n  - **Bedingung prüfen:** Erfüllt `a[i]` die Bedingung? (z.B. `a[i] > 0`)\n  - **Wenn ja:**\n    * `currentLen` um 1 erhöhen\n    * Falls `currentLen > maxLen` → Neuer Rekord! Aktualisiere: `maxLen = currentLen` und `endIndex = i`\n  - **Wenn nein:**\n    * Serie unterbrochen → `currentLen = 0` (Reset)\n\n**3) Berechnung von startIndex (nach Schleifenende):**\n- Falls `maxLen > 0` (mindestens eine gültige Serie gefunden):\n  * `startIndex = endIndex - maxLen + 1`\n- Andernfalls (keine Serie gefunden):\n  * `startIndex = -1`\n\n**Prüfungshinweis:** Im Gegensatz zu Sortieralgorithmen hat MaxPeriod **nur eine Schleife** (keine Verschachtelung); daher Komplexität `O(n)`.\n"
+    },
+    {
+      "kind": "example",
+      "text": "Array [0,1,1,0,1,1,1,0] ? l?ngste Serie L?nge 3 (Index 4?6)."
+    },
+    {
+      "kind": "complexity",
+      "text": "**Zeit:**\n- Best-case: **O(n)** — ein vollständiger Durchlauf (auch wenn Array nur Nullen oder nur Einsen enthält)\n- Average-case: **O(n)**\n- Worst-case: **O(n)**\n\n**Raum:** **O(1)** — nur wenige konstante Variablen (`maxLen`, `currentLen`, `endIndex`, `startIndex`)\n\n**Vergleich:**\n- **Schneller als:** Sortieralgorithmen (`O(n log n)` oder `O(n²)`)\n- **Gleich schnell wie:** Lineare Suche, Array-Summierung (alle `O(n)`)\n- **Langsamer als:** Direkter Array-Zugriff (`O(1)`)\n\n**Prüfungshinweis:** MaxPeriod ist ein **optimal linearer** Algorithmus; schneller als `O(n)` geht nicht (da gesamtes Array durchlaufen werden muss).\n"
+    },
+    {
+      "kind": "ihk_traps",
+      "text": "**1) Falsche Variable zurücksetzen (kritisch!):**\n- ❌ `maxLen = 0` wenn Bedingung falsch\n- ✓ `currentLen = 0` (nur temporärer Zähler wird zurückgesetzt)\n- **Grund:** `maxLen` ist der Gesamtrekord, darf nicht verändert werden\n\n**2) Reset bei falscher Bedingung vergessen:**\n- ❌ Wenn `a[i]` Bedingung nicht erfüllt, `currentLen` nicht zurücksetzen\n- ✓ Im `else`-Block: `currentLen = 0`\n- **Folge:** Unterbrochene Serien werden fälschlich fortgesetzt\n\n**3) Off-by-one-Fehler in startIndex-Formel:**\n- ❌ `startIndex = endIndex - maxLen` (eins zu wenig)\n- ❌ `startIndex = endIndex - maxLen + 2` (eins zu viel)\n- ✓ `startIndex = endIndex - maxLen + 1`\n- **Beispiel:** Bei `endIndex=6` und `maxLen=3` → `startIndex = 6-3+1 = 4` (korrekt)\n\n**4) Verwendung von >= statt > beim Update (Tie-Verhalten):**\n- Mit `>`: Erste (earliest) Serie mit maximaler Länge wird beibehalten\n- Mit `>=`: Letzte (latest) Serie mit maximaler Länge wird beibehalten\n- **IHK:** Meist wird `>` verlangt (earliest tie)\n\n**5) Prüfung maxLen > 0 vor startIndex-Berechnung vergessen:**\n- Falls keine gültige Serie gefunden wurde (z.B. nur Nullen):\n  * `maxLen = 0`, `endIndex = -1`\n  * Berechnung `startIndex = endIndex - maxLen + 1` → `startIndex = -1 - 0 + 1 = 0` (falsch!)\n- ✓ Prüfen: Falls `maxLen == 0` → `startIndex = -1` setzen\n\n**6) Leeres Array nicht behandeln:**\n- Falls `n == 0` → muss gelten: `maxLen=0`, `startIndex=-1`, `endIndex=-1`\n- ✓ Code muss Leerfall handhaben (Schleife läuft gar nicht)\n\n**7) Falsche Bedingung (z.B. > statt !=):**\n- Falls Aufgabe sagt \"ungleich Null\" → Bedingung `a[i] != 0` (nicht `> 0`)\n- Falls Aufgabe sagt \"positiv\" → Bedingung `a[i] > 0`\n- ✓ Aufgabentext genau lesen\n\n**8) Letztes Element vergessen:**\n- ❌ Schleife bis `i < n-1` (letztes Element wird nicht geprüft)\n- ✓ Schleife bis `i < n` oder `i <= n-1`\n\n**9) Falsche Ausgabe bei \"keine Serie\":**\n- Falls keine Serie gefunden:\n  * ✓ `maxLen = 0`, `startIndex = -1`, `endIndex = -1`\n  * ❌ `startIndex = 0` (falsch, da keine Serie existiert)\n\n**10) Falsche Komplexität:**\n- ❌ `O(n²)` angeben (Verwechslung mit Sortieralgorithmen)\n- ✓ `O(n)` (nur eine einfache Schleife)\n"
+    },
+    {
+      "kind": "variants",
+      "text": "MaxPeriod hat drei Hauptvarianten:\n\n**1) longest_ones_binary (Klassisch, Binärarray):**\n- Bedingung: `a[i] == 1`\n- Anwendung: Serie aktiver Tage (0=inaktiv, 1=aktiv)\n- Beispiel: `[0,1,1,0,1,1,1] → maxLen=3`\n\n**2) longest_nonzero_run (Verallgemeinert):**\n- Bedingung: `a[i] != 0`\n- Funktioniert mit negativen Zahlen\n- Anwendung: Tage mit Transaktionen (0=keine Transaktion, ungleich Null=Transaktion)\n- Beispiel: `[0, -5, 3, 0, 2, -1, 4] → maxLen=3` (Indizes 4-6)\n\n**3) longest_condition_run (Prädikat, beliebige Bedingung):**\n- Bedingung: Allgemeine Funktion (wie `a[i] > threshold`)\n- Flexibelste Variante\n- Anwendung: Tage über bestimmtem Schwellwert, gerade Zahlen, gültige Werte\n- Beispiel: `a=[5, 10, 3, 12, 15, 2], threshold=8 → maxLen=2` (Indizes 3-4: `[12,15]`)\n\n**Vergleich:**\n\n| Variante | Bedingung | Negative Zahlen | Flexibilität | IHK-Anwendung |\n|----------|-----------|----------------|--------------|---------------|\n| binary | `== 1` | ❌ | Niedrig | Am einfachsten |\n| nonzero | `!= 0` | ✓ | Mittel | Häufig |\n| condition | Beliebig | Je nach Bedingung | Hoch | Fortgeschritten |\n\n**Prüfungshinweis:** Variante `condition` ist das **allgemeine Muster**; durch Anpassen der Bedingung können andere Varianten erzeugt werden.\n"
+    }
+  ]
+}
