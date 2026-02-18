@@ -78,6 +78,22 @@ async function run() {
     assert.ok(body.topics.length >= 5);
     assert.ok(body.topics.includes("binarysearch"));
     assert.equal(body.source, "generated-from-assets");
+    assert.ok(body.availability && typeof body.availability === "object");
+  }
+
+  {
+    const req = new Request("https://api.barakzai.cloud/v1/topics?mode=pseudocode&lang=de", {
+      headers: {
+        Origin: "https://barakzai.cloud",
+        "X-Adapter-Token": "dev-secret",
+      },
+    });
+    const res = await handleRequest(req, env);
+    assert.equal(res.status, 200);
+    const body = await readJson(res);
+    assert.ok(Array.isArray(body.topics));
+    assert.ok(body.topics.includes("bubblesort"));
+    assert.ok(!body.topics.includes("exam_bank_ap2"));
   }
 
   {

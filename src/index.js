@@ -85,6 +85,45 @@ function requiredRunFields(body) {
   });
 }
 
+function normalizeTopicsPayload(payload, mode, lang) {
+  if (!payload || typeof payload !== "object" || !Array.isArray(payload.topics)) {
+    return payload;
+  }
+
+  if (!mode && !lang) {
+    return payload;
+  }
+
+  const availability = payload.availability;
+  if (!availability || typeof availability !== "object") {
+    return payload;
+  }
+
+  const requestedMode = typeof mode === "string" && mode.trim() ? mode.trim().toLowerCase() : "";
+  const requestedLang = typeof lang === "string" && lang.trim() ? lang.trim().toLowerCase() : "";
+
+  const filteredTopics = payload.topics.filter((topic) => {
+    if (typeof topic !== "string" || !topic.trim()) return false;
+    const topicAvailability = availability[topic];
+    if (!topicAvailability || typeof topicAvailability !== "object") return false;
+
+    const langsToCheck = requestedLang ? [requestedLang] : Object.keys(topicAvailability);
+    for (const langKey of langsToCheck) {
+      const modes = topicAvailability[langKey];
+      if (!Array.isArray(modes)) continue;
+      if (!requestedMode || modes.includes(requestedMode)) {
+        return true;
+      }
+    }
+    return false;
+  });
+
+  return {
+    ...payload,
+    topics: filteredTopics.sort(),
+  };
+}
+
 export async function handleRequest(request, env) {
   const url = new URL(request.url);
   const isTopics = url.pathname === "/v1/topics";
@@ -123,7 +162,22 @@ export async function handleRequest(request, env) {
       return json({ detail: "Upstream asset error" }, 502, apiHeaders(request));
     }
 
-    return new Response(await assetResponse.text(), {
+    const rawText = await assetResponse.text();
+    let payload;
+    try {
+      payload = JSON.parse(rawText);
+    } catch {
+      return new Response(rawText, {
+        status: 200,
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+          ...apiHeaders(request),
+        },
+      });
+    }
+
+    const filteredPayload = normalizeTopicsPayload(payload, url.searchParams.get("mode"), url.searchParams.get("lang"));
+    return new Response(JSON.stringify(filteredPayload), {
       status: 200,
       headers: {
         "Content-Type": "application/json; charset=utf-8",

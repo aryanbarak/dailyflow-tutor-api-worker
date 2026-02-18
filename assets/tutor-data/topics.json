@@ -14,5 +14,149 @@
     "selectionsort",
     "software_testing"
   ],
-  "source": "generated-from-assets"
+  "source": "generated-from-assets",
+  "availability": {
+    "binarysearch": {
+      "de": [
+        "exam",
+        "explain",
+        "pseudocode"
+      ],
+      "fa": [
+        "exam",
+        "explain",
+        "pseudocode"
+      ]
+    },
+    "bubblesort": {
+      "de": [
+        "exam",
+        "explain",
+        "pseudocode"
+      ],
+      "fa": [
+        "exam",
+        "explain",
+        "pseudocode"
+      ]
+    },
+    "checksum": {
+      "de": [
+        "exam",
+        "explain",
+        "pseudocode"
+      ],
+      "fa": [
+        "exam",
+        "explain",
+        "pseudocode"
+      ]
+    },
+    "count_condition": {
+      "de": [
+        "exam",
+        "explain",
+        "pseudocode"
+      ],
+      "fa": [
+        "exam",
+        "explain",
+        "pseudocode"
+      ]
+    },
+    "exam_bank_ap2": {
+      "de": [
+        "exam"
+      ]
+    },
+    "insertionsort": {
+      "de": [
+        "exam",
+        "explain",
+        "pseudocode"
+      ],
+      "fa": [
+        "exam",
+        "explain",
+        "pseudocode"
+      ]
+    },
+    "linearsearch": {
+      "de": [
+        "exam",
+        "explain",
+        "pseudocode"
+      ],
+      "fa": [
+        "exam",
+        "explain",
+        "pseudocode"
+      ]
+    },
+    "maxperiod": {
+      "de": [
+        "exam",
+        "explain",
+        "pseudocode"
+      ],
+      "fa": [
+        "exam",
+        "explain",
+        "pseudocode"
+      ]
+    },
+    "minimum": {
+      "de": [
+        "exam",
+        "explain"
+      ],
+      "fa": [
+        "exam",
+        "explain"
+      ]
+    },
+    "minmax_avg": {
+      "de": [
+        "exam",
+        "explain",
+        "pseudocode"
+      ],
+      "fa": [
+        "exam",
+        "explain",
+        "pseudocode"
+      ]
+    },
+    "search_contains": {
+      "de": [
+        "exam",
+        "explain",
+        "pseudocode"
+      ],
+      "fa": [
+        "explain",
+        "pseudocode"
+      ]
+    },
+    "selectionsort": {
+      "de": [
+        "exam",
+        "explain",
+        "pseudocode"
+      ],
+      "fa": [
+        "exam",
+        "explain",
+        "pseudocode"
+      ]
+    },
+    "software_testing": {
+      "de": [
+        "explain"
+      ],
+      "fa": [
+        "explain"
+      ]
+    }
+  }
 }
