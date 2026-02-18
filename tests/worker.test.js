@@ -75,6 +75,8 @@ async function run() {
     assert.equal(res.status, 200);
     const body = await readJson(res);
     assert.ok(Array.isArray(body.topics));
+    assert.deepEqual(body.topics, ["binarysearch", "bubblesort", "selectionsort"]);
+    assert.equal(body.source, "generated-from-assets");
   }
 
   {
