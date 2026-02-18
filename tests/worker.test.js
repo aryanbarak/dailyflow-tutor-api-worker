@@ -116,6 +116,35 @@ async function run() {
   }
 
   {
+    const expectedRaw = await readFile(
+      resolve(repoRoot, "assets", "tutor-data", "run", "linearsearch.de.pseudocode.json"),
+      "utf8",
+    );
+    const expected = JSON.parse(expectedRaw);
+
+    const req = new Request("https://api.barakzai.cloud/v1/run", {
+      method: "POST",
+      headers: {
+        Origin: "https://barakzai.cloud",
+        "Content-Type": "application/json",
+        "X-Adapter-Token": "dev-secret",
+      },
+      body: JSON.stringify({
+        api_version: "v1",
+        request_id: "11111111-1111-1111-1111-111111111111",
+        topic: "linearsearch",
+        lang: "fa",
+        mode: "pseudocode",
+      }),
+    });
+
+    const res = await handleRequest(req, env);
+    assert.equal(res.status, 200);
+    const body = await readJson(res);
+    assert.deepEqual(body, expected);
+  }
+
+  {
     const req = new Request("https://api.barakzai.cloud/v1/run", {
       method: "POST",
       headers: {

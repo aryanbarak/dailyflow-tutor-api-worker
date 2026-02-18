@@ -61,6 +61,22 @@ async function fetchAsset(env, request, path) {
   return env.ASSETS.fetch(new Request(assetUrl.toString(), { method: "GET" }));
 }
 
+async function fetchRunAsset(env, request, topic, lang, mode) {
+  const requested = `/tutor-data/run/${topic}.${lang}.${mode}.json`;
+  const first = await fetchAsset(env, request, requested);
+  if (first.ok || first.status !== 404) {
+    return first;
+  }
+
+  // Language fallback: if requested language payload does not exist, use DE.
+  if (lang !== "de") {
+    const fallback = `/tutor-data/run/${topic}.de.${mode}.json`;
+    return fetchAsset(env, request, fallback);
+  }
+
+  return first;
+}
+
 function requiredRunFields(body) {
   const required = ["api_version", "request_id", "topic", "lang", "mode"];
   return required.filter((field) => {
@@ -132,9 +148,7 @@ export async function handleRequest(request, env) {
     const topic = body.topic.trim().toLowerCase();
     const lang = body.lang.trim().toLowerCase();
     const mode = body.mode.trim().toLowerCase();
-    const assetPath = `/tutor-data/run/${topic}.${lang}.${mode}.json`;
-
-    const assetResponse = await fetchAsset(env, request, assetPath);
+    const assetResponse = await fetchRunAsset(env, request, topic, lang, mode);
     if (assetResponse.status === 404) {
       return json({ detail: "Not found" }, 404, apiHeaders(request));
     }
