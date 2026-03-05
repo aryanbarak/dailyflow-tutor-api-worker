@@ -1,19 +1,84 @@
 {
-  "schema_name": "tutor_asset.explain.v1",
+  "schema_name": "tutor_asset.wiso.bundle.v1",
   "version": "1.0",
   "topic": "wiso",
   "lang": "de",
   "mode": "trace",
   "title": "WISO AP2 - Bundle",
   "summary": "Wissensbasis, Trainingsfragen und Pruefungssimulation fuer WISO AP2.",
-  "blocks": [
-    {
-      "kind": "overview",
-      "text": "arbeitsrecht\nAR-A Rechtsquellen / Hierarchie / Guenstigkeitsprinzip\nAR-B Arbeitsvertrag / Formfreiheit / Nachweisgesetz\nAR-C Rechte und Pflichten (AN/AG)\nAR-D Probezeit\nAR-E Befristung\nAR-F Arbeitszeitgesetz\nAR-G Urlaub\nAR-H Krankheit\nAR-I Kuendigung\nAR-J Kuendigungsschutz (KSchG)\nAR-K Abmahnung\nAR-L Sonderkuendigungsschutz\nAR-M Betriebsrat Basics\nAR-N Datenschutz im Arbeitsverhaeltnis\n\nPruefungslogik: Rechtsquelle -> Tatbestand -> Rechtsfolge."
-    },
-    {
-      "kind": "typische_pruefungsfallen",
-      "text": "- Normenhierarchie ohne Guenstigkeitsprinzip anwenden.\n- Formfreiheit mit fehlender Nachweispflicht verwechseln.\n- Probezeit und Befristung gleichsetzen.\n- 2-Wochen-Frist der Probezeit auf alle Faelle uebertragen.\n- Sachgrundlose Befristung ueber 2 Jahre als erlaubt ansehen.\n- 10-Stunden-Arbeit ohne Ausgleich als Standard annehmen.\n- Pausen und Ruhezeit nicht getrennt pruefen.\n- Urlaubsmodell (5/6 Tage) falsch umrechnen.\n- Entgeltfortzahlung bei Krankheit als automatisch ansehen.\n- Kuendigung per E-Mail als wirksam bewerten.\n- Zugang der Kuendigung nicht pruefen.\n- KSchG-Schwellenwerte nicht pruefen.\n- Abmahnung immer/nie erforderlich behaupten.\n- Sonderkuendigungsschutz als absolutes Verbot verstehen.\n- Betriebsrat mit Gewerkschaft verwechseln.\n- Datenschutz auf Einwilligung reduzieren."
+  "sections": {
+    "wissensbasis": [
+      {
+        "topic": "arbeitsrecht",
+        "explain_de": "AR-A Rechtsquellen / Hierarchie / Guenstigkeitsprinzip\nAR-B Arbeitsvertrag / Formfreiheit / Nachweisgesetz\nAR-C Rechte und Pflichten (AN/AG)\nAR-D Probezeit\nAR-E Befristung\nAR-F Arbeitszeitgesetz\nAR-G Urlaub\nAR-H Krankheit\nAR-I Kuendigung\nAR-J Kuendigungsschutz (KSchG)\nAR-K Abmahnung\nAR-L Sonderkuendigungsschutz\nAR-M Betriebsrat Basics\nAR-N Datenschutz im Arbeitsverhaeltnis\n\nPruefungslogik: Rechtsquelle -> Tatbestand -> Rechtsfolge.",
+        "explain_fa": "در AP2-WISO برای Arbeitsrecht باید همیشه از منطق «مبنای قانونی -> تحقق شرایط -> نتیجه حقوقی» استفاده کنید. خطاهای رایج زمانی رخ می‌دهد که مهلت‌ها، فرم قانونی و حوزه شمول قانون بررسی نشود.",
+        "typische_pruefungsfallen": [
+          "Normenhierarchie ohne Guenstigkeitsprinzip anwenden.",
+          "Formfreiheit mit fehlender Nachweispflicht verwechseln.",
+          "Probezeit und Befristung gleichsetzen.",
+          "Kuendigung per E-Mail als wirksam bewerten."
+        ]
+      }
+    ],
+    "trainingsfragen": [
+      {
+        "topic": "arbeitsrecht",
+        "fragen": [
+          {
+            "id": "arbeitsrecht_v1_q012",
+            "frage": "Fallfrage: Welche Form ist fuer eine ordentliche Kuendigung erforderlich?",
+            "optionen": {
+              "A": "Muendlich reicht aus, wenn ein Zeuge dabei ist.",
+              "B": "E-Mail mit Firmenadresse reicht aus.",
+              "C": "Schriftform mit eigenhaendiger Unterschrift.",
+              "D": "WhatsApp mit Scan der Unterschrift."
+            },
+            "richtige_antwort": "C",
+            "erklaerung_de": "Eine ordentliche Kuendigung erfordert Schriftform mit eigenhaendiger Unterschrift.",
+            "erklaerung_fa": "برای Kündigung معمولی، Schriftform لازم است؛ یعنی متن کتبی با امضای دستی معتبر."
+          },
+          {
+            "id": "arbeitsrecht_v1_q038",
+            "frage": "Fallfrage: Im Betrieb gibt es Streit zur Ruhezeit. Welche Option ist in der Regel richtig?",
+            "optionen": {
+              "A": "Sie gilt immer ohne weitere Voraussetzungen.",
+              "B": "Sie gilt nur mit vorheriger Zustimmung des Betriebsrats.",
+              "C": "Sie ist im Arbeitsrecht grundsaetzlich nie relevant.",
+              "D": "Zwischen zwei Einsaetzen ist Mindestruhezeit einzuhalten."
+            },
+            "richtige_antwort": "D",
+            "erklaerung_de": "Zwischen zwei Einsaetzen ist Mindestruhezeit einzuhalten.",
+            "erklaerung_fa": "بین دو شیفت کاری باید حداقل زمان استراحت رعایت شود؛ این قاعده پایه‌ای قانون کار است."
+          }
+        ]
+      }
+    ],
+    "pruefungssimulation": {
+      "rahmen": {
+        "exam_name": "WISO Pruefungssimulation",
+        "anzahl_fragen": 10,
+        "punkte_gesamt": 10,
+        "zeit_minuten": 60
+      },
+      "fragen": [
+        {
+          "id": "arbeitsrecht_v1_q038",
+          "frage": "Fallfrage: Im Betrieb gibt es Streit zur Ruhezeit. Welche Option ist in der Regel richtig?",
+          "optionen": {
+            "A": "Sie gilt immer ohne weitere Voraussetzungen.",
+            "B": "Sie gilt nur mit vorheriger Zustimmung des Betriebsrats.",
+            "C": "Sie ist im Arbeitsrecht grundsaetzlich nie relevant.",
+            "D": "Zwischen zwei Einsaetzen ist Mindestruhezeit einzuhalten."
+          },
+          "richtige_antwort": "D",
+          "erklaerung_de": "Zwischen zwei Einsaetzen ist Mindestruhezeit einzuhalten. ist korrekt; die anderen Antworten sind AP2-typische Uebertreibungen oder lassen Voraussetzungen aus.",
+          "erklaerung_fa": "(1) موضوع سوال: Fallfrage درباره Ruhezeit در محیط کار است.\n(2) خواسته سوال: گزینه‌ای را انتخاب کنید که با قواعد حقوق کار AP2 هماهنگ‌تر است.\n(3) منطق پاسخ درست: گزینه درست D است چون الزام Mindestruhezeit بین دو شیفت یک قاعده قانونی پایه است. گزینه‌های دیگر یا مطلق‌گویی دارند یا شرط قانونی را حذف می‌کنند.\n(4) نکات امتحانی/دام‌ها:\n- به واژه‌های مطلق مثل immer/nie حساس باشید.\n- شرط‌های قانونی را حذف نکنید.",
+          "fehleranalyse": [
+            "Nie/Immer-Fallen vermeiden.",
+            "Voraussetzungen des Gesetzes immer pruefen."
+          ]
+        }
+      ]
     }
-  ]
+  }
 }
