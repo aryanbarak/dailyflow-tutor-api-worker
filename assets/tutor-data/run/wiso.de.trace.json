@@ -1,0 +1,19 @@
+{
+  "schema_name": "tutor_asset.explain.v1",
+  "version": "1.0",
+  "topic": "wiso",
+  "lang": "de",
+  "mode": "trace",
+  "title": "WISO AP2 - Bundle",
+  "summary": "Wissensbasis, Trainingsfragen und Pruefungssimulation fuer WISO AP2.",
+  "blocks": [
+    {
+      "kind": "overview",
+      "text": "arbeitsrecht\nAR-A Rechtsquellen / Hierarchie / Guenstigkeitsprinzip\nAR-B Arbeitsvertrag / Formfreiheit / Nachweisgesetz\nAR-C Rechte und Pflichten (AN/AG)\nAR-D Probezeit\nAR-E Befristung\nAR-F Arbeitszeitgesetz\nAR-G Urlaub\nAR-H Krankheit\nAR-I Kuendigung\nAR-J Kuendigungsschutz (KSchG)\nAR-K Abmahnung\nAR-L Sonderkuendigungsschutz\nAR-M Betriebsrat Basics\nAR-N Datenschutz im Arbeitsverhaeltnis\n\nPruefungslogik: Rechtsquelle -> Tatbestand -> Rechtsfolge."
+    },
+    {
+      "kind": "typische_pruefungsfallen",
+      "text": "- Normenhierarchie ohne Guenstigkeitsprinzip anwenden.\n- Formfreiheit mit fehlender Nachweispflicht verwechseln.\n- Probezeit und Befristung gleichsetzen.\n- 2-Wochen-Frist der Probezeit auf alle Faelle uebertragen.\n- Sachgrundlose Befristung ueber 2 Jahre als erlaubt ansehen.\n- 10-Stunden-Arbeit ohne Ausgleich als Standard annehmen.\n- Pausen und Ruhezeit nicht getrennt pruefen.\n- Urlaubsmodell (5/6 Tage) falsch umrechnen.\n- Entgeltfortzahlung bei Krankheit als automatisch ansehen.\n- Kuendigung per E-Mail als wirksam bewerten.\n- Zugang der Kuendigung nicht pruefen.\n- KSchG-Schwellenwerte nicht pruefen.\n- Abmahnung immer/nie erforderlich behaupten.\n- Sonderkuendigungsschutz als absolutes Verbot verstehen.\n- Betriebsrat mit Gewerkschaft verwechseln.\n- Datenschutz auf Einwilligung reduzieren."
+    }
+  ]
+}
