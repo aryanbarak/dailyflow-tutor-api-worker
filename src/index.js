@@ -3,6 +3,66 @@ const CORS_ALLOW_HEADERS = "X-Adapter-Token, Content-Type";
 const CORS_ALLOW_METHODS = "GET,POST,OPTIONS";
 const CORS_MAX_AGE = "86400";
 
+// ─── YouTube search proxy (innertube API) ─────────────────────────────────────
+
+function parseInnertubeResults(data) {
+  const items =
+    data?.contents?.twoColumnSearchResultsRenderer
+      ?.primaryContents?.sectionListRenderer
+      ?.contents?.[0]?.itemSectionRenderer?.contents ?? [];
+
+  return items
+    .filter((item) => item.videoRenderer)
+    .map((item) => {
+      const v = item.videoRenderer;
+      const title =
+        v.title?.runs?.[0]?.text ??
+        v.title?.accessibility?.accessibilityData?.label ??
+        "";
+      const author = v.ownerText?.runs?.[0]?.text ?? "";
+      const durationText = v.lengthText?.simpleText ?? "";
+      const viewText =
+        v.viewCountText?.simpleText ?? v.viewCountText?.runs?.[0]?.text ?? "0";
+
+      const parts = durationText.split(":").map(Number);
+      let lengthSeconds = 0;
+      if (parts.length === 3) lengthSeconds = parts[0] * 3600 + parts[1] * 60 + parts[2];
+      else if (parts.length === 2) lengthSeconds = parts[0] * 60 + parts[1];
+
+      const viewCount = Number.parseInt(viewText.replace(/\D/g, ""), 10) || 0;
+
+      return { type: "video", videoId: v.videoId, title, author, lengthSeconds, viewCount };
+    });
+}
+
+async function fetchYouTubeSearch(query) {
+  const res = await fetch("https://www.youtube.com/youtubei/v1/search", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      context: { client: { clientName: "WEB", clientVersion: "2.20250101.00.00" } },
+      query,
+    }),
+    signal: AbortSignal.timeout(10000),
+  });
+  if (!res.ok) return null;
+  const data = await res.json();
+  const results = parseInnertubeResults(data);
+  return results.length > 0 ? results : null;
+}
+
+function searchCorsHeaders(request) {
+  const origin = request.headers.get("Origin") || "";
+  const isAllowed = origin === ALLOWED_ORIGIN || /^http:\/\/localhost(:\d+)?$/.test(origin);
+  return {
+    "Access-Control-Allow-Origin": isAllowed ? origin : ALLOWED_ORIGIN,
+    "Access-Control-Allow-Headers": "Content-Type",
+    "Access-Control-Allow-Methods": "GET, OPTIONS",
+    "Access-Control-Max-Age": CORS_MAX_AGE,
+    Vary: "Origin",
+  };
+}
+
 function corsHeaders(request) {
   const origin = request.headers.get("Origin") || "";
   const allowOrigin = origin === ALLOWED_ORIGIN ? origin : ALLOWED_ORIGIN;
@@ -124,10 +184,92 @@ function normalizeTopicsPayload(payload, mode, lang) {
   };
 }
 
+async function handleSearch(request, url) {
+  const cors = searchCorsHeaders(request);
+  if (request.method === "OPTIONS") {
+    return new Response(null, { status: 204, headers: cors });
+  }
+  const q = url.searchParams.get("q");
+  if (!q?.trim()) {
+    return json({ error: "q is required" }, 400, cors);
+  }
+  const results = await fetchYouTubeSearch(q.trim());
+  if (results === null) {
+    return json({ error: "Search unavailable" }, 503, cors);
+  }
+  return json({ results }, 200, cors);
+}
+
+async function handleTopics(request, env, url) {
+  const assetResponse = await fetchAsset(env, request, "/tutor-data/topics.json");
+  if (assetResponse.status === 404) {
+    return json({ detail: "Not found" }, 404, apiHeaders(request));
+  }
+  if (!assetResponse.ok) {
+    return json({ detail: "Upstream asset error" }, 502, apiHeaders(request));
+  }
+  const rawText = await assetResponse.text();
+  let payload;
+  try {
+    payload = JSON.parse(rawText);
+  } catch {
+    return new Response(rawText, {
+      status: 200,
+      headers: { "Content-Type": "application/json; charset=utf-8", ...apiHeaders(request) },
+    });
+  }
+  const filteredPayload = normalizeTopicsPayload(
+    payload,
+    url.searchParams.get("mode"),
+    url.searchParams.get("lang"),
+  );
+  return new Response(JSON.stringify(filteredPayload), {
+    status: 200,
+    headers: { "Content-Type": "application/json; charset=utf-8", ...apiHeaders(request) },
+  });
+}
+
+async function handleRun(request, env) {
+  let body;
+  try {
+    body = await request.json();
+  } catch {
+    return json({ detail: "Invalid JSON body" }, 400, apiHeaders(request));
+  }
+  const missing = requiredRunFields(body);
+  if (missing.length) {
+    return json({ detail: `Missing required fields: ${missing.join(", ")}` }, 400, apiHeaders(request));
+  }
+  const topic = body.topic.trim().toLowerCase();
+  const lang = body.lang.trim().toLowerCase();
+  const mode = body.mode.trim().toLowerCase();
+  const assetResponse = await fetchRunAsset(env, request, topic, lang, mode);
+  if (assetResponse.status === 404) {
+    return json({ detail: "Not found" }, 404, apiHeaders(request));
+  }
+  if (!assetResponse.ok) {
+    return json({ detail: "Upstream asset error" }, 502, apiHeaders(request));
+  }
+  return new Response(await assetResponse.text(), {
+    status: 200,
+    headers: { "Content-Type": "application/json; charset=utf-8", ...apiHeaders(request) },
+  });
+}
+
+function assertV1Access(request, env) {
+  const originCheck = assertOrigin(request);
+  if (!originCheck.ok) return json(originCheck.payload, originCheck.status, apiHeaders(request));
+  const authCheck = assertAuth(request, env);
+  if (!authCheck.ok) return json(authCheck.payload, authCheck.status, apiHeaders(request));
+  return null;
+}
+
 export async function handleRequest(request, env) {
   const url = new URL(request.url);
   const isTopics = url.pathname === "/v1/topics";
   const isRun = url.pathname === "/v1/run";
+
+  if (url.pathname === "/search") return handleSearch(request, url);
 
   if (request.method === "OPTIONS" && (isTopics || isRun)) {
     const originCheck = assertOrigin(request);
@@ -142,82 +284,12 @@ export async function handleRequest(request, env) {
   }
 
   if (url.pathname.startsWith("/v1/")) {
-    const originCheck = assertOrigin(request);
-    if (!originCheck.ok) {
-      return json(originCheck.payload, originCheck.status, apiHeaders(request));
-    }
-
-    const authCheck = assertAuth(request, env);
-    if (!authCheck.ok) {
-      return json(authCheck.payload, authCheck.status, apiHeaders(request));
-    }
+    const denied = assertV1Access(request, env);
+    if (denied) return denied;
   }
 
-  if (isTopics && request.method === "GET") {
-    const assetResponse = await fetchAsset(env, request, "/tutor-data/topics.json");
-    if (assetResponse.status === 404) {
-      return json({ detail: "Not found" }, 404, apiHeaders(request));
-    }
-    if (!assetResponse.ok) {
-      return json({ detail: "Upstream asset error" }, 502, apiHeaders(request));
-    }
-
-    const rawText = await assetResponse.text();
-    let payload;
-    try {
-      payload = JSON.parse(rawText);
-    } catch {
-      return new Response(rawText, {
-        status: 200,
-        headers: {
-          "Content-Type": "application/json; charset=utf-8",
-          ...apiHeaders(request),
-        },
-      });
-    }
-
-    const filteredPayload = normalizeTopicsPayload(payload, url.searchParams.get("mode"), url.searchParams.get("lang"));
-    return new Response(JSON.stringify(filteredPayload), {
-      status: 200,
-      headers: {
-        "Content-Type": "application/json; charset=utf-8",
-        ...apiHeaders(request),
-      },
-    });
-  }
-
-  if (isRun && request.method === "POST") {
-    let body;
-    try {
-      body = await request.json();
-    } catch {
-      return json({ detail: "Invalid JSON body" }, 400, apiHeaders(request));
-    }
-
-    const missing = requiredRunFields(body);
-    if (missing.length) {
-      return json({ detail: `Missing required fields: ${missing.join(", ")}` }, 400, apiHeaders(request));
-    }
-
-    const topic = body.topic.trim().toLowerCase();
-    const lang = body.lang.trim().toLowerCase();
-    const mode = body.mode.trim().toLowerCase();
-    const assetResponse = await fetchRunAsset(env, request, topic, lang, mode);
-    if (assetResponse.status === 404) {
-      return json({ detail: "Not found" }, 404, apiHeaders(request));
-    }
-    if (!assetResponse.ok) {
-      return json({ detail: "Upstream asset error" }, 502, apiHeaders(request));
-    }
-
-    return new Response(await assetResponse.text(), {
-      status: 200,
-      headers: {
-        "Content-Type": "application/json; charset=utf-8",
-        ...apiHeaders(request),
-      },
-    });
-  }
+  if (isTopics && request.method === "GET") return handleTopics(request, env, url);
+  if (isRun && request.method === "POST") return handleRun(request, env);
 
   return json({ detail: "Not found" }, 404, apiHeaders(request));
 }
